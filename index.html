@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Familien Putzplan Zentrale</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght=400;600;700;800;900&display=swap');
         :root {
             --teal:#1a9e8f;--navy:#1a2e4a;--coral:#ff6b6b;
             --gold:#f9c846;--green:#4caf7d;--lavender:#7c6fcd;--muted:#8899aa;
@@ -119,10 +119,22 @@
 
     <script>
         const DATA = {
+            kueche: {
+                name: 'Küche', icon: '🍳',
+                tasks: [
+                    {id:300, icon:'🗑️', title:'Mülleimer leeren', time:'3 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Sensorischer Reiz (klebrig/Geruch). Handschuhe bereitlegen.', steps:['Müllbeutel zuknoten und herausnehmen','Neuen Beutel einsetzen','Müll nach draußen bringen']},
+                    {id:301, icon:'🥛', title:'Arbeitsfläche freiräumen', time:'4 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Herumstehendes Geschirr sammeln','Zur Spülmaschine bringen']},
+                    {id:302, icon:'🍞', title:'Thermomix & Geräte abwischen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Wasserkocher und Thermomix von außen feucht abwischen','Krümel und Flecken entfernen']},
+                    {id:303, icon:'❄️', title:'Glasfront Kühlschrank reinigen', time:'5 Min.', energy:'Hauptteil', noahAlert:'⚠️ Hyperfokus auf Streifen verhindern. Nach 5 Min. stoppen.', steps:['Glasfront mit Glasreiniger einsprühen','Mit sauberem Tuch trockenwischen','Griffe und Seiten nicht vergessen']},
+                    {id:304, icon:'🚰', title:'Spüle reinigen', time:'7 Min.', energy:'Hauptteil', noahAlert:'⚠️ Nässe-Trigger. Klare visuelle Grenze vorgeben.', steps:['Spülbecken mit Reiniger auswischen','Mit klarem Wasser nachspülen','Armaturen trockenreiben']},
+                    {id:305, icon:'🧹', title:'Küchenboden saugen', time:'5 Min.', energy:'Hauptteil', noahAlert:'⚠️ Staubsauger-Lärm! Kopfhörer für Jakob/Noa bereitlegen.', steps:['Den gesamten Küchenboden gründlich absaugen','Besonders unter den Schränken saugen']},
+                    {id:306, icon:'🪣', title:'Küchenboden wischen', time:'6 Min.', energy:'Gründlich', noahAlert:'', steps:['Wischwasser vorbereiten','Boden feucht wischen','Warten, bis es komplett getrocknet ist']}
+                ]
+            },
             wohnzimmer: {
                 name: 'Wohnzimmer', icon: '🛋️',
                 tasks: [
-                    {id:1, icon:'🧸', title:'Spielsahen / Allgemeines wegräumen', time:'4 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Visueller Overload möglich: Nur rote Box füllen lassen!', steps:['Alle herumliegenden Spielsachen einsammeln','In die dafür vorgesehene Spielzeugkiste legen']},
+                    {id:1, icon:'🧸', title:'Spielsachen / Allgemeines wegräumen', time:'4 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Visueller Overload möglich: Nur rote Box füllen lassen!', steps:['Alle herumliegenden Spielsachen einsammeln','In die dafür vorgesehene Spielzeugkiste legen']},
                     {id:2, icon:'🛋️', title:'Couch & Kissen richten', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Kissen kurz aufschütteln','Kissen ordentlich an die Rücklehne stellen','Decke ordentlich zusammenlegen']},
                     {id:3, icon:'🧺', title:'Wäsche & Kleidung wegräumen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Herumliegende Kleidung einsammeln','In den Wäschekorb legen']},
                     {id:4, icon:'📺', title:'Fernbedienungen aufräumen', time:'2 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Alle Fernbedienungen suchen','Ordentlich nebeneinander in die Schublade legen']},
@@ -226,7 +238,7 @@
             }
         };
 
-        let currentRoom = 'wohnzimmer';
+        let currentRoom = 'kueche';
         let selectedTasks = new Set();
 
         function init() {
@@ -275,7 +287,6 @@
                     validateEltern();
                 };
                 
-                // Schöne Formatierung für die Energieniveaus (einfach bis schwer)
                 let energyColor = t.energy === 'Aufwärmen' ? 'var(--green)' : (t.energy === 'Hauptteil' ? 'var(--gold)' : 'var(--coral)');
                 
                 el.innerHTML = `
@@ -317,7 +328,7 @@
             const name = params.get('name');
             const roomKey = params.get('room');
             const taskIds = params.get('tasks').split(',').map(Number);
-            const room = DATA[roomKey] || DATA.wohnzimmer;
+            const room = DATA[roomKey] || DATA.kueche;
             
             document.getElementById('kName').innerText = name;
             document.getElementById('kRoomName').innerText = room.name;
