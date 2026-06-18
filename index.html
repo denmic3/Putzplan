@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familien Putzplan Zentrale</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+        :root {
+            --teal:#1a9e8f;--navy:#1a2e4a;--coral:#ff6b6b;
+            --gold:#f9c846;--green:#4caf7d;--lavender:#7c6fcd;--muted:#8899aa;
+            --bg:#f5f7ff;--radius:16px;--shadow:0 4px 20px rgba(0,0,0,0.08);
+        }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:'Nunito',sans-serif;background:var(--bg);color:#2d3748;padding-bottom:60px;min-height:100vh;}
+        
+        .header{background:linear-gradient(135deg,var(--navy),#2a4a7a);color:white;padding:22px 20px;text-align:center;}
+        .header h1{font-size:1.5rem;font-weight:900;}
+        .header h1 span{color:var(--gold);}
+        .header p{font-size:0.85rem;opacity:0.8;margin-top:4px;}
+        .section{padding:16px;}
+        .section-title{font-size:0.75rem;font-weight:900;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:8px;}
+        
+        .select-input{width:100%;padding:12px;border-radius:10px;border:2.5px solid #dde2ee;font-family:inherit;font-size:1rem;font-weight:700;color:var(--navy);background:white;outline:none;margin-bottom:14px;}
+        .room-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;}
+        .room-tabs::-webkit-scrollbar {display:none;}
+        .room-tab{padding:8px 16px;border-radius:99px;border:2px solid #dde2ee;background:white;font-weight:800;color:var(--muted);cursor:pointer;white-space:nowrap;}
+        .room-tab.active{border-color:var(--teal);background:var(--teal);color:white;}
+        
+        .select-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+        .select-item{background:white;border-radius:12px;padding:12px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow);cursor:pointer;border:2.5px solid transparent;}
+        .select-item.selected{border-color:var(--teal);background:#e6f7f5;}
+        .s-num{width:25px;height:25px;border-radius:50%;background:#eef0f5;color:var(--muted);font-size:0.8rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .select-item.selected .s-num{background:var(--teal);color:white;}
+        .s-icon{font-size:1.3rem;}
+        .s-body{flex:1;}
+        .s-title{font-size:0.9rem;font-weight:800;color:var(--navy);}
+        .s-sub{font-size:0.75rem;color:var(--muted);font-weight:600;}
+        .noah-alert {background:#f0ecff; color:var(--lavender); font-size:0.7rem; font-weight:800; padding:4px 10px; border-radius:99px; border:1.5px solid var(--lavender); max-width:220px; word-break:break-word; line-height:1.2;}
+        .s-check{width:20px;height:20px;border-radius:50%;border:2px solid #dde2ee;}
+        .select-item.selected .s-check{background:var(--teal);border-color:var(--teal);position:relative;}
+        .select-item.selected .s-check::after{content:'✓';position:absolute;color:white;font-size:0.75rem;left:4px;top:0px;}
+        
+        .send-btn{display:block;width:100%;background:linear-gradient(135deg,#25D366,#128C7E);color:white;border:none;font-family:inherit;font-size:1rem;font-weight:900;padding:15px;border-radius:12px;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,0.2);}
+        .send-btn:disabled{background:#cbd5e0;box-shadow:none;cursor:not-allowed;opacity:0.6;}
+        
+        /* KINDER-ANSICHT STYLE */
+        .progress-section{background:white;padding:14px 20px;border-bottom:1px solid #eef0f5;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+        .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+        .progress-label{font-weight:800;font-size:0.88rem;color:var(--navy);}
+        .progress-bar-bg{background:#eef0f5;border-radius:99px;height:12px;overflow:hidden;}
+        .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),#4dd0c4);border-radius:99px;transition:width 0.3s;width:0%;}
+        
+        .task-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;cursor:pointer;border:2.5px solid transparent;transition:all 0.2s;}
+        .task-card.done{opacity:0.5;background:#f8faf8;border-color:var(--green)!important;}
+        .task-card.done .task-title{text-decoration:line-through;color:var(--muted);}
+        .task-steps{font-size:0.8rem;color:var(--muted);margin-top:6px;padding-left:14px;}
+        .task-check-circle{width:26px;height:26px;border-radius:50%;border:2.5px solid #dde2ee;margin-left:auto;display:flex;align-items:center;justify-content:center;font-weight:bold;color:transparent;flex-shrink:0;}
+        .task-card.done .task-check-circle{background:var(--green);border-color:var(--green);color:white;}
+        
+        .celebration{display:none;text-align:center;padding:25px;background:white;border-radius:var(--radius);border:3px dashed var(--teal);margin-top:15px;}
+        .celebration.show{display:block;}
+        
+        #elternAnsicht, #kinderAnsicht {display:none;}
+    </style>
+</head>
+<body>
+
+    <!-- ================= ELTERN BEREICH ================= -->
+    <div id="elternAnsicht">
+        <div class="header">
+            <h1>🛠️ Putzplan <span>Familien-Zentrale</span></h1>
+            <p>Raum & Kind wählen, Struktur vorgeben & App-Link senden</p>
+        </div>
+        <div class="section">
+            <div class="section-title">1. Welcher Raum steht an?</div>
+            <div class="room-tabs" id="roomTabs"></div>
+
+            <div class="section-title">2. Wer übernimmt diese Aufgabe?</div>
+            <select id="childName" class="select-input" onchange="validateEltern()">
+                <option value="">-- Kind auswählen --</option>
+                <option value="Noa">Noa 💜 (ASS & ADHS)</option>
+                <option value="Thea">Thea ❤️ (13 J. · ADHS & Prokrastination)</option>
+                <option value="Jakob">Jakob 💙 (6 J. · Starkes ADHS)</option>
+                <option value="Lioba">Lioba 💛 (3 J. · Spielerisch)</option>
+            </select>
+
+            <div class="section-title">3. Aufgaben festlegen (Nach Schwierigkeit sortiert)</div>
+            <div class="select-grid" id="selectGrid"></div>
+
+            <button id="whatsappBtn" class="send-btn" onclick="sendToWhatsApp()" disabled>
+                🚀 Interaktive App via WhatsApp senden
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= KINDER BEREICH ================= -->
+    <div id="kinderAnsicht">
+        <div class="header">
+            <h1><span id="kRoomIcon">🍋</span> <span id="kName">Kind</span> – <span id="kRoomName">Raum</span></h1>
+            <p>Schritt für Schritt abhaken – Kleine Schritte, großer Erfolg! 🌟</p>
+        </div>
+        <div class="progress-section">
+            <div class="progress-header">
+                <span class="progress-label">Dein Fortschritt heute</span>
+                <span class="progress-count" id="pc">0 von 0</span>
+            </div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="pb"></div></div>
+        </div>
+        <div class="section" id="kinderTasks"></div>
+        <div class="section">
+            <div class="celebration" id="celBox">
+                <div style="font-size:3rem">🎉</div>
+                <h2 style="color:var(--navy); font-weight:900;">Mega gemacht!</h2>
+                <p style="color:var(--muted); font-weight:700; margin-top:4px;">Alles erledigt! Du kannst super stolz auf dich sein! 🏆💛</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DATA = {
+            wohnzimmer: {
+                name: 'Wohnzimmer', icon: '🛋️',
+                tasks: [
+                    {id:1, icon:'🧸', title:'Spielsahen / Allgemeines wegräumen', time:'4 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Visueller Overload möglich: Nur rote Box füllen lassen!', steps:['Alle herumliegenden Spielsachen einsammeln','In die dafür vorgesehene Spielzeugkiste legen']},
+                    {id:2, icon:'🛋️', title:'Couch & Kissen richten', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Kissen kurz aufschütteln','Kissen ordentlich an die Rücklehne stellen','Decke ordentlich zusammenlegen']},
+                    {id:3, icon:'🧺', title:'Wäsche & Kleidung wegräumen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Herumliegende Kleidung einsammeln','In den Wäschekorb legen']},
+                    {id:4, icon:'📺', title:'Fernbedienungen aufräumen', time:'2 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Alle Fernbedienungen suchen','Ordentlich nebeneinander in die Schublade legen']},
+                    {id:5, icon:'🍏', title:'Tisch abwischen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Alle Sachen vom Tisch auf die Seite stellen','Mit feuchtem Tuch Flecken wegwischen']},
+                    {id:6, icon:'🖥️', title:'Fernseher-Oberfläche säubern', time:'3 Min.', energy:'Hauptteil', noahAlert:'⚠️ Hyperfokus-Gefahr auf Flecken! Zeitschaltuhr setzen.', steps:['Bildschirm NUR mit trockenem Mikrofasertuch abwischen','Wichtig: Keine Reinigungsmittel benutzen!']},
+                    {id:7, icon:'🪵', title:'Schrank-Oberfläche aufräumen', time:'6 Min.', energy:'Hauptteil', noahAlert:'⚠️ Unklare Endpunkte überfordern. Nur 3 feste Deko-Teile stehen lassen.', steps:['Gegenstände, die nicht dorthin gehören, wegräumen','Oberfläche kurz mit nebelfeuchtem Tuch abwischen']},
+                    {id:8, icon:'🧹', title:'Großen blauen Teppich saugen', time:'6 Min.', energy:'Gründlich', noahAlert:'⚠️ Lautstärke! Noa/Jakob ggf. Noise-Cancelling-Kopfhörer anbieten.', steps:['Den Teppich einmal komplett in Bahnen absaugen','Auch unter dem Couchtisch saugen']},
+                    {id:9, icon:'🪣', title:'Boden wischen', time:'8 Min.', energy:'Gründlich', noahAlert:'⚠️ Sensorik-Muster beachten! Nasse Füße vermeiden.', steps:['Boden mit dem Wischer feucht abwischen','Kurz warten, bis der Boden komplett trocken ist']}
+                ]
+            },
+            esszimmer: {
+                name: 'Esszimmer', icon: '🪑',
+                tasks: [
+                    {id:20, icon:'🎨', title:'Malecke & Stifte aufräumen', time:'5 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Sortierwahn verhindern! Einfach alle Stifte unsortiert in die Box.', steps:['Alle losen Stifte einsammeln und in die Stifteboxen stecken','Deckel auf die Boxen machen','Blätter einsammeln und flach in den Rollwagen legen']},
+                    {id:21, icon:'🛒', title:'Rollwagen aufräumen', time:'4 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Müll aus dem Wagen in den Eimer werfen','Fächer übersichtlich ordnen']},
+                    {id:22, icon:'🪵', title:'Stuhl an den Maltisch stellen', time:'2 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Maltisch-Stuhl ordentlich an den Tisch heranschieben','Prüfen, dass nichts mehr unter dem Stuhl liegt']},
+                    {id:23, icon:'🧘', title:'Sitzkissen & Stühle richten', time:'4 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Alle Sitzkissen sammeln und ordentlich auf die Stühle legen','Alle Esszimmerstühle ordentlich an den Tisch schieben']},
+                    {id:24, icon:'🍽️', title:'Dreckiges Geschirr in Spülmaschine', time:'5 Min.', energy:'Hauptteil', noahAlert:'⚠️ Ekel vor Essensresten. Ggf. Handschuhe bereitlegen.', steps:['Essensreste vom Geschirr in den Biomüll kratzen','Geschirr in die Küche bringen / in die Spülmaschine stellen']},
+                    {id:25, icon:'✨', title:'Sauberes Geschirr verstauen', time:'5 Min.', energy:'Hauptteil', noahAlert:'', steps:['Sauberes Geschirr an seinen festen Platz im Schrank stellen','Schranktüren wieder komplett schließen']},
+                    {id:26, icon:'🧹', title:'Boden kehren oder saugen', time:'6 Min.', energy:'Hauptteil', noahAlert:'', steps:['Krümel unter dem Esstisch wegsaugen/wegkehren','Besonders in den Ecken und Kanten schauen']},
+                    {id:27, icon:'🫧', title:'Oberflächen feucht abwischen', time:'5 Min.', energy:'Hauptteil', noahAlert:'', steps:['Esstisch und Fensterbänke feucht abwischen','Tücher danach direkt zum Waschen bringen']},
+                    {id:28, icon:'🖼️', title:'Deko & Kleinigkeiten ordnen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Dekorationen gerade rücken','Unnötigen Kram wegräumen']},
+                    {id:29, icon:'🪟', title:'Fenster putzen', time:'8 Min.', energy:'Gründlich', noahAlert:'⚠️ Hoher Kraftaufwand. Klare Vorgabe: "Nur die untere Hälfte"', steps:['Fensterscheiben mit Glasreiniger einsprühen','Mit einem trockenen Tuch streifenfrei wischen']}
+                ]
+            },
+            flur: {
+                name: 'Flur & Treppe', icon: '🪵',
+                tasks: [
+                    {id:40, icon:'🧥', title:'Jacken aufhängen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Alle herumliegenden Jacken an die Haken hängen']},
+                    {id:41, icon:'👟', title:'Schuhe ordnen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'⚠️ ASS-Struktur-Vorteil: Perfekt für Noas visuelles Auge.', steps:['Nur 1 Paar Schuhe pro Person im Eingang stehen lassen','Alle anderen Schuhe ordentlich ins Schuhregal stellen']},
+                    {id:42, icon:'🗝️', title:'Ordnung am Eingang (Schlüssel/Taschen)', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Taschen, Mützen und Schlüssel an ihren festen Platz legen']},
+                    {id:43, icon:'🚪', title:'Fußmatte ausschütteln', time:'2 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Fußmatte draußen kurz ausschütteln oder absaugen']},
+                    {id:44, icon:'🪜', title:'Handlauf & Geländer abwischen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Handlauf der Treppe mit einem feuchten Tuch von oben nach unten abwischen']},
+                    {id:45, icon:'🪞', title:'Spiegel reinigen', time:'3 Min.', energy:'Hauptteil', noahAlert:'', steps:['Spiegel mit Glasreiniger einsprühen','Streifenfrei trocken wischen']},
+                    {id:46, icon:'🧹', title:'Eingangsbereich & Flur saugen', time:'6 Min.', energy:'Hauptteil', noahAlert:'', steps:['Gesamten Flurboden gründlich absaugen']},
+                    {id:47, icon:'🪵', title:'Treppe saugen (Holztreppe)', time:'7 Min.', energy:'Hauptteil', noahAlert:'⚠️ Sturzgefahr bei Ablenkung! Jakob hierbei eng begleiten.', steps:['Alle Stufen und Kanten der Holztreppe von oben nach unten absaugen']},
+                    {id:48, icon:'✨', title:'Zwischenebene & OG saugen', time:'6 Min.', energy:'Hauptteil', noahAlert:'', steps:['Die Zwischenebene und den Flur im Obergeschoss gründlich saugen']},
+                    {id:49, icon:'🪣', title:'Flur & Treppe wischen', time:'12 Min.', energy:'Gründlich', noahAlert:'⚠️ Rutschgefahr. Unbedingt klare Ansage machen: "Stopp, nass!"', steps:['Eingangsbereich, Treppenstufen und OG feucht wischen']}
+                ]
+            },
+            bad_unten: {
+                name: 'Badezimmer Unten', icon: '🧼',
+                tasks: [
+                    {id:70, icon:'🗑️', title:'Müll leeren', time:'2 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Klebrige/nasse Sachen! Noa Handschuhe geben.', steps:['Müllbeutel aus dem kleinen Eimer herausnehmen','Neuen Beutel einsetzen']},
+                    {id:71, icon:'🧻', title:'Klopapier prüfen', time:'2 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Prüfen, ob genug Klopapier da ist','Neue Rolle hinstellen, wenn sie fast leer ist']},
+                    {id:72, icon:'🧼', title:'Handtücher checken', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Feuchte Handtücher in die Wäsche werfen','Frische, saubere Handtücher aufhängen']},
+                    {id:73, icon:'🪞', title:'Spiegel reinigen', time:'3 Min.', energy:'Hauptteil', noahAlert:'', steps:['Spiegel mit Glasreiniger streifenfrei sauber machen']},
+                    {id:74, icon:'🧼', title:'Waschbecken reinigen', time:'5 Min.', energy:'Hauptteil', noahAlert:'⚠️ Sensorischer Overload (Nässe). Reizfreie Seife nutzen.', steps:['Zahnpastareste wegspülen','Becken mit Reiniger auswischen','Mit trockenem Tuch nachwischen']},
+                    {id:75, icon:'🪵', title:'Waschtisch & Schrank außen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Waschtisch abwischen','Schrankfronten von Fingerabdrücken befreien']},
+                    {id:76, icon:'🧴', title:'Duschgel & Hängeschrank ordnen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Duschgelflaschen ordentlich hinstellen','Sachen im Hängeschrank gerade rücken']},
+                    {id:77, icon:'🚽', title:'Toilette reinigen', time:'6 Min.', energy:'Gründlich', noahAlert:'⚠️ Ekel/Geruch. Klare visuelle Anleitung wichtig.', steps:['WC-Reiniger ins Becken geben und bürsten','Toilettensitz und Brille von außen desinfizierend abwischen']},
+                    {id:78, icon:'🪟', title:'Dusche (Glaswände & Innen)', time:'10 Min.', energy:'Gründlich', noahAlert:'⚠️ Hoher Frustfaktor bei Kalkflecken. Perfektionismus bremsen!', steps:['Glaswände mit Glasreiniger einsprühen und abziehen','Wände und Boden der Dusche innen reinigen und nachspülen']},
+                    {id:79, icon:'🧹', title:'Boden saugen & wischen', time:'8 Min.', energy:'Gründlich', noahAlert:'', steps:['Badematte in die Wäsche geben','Boden gründlich saugen und anschließend feucht wischen']}
+                ]
+            },
+            bad_oben: {
+                name: 'Badezimmer Oben', icon: '🛁',
+                tasks: [
+                    {id:90, icon:'🗑️', title:'Müll & Klopapier Check', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Mülleimer leeren und neuen Beutel rein','Klopapier-Vorrat auffüllen']},
+                    {id:91, icon:'🧼', title:'Handtücher tauschen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Benutzte Handtücher in die Wäsche bringen','Frische Handtücher aufhängen']},
+                    {id:92, icon:'🧼', title:'Waschbecken blitzblank machen', time:'5 Min.', energy:'Hauptteil', noahAlert:'', steps:['Becken reinigen, Armaturen abwischen und trockenreiben']},
+                    {id:93, icon:'🪵', title:'Waschtisch & Schrank wischen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Oberflächen und Schrankfronten abwischen']},
+                    {id:94, icon:'🚽', title:'Toilette gründlich reinigen', time:'6 Min.', energy:'Gründlich', noahAlert:'', steps:['Innen bürsten, Außenflächen gründlich abwischen']},
+                    {id:95, icon:'🛁', title:'Badewanne reinigen', time:'8 Min.', energy:'Gründlich', noahAlert:'⚠️ Rutschgefahr in der Wanne!', steps:['Badewanne mit Reiniger säubern','Mit klarem Wasser ausspülen','Armaturen trockenwischen']},
+                    {id:96, icon:'🪟', title:'Badewanne-Glaswand säubern', time:'6 Min.', energy:'Gründlich', noahAlert:'', steps:['Glaswand mit Glasreiniger säubern und abziehen']},
+                    {id:97, icon:'🧹', title:'Boden saugen & wischen', time:'8 Min.', energy:'Gründlich', noahAlert:'', steps:['Boden komplett saugen und feucht nachwischen']},
+                    {id:98, icon:'📋', title:'Endkontrolle', time:'2 Min.', energy:'Gründlich', noahAlert:'', steps:['Prüfen, ob alles ordentlich ist und nichts vergessen wurde']}
+                ]
+            },
+            theas_zimmer: {
+                name: 'Theas Zimmer', icon: '❤️',
+                tasks: [
+                    {id:120, icon:'🗑️', title:'Müll in den Eimer', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Verpackungen, Papier und leere Flaschen im Zimmer einsammeln','In ihren Zimmer-Mülleimer werfen']},
+                    {id:121, icon:'🥤', title:'Geschirr nach unten bringen', time:'4 Min.', energy:'Aufwärmen', noahAlert:'💡 Dopamin-Schnittstelle für Thea: Direkt mit Gang zur Spülmaschine verknüpfen.', steps:['Eigenes Geschirr und Gläser einsammeln','In die Küche bringen und direkt in die Spülmaschine stellen']},
+                    {id:122, icon:'🧺', title:'Schmutzwäsche in den Wäschesack', time:'4 Min.', energy:'Aufwärmen', noahAlert:'💡 Anti-Prokrastination: "Finde 5 Kleidungsstücke".', steps:['Alle getragene Wäsche vom Boden/Stuhl einsammeln','In ihren Wäschesack legen']},
+                    {id:123, icon:'🛏️', title:'Bett machen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Bettdecke glattziehen','Kissen ordentlich hinlegen','Keine Kleidung auf dem Bett liegen lassen']},
+                    {id:124, icon:'👕', title:'Frische Wäsche einräumen', time:'6 Min.', energy:'Hauptteil', noahAlert:'', steps:['Saubere Wäsche zusammenfalten','Ordentlich in den Schrank oder die Fächer legen']},
+                    {id:125, icon:'🧥', title:'Kleidung aufhängen', time:'4 Min.', energy:'Hauptteil', noahAlert:'', steps:['Jacken und Hoodies auf Kleiderbügel hängen','In den Schrank hängen (nichts auf dem Stuhl lassen!)']},
+                    {id:126, icon:'💻', title:'Schreibtisch aufräumen', time:'8 Min.', energy:'Hauptteil', noahAlert:'💡 Fokus-Gefahr: Nicht in alten Zetteln festlesen! Timer stellen.', steps:['Sachen an ihren festen Platz räumen','Unnötige Dinge wegwerfen','Oberfläche sauber machen']},
+                    {id:127, icon:'💄', title:'Schminktisch aufräumen', time:'6 Min.', energy:'Hauptteil', noahAlert:'', steps:['Schminkprodukte ordnen','Oberfläche feucht abwischen','Alles wieder ordentlich hinstellen']},
+                    {id:128, icon:'📚', title:'Regale & Fächer ordnen', time:'8 Min.', energy:'Hauptteil', noahAlert:'', steps:['Dinge in den Regalen sortieren','Nichts unnötiges drin lassen','Boxen nutzen']},
+                    {id:129, icon:'🧹', title:'Boden sauber machen', time:'8 Min.', energy:'Gründlich', noahAlert:'', steps:['Den gesamten Zimmerboden gründlich saugen','Anschließend feucht wischen (auch in den Ecken)']},
+                    {id:130, icon:'🪟', title:'Fenster & Spiegel reinigen', time:'6 Min.', energy:'Gründlich', noahAlert:'', steps:['Fensterbank abwischen','Zimmerspiegel streifenfrei putzen']},
+                    {id:131, icon:'🕯️', title:'Kleinigkeiten für Wohlfühlzimmer', time:'3 Min.', energy:'Gründlich', noahAlert:'', steps:['Kurz lüften','Lieblingsduft oder Kerze anmachen','Zimmer schön dekorieren']}
+                ]
+            },
+            noas_zimmer: {
+                name: 'Noas Zimmer', icon: '💜',
+                tasks: [
+                    {id:150, icon:'🗑️', title:'Müll in den Mülleimer', time:'3 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Reizreduktion: Keine Grundsatzdiskussion über "Müll oder Erinnerung". Just do it.', steps:['Papier, Verpackungen und Reste vom Boden einsammeln','In den Mülleimer werfen (nicht überfüllen!)']},
+                    {id:151, icon:'🍽️', title:'Geschirr nach unten bringen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Gläser und Teller einsammeln','In die Küche bringen']},
+                    {id:152, icon:'🧺', title:'Schmutzwäsche einsammeln', time:'4 Min.', energy:'Aufwärmen', noahAlert:'', steps:['Schmutzige Wäsche vom Boden einsammeln','In den Wäschesack legen']},
+                    {id:153, icon:'🛏️', title:'Bett machen', time:'3 Min.', energy:'Aufwärmen', noahAlert:'⚠️ Sensorischer Trigger: Knitterfreie Decke gibt Noa sofortige Ruhe.', steps:['Bettdecke komplett glattziehen','Kissen ordentlich hinlegen']},
+                    {id:154, icon:'✏️', title:'Stifte & Kleinkram ordnen', time:'6 Min.', energy:'Hauptteil', noahAlert:'⚠️ Sortier-Overload verhindern! Feste Becher nutzen.', steps:['Stifte unsortiert in die Becher oder die Schublade stecken','Oberflächen frei von losem Kleinkram halten']},
+                    {id:155, icon:'👕', title:'Frische Wäsche einräumen', time:'6 Min.', energy:'Hauptteil', noahAlert:'', steps:['Saubere Wäsche zusammenlegen','In die Schränke/Fächer legen']},
+                    {id:156, icon:'📚', title:'Regale & Fächer aufräumen', time:'8 Min.', energy:'Hauptteil', noahAlert:'⚠️ Starrheit beachten: Jedes Buch hat seinen festen Platz.', steps:['Dinge sortieren','Unnötiges aussortieren','Alles auf seinen festen Platz stellen']},
+                    {id:157, icon:'🫧', title:'Oberflächen feucht abwischen', time:'5 Min.', energy:'Hauptteil', noahAlert:'⚠️ Nasses/klebriges Gefühl an den Händen vermeiden (Handschuhe!).', steps:['Kommoden, Ablagen und Tische feucht abwischen','Staub und Flecken entfernen']},
+                    {id:158, icon:'🧹', title:'Boden saugen', time:'6 Min.', energy:'Gründlich', noahAlert:'⚠️ Staubsauger-Lärm! Unbedingt Kopfhörer aufsetzen lassen.', steps:['Den Boden im Zimmer gründlich absaugen (auch unter Möbeln)']},
+                    {id:159, icon:'🪵', title:'Boden mit Holzreiniger wischen', time:'6 Min.', energy:'Gründlich', noahAlert:'', steps:['Holzreiniger ins Wischwasser geben','Boden feucht wischen und komplett trocknen lassen']}
+                ]
+            }
+        };
+
+        let currentRoom = 'wohnzimmer';
+        let selectedTasks = new Set();
+
+        function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('mode') && urlParams.get('mode') === 'child') {
+                showKinderAnsicht(urlParams);
+            } else {
+                showElternAnsicht();
+            }
+        }
+
+        function showElternAnsicht() {
+            document.getElementById('elternAnsicht').style.display = 'block';
+            buildRoomTabs();
+            buildElternGrid();
+        }
+
+        function buildRoomTabs() {
+            const container = document.getElementById('roomTabs');
+            container.innerHTML = '';
+            Object.keys(DATA).forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = `room-tab ${key === currentRoom ? 'active' : ''}`;
+                btn.innerText = `${DATA[key].icon} ${DATA[key].name}`;
+                btn.onclick = () => {
+                    currentRoom = key;
+                    selectedTasks.clear();
+                    buildRoomTabs();
+                    buildElternGrid();
+                    validateEltern();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function buildElternGrid() {
+            const grid = document.getElementById('selectGrid');
+            grid.innerHTML = '';
+            DATA[currentRoom].tasks.forEach(t => {
+                const el = document.createElement('div');
+                el.className = 'select-item' + (selectedTasks.has(t.id) ? ' selected' : '');
+                el.onclick = () => {
+                    if(selectedTasks.has(t.id)) selectedTasks.delete(t.id);
+                    else selectedTasks.add(t.id);
+                    buildElternGrid();
+                    validateEltern();
+                };
+                
+                // Schöne Formatierung für die Energieniveaus (einfach bis schwer)
+                let energyColor = t.energy === 'Aufwärmen' ? 'var(--green)' : (t.energy === 'Hauptteil' ? 'var(--gold)' : 'var(--coral)');
+                
+                el.innerHTML = `
+                    <div class="s-num" style="background:${energyColor}; color:white;">★</div>
+                    <div class="s-icon">${t.icon}</div>
+                    <div class="s-body">
+                        <div class="s-title">${t.title}</div>
+                        <div class="s-sub">⏱ ${t.time} · <span style="color:${energyColor}; font-weight:bold;">${t.energy}</span></div>
+                    </div>
+                    ${t.noahAlert ? `<div class="noah-alert">💜 ${t.noahAlert}</div>` : ''}
+                    <div class="s-check"></div>`;
+                grid.appendChild(el);
+            });
+        }
+
+        function validateEltern() {
+            const name = document.getElementById('childName').value;
+            document.getElementById('whatsappBtn').disabled = !(name && selectedTasks.size > 0);
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('childName').value;
+            const taskIds = Array.from(selectedTasks).join(',');
+            let localPath = window.location.href.split('?')[0];
+            let childLink = `${localPath}?mode=child&name=${encodeURIComponent(name)}&room=${currentRoom}&tasks=${taskIds}`;
+            
+            let message = `*Hallo ${name}!* 👋\n\nHier ist deine persönliche Checkliste für das *${DATA[currentRoom].name}* ${DATA[currentRoom].icon}.\nKlicke einfach auf den Link, um deine Meilensteine Schritt für Schritt abzuhaken:\n\n🔗 ${childLink}\n\nDu rockst das! 🏆🌟`;
+            
+            window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        }
+
+        // --- KINDER LOGIK ---
+        let totalKinderTasks = 0;
+        let doneKinderTasks = 0;
+
+        function showKinderAnsicht(params) {
+            document.getElementById('kinderAnsicht').style.display = 'block';
+            
+            const name = params.get('name');
+            const roomKey = params.get('room');
+            const taskIds = params.get('tasks').split(',').map(Number);
+            const room = DATA[roomKey] || DATA.wohnzimmer;
+            
+            document.getElementById('kName').innerText = name;
+            document.getElementById('kRoomName').innerText = room.name;
+            document.getElementById('kRoomIcon').innerText = room.icon;
+            
+            const taskContainer = document.getElementById('kinderTasks');
+            taskContainer.innerHTML = '';
+            
+            const activeTasks = room.tasks.filter(t => taskIds.includes(t.id));
+            totalKinderTasks = activeTasks.length;
+            
+            document.getElementById('pc').innerText = `0 von ${totalKinderTasks}`;
+            
+            activeTasks.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.onclick = () => toggleTask(card);
+                
+                let stepsHtml = t.steps.map(s => `<li>${s}</li>`).join('');
+                
+                card.innerHTML = `
+                    <div class="s-icon" style="font-size:1.6rem;">${t.icon}</div>
+                    <div style="flex:1;">
+                        <div class="task-title" style="font-weight:800; color:var(--navy); font-size:0.95rem;">${t.title} <span style="font-size:0.75rem; color:var(--muted); font-weight:600;">(${t.time})</span></div>
+                        <ul class="task-steps" style="list-style:none;">${stepsHtml}</ul>
+                    </div>
+                    <div class="task-check-circle">✓</div>`;
+                taskContainer.appendChild(card);
+            });
+        }
+
+        function toggleTask(card) {
+            card.classList.toggle('done');
+            doneKinderTasks = document.querySelectorAll('.task-card.done').length;
+            
+            let percent = (doneKinderTasks / totalKinderTasks) * 100;
+            document.getElementById('pb').style.width = percent + '%';
+            document.getElementById('pc').innerText = `${doneKinderTasks} von ${totalKinderTasks}`;
+            
+            if(doneKinderTasks === totalKinderTasks) {
+                document.getElementById('celBox').classList.add('show');
+                document.getElementById('celBox').scrollIntoView({behavior:'smooth', block:'center'});
+            } else {
+                document.getElementById('celBox').classList.remove('show');
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
