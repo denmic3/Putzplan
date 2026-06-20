@@ -109,6 +109,25 @@
   .focus-dot.done{background:#ff6b6b;}
   .focus-care{font-size:0.75rem;color:#7c6fcd;background:#f0ecff;padding:6px 10px;border-radius:8px;margin-top:12px;font-weight:700;}
 
+  /* ---------- FOCUS MODE: full-list checklist variant (Thea) ---------- */
+  .focus-list{padding:14px 16px;display:flex;flex-direction:column;gap:10px;}
+  .focus-list-card{background:white;border-radius:16px;padding:14px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 4px 16px rgba(255,107,107,0.10);cursor:pointer;border:2.5px solid transparent;transition:all 0.2s;}
+  .focus-list-card.done{opacity:0.55;background:#fff7f5;border-color:#ffb3b3;}
+  .focus-list-card.done .focus-list-title{text-decoration:line-through;color:#aab4c0;}
+  .focus-checkbox{width:26px;height:26px;border-radius:50%;border:2.5px solid #ffd6d6;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:transparent;margin-top:2px;}
+  .focus-list-card.done .focus-checkbox{background:#ff6b6b;border-color:#ff6b6b;color:white;}
+  .focus-list-icon{font-size:1.6rem;flex-shrink:0;width:30px;text-align:center;}
+  .focus-list-text{flex:1;min-width:0;}
+  .focus-list-title{font-size:0.95rem;font-weight:800;color:#1a2e4a;}
+  .focus-list-meta{font-size:0.74rem;color:#8899aa;font-weight:700;margin-top:2px;}
+  .focus-list-micro{font-size:0.83rem;color:#d65555;font-weight:800;background:#fff0f0;padding:6px 10px;border-radius:8px;margin-top:8px;display:inline-block;}
+  .focus-list-steps{font-size:0.8rem;color:#6b7785;font-weight:600;line-height:1.7;margin-top:8px;padding-left:0;list-style:none;display:none;}
+  .focus-list-card.expanded .focus-list-steps{display:block;}
+  .focus-list-steps li{padding-left:16px;position:relative;}
+  .focus-list-steps li::before{content:'→';position:absolute;left:0;color:#ff6b6b;font-weight:900;}
+  .focus-celebration{display:none;text-align:center;padding:24px 20px;background:linear-gradient(135deg,#fff0f0,#fff);margin:16px;border-radius:16px;border:2px dashed #ff6b6b;}
+  .focus-celebration.show{display:block;}
+
   /* ---------- STAR MODE (Jakob) ---------- */
   .star-body{background:linear-gradient(180deg,#eaf2ff,#fff);min-height:100vh;padding-bottom:40px;font-family:'Quicksand',sans-serif;}
   .star-header{background:linear-gradient(135deg,#4a7aff,#6e95ff);}
@@ -479,92 +498,65 @@ function updateTeenProgress(total) {
 }
 
 /* ============================================================
-   MODUS 2 — THEA (13, ADHS, Start-Hürde): EINE Aufgabe auf
-   einmal, großer "Los geht's"-Button senkt Einstiegshürde
+   MODUS 2 — THEA (13, ADHS, Start-Hürde): GESAMTÜBERSICHT mit
+   sichtbarem Fortschritt — gibt Kontrolle & Motivation durch
+   den Gesamtblick. Warmer, anfeuernder Ton + sichtbare
+   Mikro-Schritte senken die Starthürde pro Aufgabe.
    ============================================================ */
 function renderFocusMode(container, c, room, tasks) {
-  let idx = 0;
-  let firstTaskStarted = false; // only the very first task needs the barrier-breaking tap
   const total = tasks.length;
-
   container.innerHTML = `
     <div class="focus-body">
       <div class="kid-header focus-header">
         <a href="${getHomeLink()}" class="kid-home-link">🏠 Start</a>
         <h1>${room.icon} ${room.name}</h1>
-        <p>Hi ${c.name}! Eine Aufgabe nach der anderen 🌟</p>
+        <p>Hi ${c.name}! Du siehst alles auf einen Blick 🌟</p>
         <div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div>
         <div class="kid-progress-text" id="progText">0 / ${total} geschafft</div>
       </div>
-      <div class="focus-stage" id="stage"></div>
+      <div class="focus-list" id="focusList"></div>
+      <div class="focus-celebration" id="focusCel">
+        <div style="font-size:2.8rem">🎉</div>
+        <div class="focus-title" style="margin-top:6px;">Alles geschafft, ${c.name}!</div>
+        <p style="color:#8899aa;font-weight:600;margin-top:6px;">Du hast wirklich dran gedacht – mega! 💪</p>
+      </div>
     </div>`;
 
-  function renderStage() {
-    const stage = document.getElementById('stage');
-    if (idx >= total) {
-      stage.innerHTML = `
-        <div class="focus-card">
-          <div class="focus-icon">🎉</div>
-          <div class="focus-title">Alles geschafft, ${c.name}!</div>
-          <p style="color:#8899aa;font-weight:600;margin-top:6px;">Du hast wirklich dran gedacht – mega! 💪</p>
-        </div>`;
-      return;
-    }
-    const t = tasks[idx];
-    const isFirstTask = idx === 0 && !firstTaskStarted;
+  const list = document.getElementById('focusList');
+  tasks.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'focus-list-card';
+    card.innerHTML = `
+      <div class="focus-checkbox">✓</div>
+      <div class="focus-list-icon">${t.icon}</div>
+      <div class="focus-list-text">
+        <div class="focus-list-title">${t.title}</div>
+        <div class="focus-list-meta">⏱ ${t.time}</div>
+        <div class="focus-list-micro">👉 ${t.microStep}</div>
+        <ul class="focus-list-steps">${t.steps.map(s => `<li>${s}</li>`).join('')}</ul>
+        ${t.careAlert ? `<div class="focus-care" style="margin-top:8px;">💡 ${t.careAlert}</div>` : ''}
+      </div>`;
+    card.querySelector('.focus-checkbox').onclick = (e) => {
+      e.stopPropagation();
+      card.classList.toggle('done');
+      updateFocusListProgress(total);
+    };
+    card.querySelector('.focus-list-text').onclick = () => card.classList.toggle('expanded');
+    list.appendChild(card);
+  });
+}
 
-    if (isFirstTask) {
-      // BARRIER-BREAKING SCREEN — only ever shown once, for the very first task
-      stage.innerHTML = `
-        <div class="focus-card">
-          <div class="focus-time">⏱ ${t.time}</div>
-          <div class="focus-icon">${t.icon}</div>
-          <div class="focus-title">${t.title}</div>
-          <div class="focus-micro" id="microBox">👉 Erster Schritt: ${t.microStep}</div>
-          ${t.careAlert ? `<div class="focus-care">💡 ${t.careAlert}</div>` : ''}
-          <button class="focus-go-btn" id="goBtn">Los geht's! 🚀</button>
-          <button class="focus-skip" id="skipBtn">Diese Aufgabe später</button>
-          <div class="focus-dots">${tasks.map((_, i) => `<div class="focus-dot ${i < idx ? 'done' : ''}"></div>`).join('')}</div>
-        </div>`;
-      document.getElementById('goBtn').onclick = () => {
-        firstTaskStarted = true;
-        renderStage(); // re-render same task, now showing full steps + Fertig-button directly
-      };
-      document.getElementById('skipBtn').onclick = () => {
-        tasks.push(tasks.splice(idx, 1)[0]);
-        renderStage();
-      };
-    } else {
-      // FLOW SCREEN — steps already visible, single "Fertig" tap moves straight to next task
-      stage.innerHTML = `
-        <div class="focus-card">
-          <div class="focus-time">⏱ ${t.time}</div>
-          <div class="focus-icon">${t.icon}</div>
-          <div class="focus-title">${t.title}</div>
-          <ul class="focus-steps">${t.steps.map(s => `<li>${s}</li>`).join('')}</ul>
-          ${t.careAlert ? `<div class="focus-care">💡 ${t.careAlert}</div>` : ''}
-          <button class="focus-go-btn" id="goBtn">Fertig! ✅</button>
-          <button class="focus-skip" id="skipBtn">Diese Aufgabe später</button>
-          <div class="focus-dots">${tasks.map((_, i) => `<div class="focus-dot ${i < idx ? 'done' : ''}"></div>`).join('')}</div>
-        </div>`;
-      document.getElementById('goBtn').onclick = () => {
-        idx++;
-        updateFocusProgress();
-        renderStage(); // moves straight on — no repeated "Los geht's" barrier
-      };
-      document.getElementById('skipBtn').onclick = () => {
-        tasks.push(tasks.splice(idx, 1)[0]);
-        renderStage();
-      };
-    }
+function updateFocusListProgress(total) {
+  const done = document.querySelectorAll('.focus-list-card.done').length;
+  document.getElementById('prog').style.width = (done / total * 100) + '%';
+  document.getElementById('progText').textContent = `${done} / ${total} geschafft`;
+  const cel = document.getElementById('focusCel');
+  if (done === total) {
+    cel.classList.add('show');
+    cel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    cel.classList.remove('show');
   }
-
-  function updateFocusProgress() {
-    document.getElementById('prog').style.width = (idx / total * 100) + '%';
-    document.getElementById('progText').textContent = `${idx} / ${total} geschafft`;
-  }
-
-  renderStage();
 }
 
 /* ============================================================
