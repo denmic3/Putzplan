@@ -67,6 +67,9 @@
   .kid-progress-bg{background:rgba(255,255,255,0.25);border-radius:99px;height:10px;overflow:hidden;margin-top:14px;}
   .kid-progress-fill{height:100%;background:white;border-radius:99px;transition:width 0.4s;width:0%;}
   .kid-progress-text{font-size:0.78rem;font-weight:800;margin-top:6px;opacity:0.9;}
+  .kid-home-link{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.18);color:white;text-decoration:none;font-size:0.78rem;font-weight:800;padding:6px 12px;border-radius:99px;}
+  .kid-home-link--icon{font-size:1.3rem;padding:6px 10px;line-height:1;}
+  .kid-header{position:relative;}
 
   /* ---------- TEEN MODE (Noa) ---------- */
   .teen-body{background:#f4f6fa;min-height:100vh;padding-bottom:40px;}
@@ -178,7 +181,7 @@ const CHILDREN = {
 const DATA = {
   kueche: { name:'Küche', icon:'🍳', tasks:[
     {id:300,icon:'🗑️',title:'Mülleimer leeren',time:'3 Min.',energy:'Aufwärmen',careAlert:'Klebrig/Geruch – Handschuhe bereitlegen.',steps:['Müllbeutel zuknoten und herausnehmen','Neuen Beutel einsetzen','Müll nach draußen bringen'],microStep:'Geh zum Mülleimer.'},
-    {id:301,icon:'🥛',title:'Arbeitsfläche freiräumen',time:'4 Min.',energy:'Aufwärmen',careAlert:'',steps:['Herumstehendes Geschirr sammeln','Zur Spülmaschine bringen'],microStep:'Nimm 1 Glas vom Tisch.'},
+    {id:301,icon:'🥛',title:'Arbeitsfläche freiräumen',time:'4 Min.',energy:'Aufwärmen',careAlert:'',steps:['Herumstehendes Geschirr sammeln','Zur Spülmaschine bringen'],microStep:'Nimm das erste Teil, das du siehst.'},
     {id:302,icon:'🧽',title:'Thermomix & Geräte abwischen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Wasserkocher und Thermomix außen abwischen','Krümel und Flecken entfernen'],microStep:'Nimm das Tuch in die Hand.'},
     {id:303,icon:'❄️',title:'Glasfront Kühlschrank reinigen',time:'5 Min.',energy:'Hauptteil',careAlert:'Hyperfokus-Gefahr auf Streifen. Nach 5 Min. stoppen.',steps:['Glasfront mit Glasreiniger einsprühen','Mit Tuch trockenwischen','Griffe und Seiten nicht vergessen'],microStep:'Sprüh 1x auf den Kühlschrank.'},
     {id:304,icon:'🚰',title:'Spüle reinigen',time:'7 Min.',energy:'Hauptteil',careAlert:'Nässe-Trigger. Klare Grenze vorgeben.',steps:['Spülbecken auswischen','Mit klarem Wasser nachspülen','Armaturen trockenreiben'],microStep:'Dreh den Wasserhahn auf.'},
@@ -186,31 +189,31 @@ const DATA = {
     {id:306,icon:'🪣',title:'Küchenboden wischen',time:'6 Min.',energy:'Gründlich',careAlert:'',steps:['Wischwasser vorbereiten','Boden feucht wischen','Trocknen lassen'],microStep:'Fülle den Eimer.'}
   ]},
   wohnzimmer: { name:'Wohnzimmer', icon:'🛋️', tasks:[
-    {id:1,icon:'🧸',title:'Spielsachen wegräumen',time:'4 Min.',energy:'Aufwärmen',careAlert:'Overload möglich: nur 1 Box füllen lassen.',steps:['Spielsachen einsammeln','In die Spielzeugkiste legen'],microStep:'Heb 1 Spielzeug auf.'},
+    {id:1,icon:'🧸',title:'Spielsachen wegräumen',time:'4 Min.',energy:'Aufwärmen',careAlert:'Overload möglich: nur 1 Box füllen lassen.',steps:['Spielsachen einsammeln','In die Spielzeugkiste legen'],microStep:'Fang mit dem nächstbesten Spielzeug an.'},
     {id:2,icon:'🛏️',title:'Couch & Kissen richten',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Kissen aufschütteln','Decke zusammenlegen'],microStep:'Schüttel 1 Kissen auf.'},
-    {id:3,icon:'🧺',title:'Wäsche wegräumen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Kleidung einsammeln','In den Wäschekorb legen'],microStep:'Heb 1 Kleidungsstück auf.'},
-    {id:4,icon:'📺',title:'Fernbedienungen aufräumen',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Fernbedienungen suchen','In die Schublade legen'],microStep:'Finde 1 Fernbedienung.'},
+    {id:3,icon:'🧺',title:'Wäsche wegräumen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Kleidung einsammeln','In den Wäschekorb legen'],microStep:'Fang mit dem ersten Kleidungsstück an.'},
+    {id:4,icon:'📺',title:'Fernbedienungen aufräumen',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Fernbedienungen suchen','In die Schublade legen'],microStep:'Fang mit der ersten Fernbedienung an, die du findest.'},
     {id:5,icon:'🧽',title:'Tisch abwischen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Sachen zur Seite stellen','Mit Tuch abwischen'],microStep:'Nimm das Tuch.'},
     {id:6,icon:'🖥️',title:'Fernseher-Oberfläche säubern',time:'3 Min.',energy:'Hauptteil',careAlert:'Hyperfokus-Gefahr. Timer setzen.',steps:['Nur trockenes Mikrofasertuch nutzen','Keine Reinigungsmittel!'],microStep:'Nimm das trockene Tuch.'},
-    {id:7,icon:'🗄️',title:'Schrank-Oberfläche aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'Nur 3 feste Deko-Teile stehen lassen.',steps:['Fremde Gegenstände wegräumen','Oberfläche abwischen'],microStep:'Räum 1 Ding weg.'},
+    {id:7,icon:'🗄️',title:'Schrank-Oberfläche aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'Nur 3 feste Deko-Teile stehen lassen.',steps:['Fremde Gegenstände wegräumen','Oberfläche abwischen'],microStep:'Fang mit dem ersten Ding an, das du siehst.'},
     {id:8,icon:'🧹',title:'Teppich saugen',time:'6 Min.',energy:'Gründlich',careAlert:'Lautstärke! Kopfhörer anbieten.',steps:['Teppich in Bahnen saugen','Unter dem Tisch saugen'],microStep:'Hol den Staubsauger.'},
     {id:9,icon:'🪣',title:'Boden wischen',time:'8 Min.',energy:'Gründlich',careAlert:'Nasse Füße vermeiden.',steps:['Boden feucht abwischen','Trocknen lassen'],microStep:'Fülle den Eimer.'}
   ]},
   esszimmer: { name:'Esszimmer', icon:'🪑', tasks:[
-    {id:20,icon:'🎨',title:'Malecke & Stifte aufräumen',time:'5 Min.',energy:'Aufwärmen',careAlert:'Sortierwahn verhindern: einfach unsortiert in die Box.',steps:['Stifte in die Box stecken','Blätter in den Wagen legen'],microStep:'Heb 1 Stift auf.'},
+    {id:20,icon:'🎨',title:'Malecke & Stifte aufräumen',time:'5 Min.',energy:'Aufwärmen',careAlert:'Sortierwahn verhindern: einfach unsortiert in die Box.',steps:['Stifte in die Box stecken','Blätter in den Wagen legen'],microStep:'Nimm den ersten Stift, den du siehst.'},
     {id:21,icon:'🛒',title:'Rollwagen aufräumen',time:'4 Min.',energy:'Aufwärmen',careAlert:'',steps:['Müll rauswerfen','Fächer ordnen'],microStep:'Öffne den Wagen.'},
     {id:22,icon:'🪑',title:'Stuhl an den Tisch stellen',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Stuhl heranschieben','Boden darunter prüfen'],microStep:'Schieb den Stuhl an.'},
-    {id:23,icon:'🪑',title:'Sitzkissen & Stühle richten',time:'4 Min.',energy:'Aufwärmen',careAlert:'',steps:['Kissen auf Stühle legen','Stühle an den Tisch schieben'],microStep:'Leg 1 Kissen hin.'},
-    {id:24,icon:'🍽️',title:'Geschirr in Spülmaschine',time:'5 Min.',energy:'Hauptteil',careAlert:'Ekel vor Resten. Handschuhe bereitlegen.',steps:['Reste in den Biomüll','Geschirr in die Spülmaschine'],microStep:'Nimm 1 Teller.'},
+    {id:23,icon:'🪑',title:'Sitzkissen & Stühle richten',time:'4 Min.',energy:'Aufwärmen',careAlert:'',steps:['Kissen auf Stühle legen','Stühle an den Tisch schieben'],microStep:'Nimm das erste Kissen.'},
+    {id:24,icon:'🍽️',title:'Geschirr in Spülmaschine',time:'5 Min.',energy:'Hauptteil',careAlert:'Ekel vor Resten. Handschuhe bereitlegen.',steps:['Reste in den Biomüll','Geschirr in die Spülmaschine'],microStep:'Nimm das erste Teil, das du siehst.'},
     {id:25,icon:'🍽️',title:'Sauberes Geschirr verstauen',time:'5 Min.',energy:'Hauptteil',careAlert:'',steps:['Geschirr in den Schrank','Türen schließen'],microStep:'Öffne den Schrank.'},
     {id:26,icon:'🧹',title:'Boden kehren/saugen',time:'6 Min.',energy:'Hauptteil',careAlert:'',steps:['Krümel wegsaugen','Ecken beachten'],microStep:'Hol den Besen.'},
     {id:27,icon:'🫧',title:'Oberflächen abwischen',time:'5 Min.',energy:'Hauptteil',careAlert:'',steps:['Tisch abwischen','Tücher zur Wäsche'],microStep:'Nimm ein Tuch.'},
-    {id:28,icon:'🖼️',title:'Deko ordnen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Deko gerade rücken','Kram wegräumen'],microStep:'Rück 1 Sache gerade.'},
+    {id:28,icon:'🖼️',title:'Deko ordnen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Deko gerade rücken','Kram wegräumen'],microStep:'Fang mit der ersten Sache an, die schief steht.'},
     {id:29,icon:'🪟',title:'Fenster putzen',time:'8 Min.',energy:'Gründlich',careAlert:'Hoher Kraftaufwand: nur untere Hälfte.',steps:['Glasreiniger einsprühen','Streifenfrei wischen'],microStep:'Sprüh 1x aufs Fenster.'}
   ]},
   flur: { name:'Flur & Treppe', icon:'🪵', tasks:[
-    {id:40,icon:'🧥',title:'Jacken aufhängen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Jacken an die Haken hängen'],microStep:'Heb 1 Jacke auf.'},
-    {id:41,icon:'👟',title:'Schuhe ordnen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['1 Paar im Eingang lassen','Rest ins Regal'],microStep:'Stell 1 Schuh ins Regal.'},
+    {id:40,icon:'🧥',title:'Jacken aufhängen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Jacken an die Haken hängen'],microStep:'Fang mit der ersten Jacke an.'},
+    {id:41,icon:'👟',title:'Schuhe ordnen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['1 Paar im Eingang lassen','Rest ins Regal'],microStep:'Fang mit dem ersten Schuh an.'},
     {id:42,icon:'🗝️',title:'Schlüssel/Taschen ordnen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Taschen & Schlüssel an festen Platz'],microStep:'Heb die Tasche auf.'},
     {id:43,icon:'🚪',title:'Fußmatte ausschütteln',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Matte draußen ausschütteln'],microStep:'Heb die Matte hoch.'},
     {id:44,icon:'🧤',title:'Handlauf abwischen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Handlauf abwischen'],microStep:'Nimm das Tuch.'},
@@ -223,18 +226,18 @@ const DATA = {
   bad_unten: { name:'Bad Unten', icon:'🧼', tasks:[
     {id:70,icon:'🗑️',title:'Müll leeren',time:'2 Min.',energy:'Aufwärmen',careAlert:'Klebrig/nass — Handschuhe.',steps:['Beutel raus','Neuen rein'],microStep:'Geh zum Mülleimer.'},
     {id:71,icon:'🧻',title:'Klopapier prüfen',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Vorrat prüfen','Neue Rolle hinstellen'],microStep:'Schau nach Klopapier.'},
-    {id:72,icon:'🧼',title:'Handtücher checken',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Feuchte in die Wäsche','Frische aufhängen'],microStep:'Nimm 1 Handtuch ab.'},
+    {id:72,icon:'🧼',title:'Handtücher checken',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Feuchte in die Wäsche','Frische aufhängen'],microStep:'Nimm das erste Handtuch ab.'},
     {id:73,icon:'🪞',title:'Spiegel reinigen',time:'3 Min.',energy:'Hauptteil',careAlert:'',steps:['Streifenfrei putzen'],microStep:'Sprüh 1x auf den Spiegel.'},
     {id:74,icon:'🧼',title:'Waschbecken reinigen',time:'5 Min.',energy:'Hauptteil',careAlert:'Nässe-Overload — reizfreie Seife.',steps:['Reste wegspülen','Becken auswischen','Trockenwischen'],microStep:'Dreh den Hahn auf.'},
     {id:75,icon:'🧽',title:'Waschtisch abwischen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Waschtisch abwischen','Schrankfronten putzen'],microStep:'Nimm das Tuch.'},
-    {id:76,icon:'🧴',title:'Duschgel/Schrank ordnen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Flaschen ordnen','Schrank ordnen'],microStep:'Stell 1 Flasche gerade.'},
+    {id:76,icon:'🧴',title:'Duschgel/Schrank ordnen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Flaschen ordnen','Schrank ordnen'],microStep:'Fang mit der ersten Flasche an.'},
     {id:77,icon:'🚽',title:'Toilette reinigen',time:'6 Min.',energy:'Gründlich',careAlert:'Ekel/Geruch — klare Anleitung.',steps:['Becken bürsten','Außen abwischen'],microStep:'Nimm die Bürste.'},
     {id:78,icon:'🪟',title:'Dusche reinigen',time:'10 Min.',energy:'Gründlich',careAlert:'Frustfaktor bei Kalk — Perfektionismus bremsen.',steps:['Glas einsprühen & abziehen','Boden reinigen'],microStep:'Sprüh 1x auf die Wand.'},
     {id:79,icon:'🧹',title:'Boden saugen & wischen',time:'8 Min.',energy:'Gründlich',careAlert:'',steps:['Matte waschen','Boden saugen & wischen'],microStep:'Heb die Matte auf.'}
   ]},
   bad_oben: { name:'Bad Oben', icon:'🛁', tasks:[
     {id:90,icon:'🗑️',title:'Müll & Klopapier Check',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Müll leeren','Klopapier auffüllen'],microStep:'Geh zum Mülleimer.'},
-    {id:91,icon:'🧼',title:'Handtücher tauschen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Benutzte zur Wäsche','Frische aufhängen'],microStep:'Nimm 1 Handtuch ab.'},
+    {id:91,icon:'🧼',title:'Handtücher tauschen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Benutzte zur Wäsche','Frische aufhängen'],microStep:'Nimm das erste Handtuch ab.'},
     {id:92,icon:'🧼',title:'Waschbecken reinigen',time:'5 Min.',energy:'Hauptteil',careAlert:'',steps:['Becken & Armaturen reinigen'],microStep:'Dreh den Hahn auf.'},
     {id:93,icon:'🧽',title:'Waschtisch wischen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Oberflächen abwischen'],microStep:'Nimm das Tuch.'},
     {id:94,icon:'🚽',title:'Toilette reinigen',time:'6 Min.',energy:'Gründlich',careAlert:'',steps:['Innen bürsten','Außen abwischen'],microStep:'Nimm die Bürste.'},
@@ -244,35 +247,47 @@ const DATA = {
     {id:98,icon:'📋',title:'Endkontrolle',time:'2 Min.',energy:'Gründlich',careAlert:'',steps:['Alles prüfen'],microStep:'Schau dich einmal um.'}
   ]},
   theas_zimmer: { name:'Theas Zimmer', icon:'❤️', tasks:[
-    {id:120,icon:'🗑️',title:'Müll einsammeln',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Müll einsammeln','In den Eimer werfen'],microStep:'Heb 1 Stück Müll auf.'},
-    {id:121,icon:'🍽️',title:'Geschirr nach unten bringen',time:'4 Min.',energy:'Aufwärmen',careAlert:'Dopamin-Tipp: direkt mit Spülmaschinen-Gang verbinden.',steps:['Geschirr einsammeln','In die Spülmaschine'],microStep:'Nimm 1 Glas.'},
-    {id:122,icon:'🧺',title:'Schmutzwäsche einsammeln',time:'4 Min.',energy:'Aufwärmen',careAlert:'Anti-Prokrastination: "Finde 5 Kleidungsstücke."',steps:['Wäsche einsammeln','In den Wäschesack'],microStep:'Finde 1 Kleidungsstück.'},
+    {id:120,icon:'🗑️',title:'Müll einsammeln',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Müll einsammeln','In den Eimer werfen'],microStep:'Fang mit dem ersten Stück Müll an, das du siehst.'},
+    {id:121,icon:'🍽️',title:'Geschirr nach unten bringen',time:'4 Min.',energy:'Aufwärmen',careAlert:'Dopamin-Tipp: direkt mit Spülmaschinen-Gang verbinden.',steps:['Geschirr einsammeln','In die Spülmaschine'],microStep:'Nimm das erste Teil, das du siehst.'},
+    {id:122,icon:'🧺',title:'Schmutzwäsche einsammeln',time:'4 Min.',energy:'Aufwärmen',careAlert:'Anti-Prokrastination: "Finde 5 Kleidungsstücke."',steps:['Wäsche einsammeln','In den Wäschesack'],microStep:'Fang mit dem ersten Kleidungsstück an.'},
     {id:123,icon:'🛏️',title:'Bett machen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Decke glattziehen','Kissen hinlegen'],microStep:'Zieh die Decke glatt.'},
-    {id:124,icon:'👕',title:'Wäsche einräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'',steps:['Zusammenfalten','In den Schrank'],microStep:'Falte 1 Teil.'},
-    {id:125,icon:'🧥',title:'Kleidung aufhängen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Auf Bügel hängen','In den Schrank'],microStep:'Heb 1 Kleidungsstück auf.'},
-    {id:126,icon:'💻',title:'Schreibtisch aufräumen',time:'8 Min.',energy:'Hauptteil',careAlert:'Fokus-Gefahr bei alten Zetteln. Timer stellen.',steps:['Sachen einräumen','Unnötiges wegwerfen'],microStep:'Räum 1 Ding weg.'},
-    {id:127,icon:'💄',title:'Schminktisch aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'',steps:['Produkte ordnen','Abwischen'],microStep:'Stell 1 Produkt gerade.'},
-    {id:128,icon:'📚',title:'Regale ordnen',time:'8 Min.',energy:'Hauptteil',careAlert:'',steps:['Sortieren','Boxen nutzen'],microStep:'Räum 1 Buch ein.'},
+    {id:124,icon:'👕',title:'Wäsche einräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'',steps:['Zusammenfalten','In den Schrank'],microStep:'Fang mit dem ersten Teil an.'},
+    {id:125,icon:'🧥',title:'Kleidung aufhängen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Auf Bügel hängen','In den Schrank'],microStep:'Fang mit dem ersten Kleidungsstück an.'},
+    {id:126,icon:'💻',title:'Schreibtisch aufräumen',time:'8 Min.',energy:'Hauptteil',careAlert:'Fokus-Gefahr bei alten Zetteln. Timer stellen.',steps:['Sachen einräumen','Unnötiges wegwerfen'],microStep:'Fang mit dem ersten Ding an, das du siehst.'},
+    {id:127,icon:'💄',title:'Schminktisch aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'',steps:['Produkte ordnen','Abwischen'],microStep:'Fang mit dem ersten Produkt an.'},
+    {id:128,icon:'📚',title:'Regale ordnen',time:'8 Min.',energy:'Hauptteil',careAlert:'',steps:['Sortieren','Boxen nutzen'],microStep:'Nimm das erste Buch, das du siehst.'},
     {id:129,icon:'🧹',title:'Boden sauber machen',time:'8 Min.',energy:'Gründlich',careAlert:'',steps:['Saugen','Wischen'],microStep:'Hol den Staubsauger.'},
     {id:130,icon:'🪟',title:'Fenster & Spiegel',time:'6 Min.',energy:'Gründlich',careAlert:'',steps:['Fensterbank abwischen','Spiegel putzen'],microStep:'Nimm das Tuch.'},
     {id:131,icon:'🕯️',title:'Wohlfühl-Kleinigkeiten',time:'3 Min.',energy:'Gründlich',careAlert:'',steps:['Lüften','Deko richten'],microStep:'Öffne das Fenster.'}
   ]},
   noas_zimmer: { name:'Noas Zimmer', icon:'💜', tasks:[
-    {id:150,icon:'🗑️',title:'Müll in den Eimer',time:'2 Min.',energy:'Aufwärmen',careAlert:'Keine Grundsatzdiskussion über "Müll oder nicht" — einfach machen.',steps:['Müll vom Boden und Schreibtisch einsammeln','In den Zimmer-Mülleimer werfen'],microStep:'Heb 1 Stück Müll auf.'},
+    {id:150,icon:'🗑️',title:'Müll in den Eimer',time:'2 Min.',energy:'Aufwärmen',careAlert:'Keine Grundsatzdiskussion über "Müll oder nicht" — einfach machen.',steps:['Müll vom Boden und Schreibtisch einsammeln','In den Zimmer-Mülleimer werfen'],microStep:'Fang mit dem ersten Stück Müll an, das du siehst.'},
     {id:160,icon:'🚮',title:'Vollen Mülleimer rausbringen',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Mülleimer aus dem Zimmer nehmen','Nach unten in die graue Tonne leeren','Eimer zurückstellen'],microStep:'Heb den Mülleimer hoch.'},
-    {id:151,icon:'🍽️',title:'Geschirr nach unten bringen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Gläser & Teller einsammeln','In die Küche bringen'],microStep:'Nimm 1 Glas.'},
-    {id:152,icon:'🧺',title:'Schmutzwäsche in den Wäschesack',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Getragene Kleidung vom Boden und Stuhl einsammeln','In den Wäschesack legen'],microStep:'Heb 1 Kleidungsstück auf.'},
+    {id:151,icon:'🍽️',title:'Geschirr nach unten bringen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Gläser & Teller einsammeln','In die Küche bringen'],microStep:'Nimm das erste Teil, das du siehst.'},
+    {id:152,icon:'🧺',title:'Schmutzwäsche in den Wäschesack',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Getragene Kleidung vom Boden und Stuhl einsammeln','In den Wäschesack legen'],microStep:'Fang mit dem ersten Kleidungsstück an.'},
     {id:161,icon:'🔦',title:'Wäsche hinter dem Bett prüfen',time:'2 Min.',energy:'Aufwärmen',careAlert:'Eigener Schritt, da leicht übersehen.',steps:['Hinter dem Bett nachschauen','Gefundene Wäsche in den Wäschesack legen'],microStep:'Schau hinter dem Bett nach.'},
-    {id:162,icon:'👕',title:'Saubere Wäsche in den Schrank',time:'5 Min.',energy:'Hauptteil',careAlert:'',steps:['Saubere Wäsche zusammenlegen','Ordentlich in den Schrank legen'],microStep:'Falte 1 Teil.'},
+    {id:162,icon:'👕',title:'Saubere Wäsche in den Schrank',time:'5 Min.',energy:'Hauptteil',careAlert:'',steps:['Saubere Wäsche zusammenlegen','Ordentlich in den Schrank legen'],microStep:'Fang mit dem ersten Teil an.'},
     {id:153,icon:'🛏️',title:'Bett machen',time:'3 Min.',energy:'Aufwärmen',careAlert:'Sensorischer Trigger: knitterfreie Decke gibt Ruhe.',steps:['Decke komplett glattziehen','Kissen ordentlich hinlegen'],microStep:'Zieh die Decke glatt.'},
-    {id:163,icon:'💻',title:'Schreibtisch aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'Fokus-Gefahr bei alten Zetteln/Notizen. Timer stellen.',steps:['Lose Gegenstände an festen Platz räumen','Unnötige Zettel wegwerfen','Oberfläche freiräumen'],microStep:'Räum 1 Ding vom Schreibtisch weg.'},
-    {id:164,icon:'💄',title:'Schminktisch aufräumen',time:'5 Min.',energy:'Hauptteil',careAlert:'Feste Plätze für Produkte beibehalten — keine Umsortierung.',steps:['Produkte an ihren festen Platz stellen','Oberfläche kurz abwischen'],microStep:'Stell 1 Produkt an seinen Platz.'},
-    {id:154,icon:'✏️',title:'Stifte & Kleinkram ordnen',time:'5 Min.',energy:'Hauptteil',careAlert:'Sortier-Overload vermeiden — feste Becher nutzen.',steps:['Stifte in die Becher stecken','Oberflächen frei halten'],microStep:'Räum 1 Stift ein.'},
-    {id:156,icon:'📚',title:'Regale aufräumen',time:'7 Min.',energy:'Hauptteil',careAlert:'Starrheit beachten: jedes Buch hat festen Platz.',steps:['Sortieren','Auf festen Platz stellen'],microStep:'Räum 1 Buch ein.'},
+    {id:163,icon:'💻',title:'Schreibtisch aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'Fokus-Gefahr bei alten Zetteln/Notizen. Timer stellen.',steps:['Lose Gegenstände an festen Platz räumen','Unnötige Zettel wegwerfen','Oberfläche freiräumen'],microStep:'Fang mit dem ersten Ding auf dem Schreibtisch an.'},
+    {id:164,icon:'💄',title:'Schminktisch aufräumen',time:'5 Min.',energy:'Hauptteil',careAlert:'Feste Plätze für Produkte beibehalten — keine Umsortierung.',steps:['Produkte an ihren festen Platz stellen','Oberfläche kurz abwischen'],microStep:'Fang mit dem ersten Produkt an.'},
+    {id:154,icon:'✏️',title:'Stifte & Kleinkram ordnen',time:'5 Min.',energy:'Hauptteil',careAlert:'Sortier-Overload vermeiden — feste Becher nutzen.',steps:['Stifte in die Becher stecken','Oberflächen frei halten'],microStep:'Nimm den ersten Stift, den du siehst.'},
+    {id:156,icon:'📚',title:'Regale aufräumen',time:'7 Min.',energy:'Hauptteil',careAlert:'Starrheit beachten: jedes Buch hat festen Platz.',steps:['Sortieren','Auf festen Platz stellen'],microStep:'Nimm das erste Buch, das du siehst.'},
     {id:157,icon:'🧽',title:'Oberflächen abwischen',time:'4 Min.',energy:'Hauptteil',careAlert:'Klebriges Gefühl vermeiden — Handschuhe.',steps:['Kommoden abwischen','Staub entfernen'],microStep:'Nimm das Tuch.'},
-    {id:165,icon:'📦',title:'Boden aufräumen',time:'5 Min.',energy:'Hauptteil',careAlert:'Eigener Schritt vor dem Saugen, damit klar ist, wann der Boden "frei" ist.',steps:['Alle Gegenstände vom Boden aufheben','An ihren festen Platz räumen'],microStep:'Heb 1 Ding vom Boden auf.'},
+    {id:165,icon:'📦',title:'Boden aufräumen',time:'5 Min.',energy:'Hauptteil',careAlert:'Eigener Schritt vor dem Saugen, damit klar ist, wann der Boden "frei" ist.',steps:['Alle Gegenstände vom Boden aufheben','An ihren festen Platz räumen'],microStep:'Fang mit dem ersten Ding auf dem Boden an.'},
     {id:158,icon:'🧹',title:'Boden saugen',time:'6 Min.',energy:'Gründlich',careAlert:'Lärm! Kopfhörer aufsetzen lassen.',steps:['Boden absaugen','Unter Möbeln saugen'],microStep:'Hol den Staubsauger.'},
     {id:159,icon:'🪣',title:'Boden wischen',time:'6 Min.',energy:'Gründlich',careAlert:'',steps:['Holzreiniger nutzen','Trocknen lassen'],microStep:'Fülle den Eimer.'}
+  ]},
+  jakob_lioba_zimmer: { name:'Jakob & Liobas Zimmer', icon:'🧸', tasks:[
+    {id:200,icon:'🧱',title:'Lego in die Lego-Kiste',time:'4 Min.',energy:'Aufwärmen',careAlert:'Klare, einzige Regel: ALLES Lego kommt in eine Kiste — kein Sortieren nach Farbe/Set nötig.',steps:['Lego-Steine vom Boden einsammeln','Alle in die Lego-Kiste werfen'],microStep:'Fang mit dem ersten Lego-Stein an.'},
+    {id:201,icon:'🧸',title:'Kuscheltiere aufs Bett legen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Kuscheltiere einsammeln','Ordentlich aufs Bett legen'],microStep:'Fang mit dem ersten Kuscheltier an.'},
+    {id:202,icon:'🍳',title:'Spielküche aufräumen',time:'4 Min.',energy:'Aufwärmen',careAlert:'',steps:['Spielzeug-Lebensmittel & Geschirr einsammeln','Zurück in die Spielküche räumen'],microStep:'Fang mit dem ersten Teil an.'},
+    {id:203,icon:'🐴',title:'Schleichtiere zurück in die Kiste',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Tiere vom Boden einsammeln','In die Kiste legen'],microStep:'Fang mit dem ersten Tier an.'},
+    {id:204,icon:'👗',title:'Verkleidungen in die Kiste',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Verkleidungssachen einsammeln','In die Verkleidungskiste legen'],microStep:'Fang mit der ersten Verkleidung an.'},
+    {id:205,icon:'🎨',title:'Malstifte & Bilder wegräumen',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Stifte in den Becher','Bilder in die Mappe legen'],microStep:'Fang mit dem ersten Stift an.'},
+    {id:206,icon:'🗑️',title:'Müll in den Mülleimer',time:'2 Min.',energy:'Aufwärmen',careAlert:'',steps:['Papier & Verpackungen einsammeln','In den Mülleimer werfen'],microStep:'Fang mit dem ersten Stück Müll an.'},
+    {id:207,icon:'📚',title:'Bücher & Spiele verstauen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Bücher ins Regal stellen','Spiele in die Kiste legen'],microStep:'Fang mit dem ersten Buch an.'},
+    {id:208,icon:'🧦',title:'Spielsachen vom Boden ins Regal',time:'5 Min.',energy:'Hauptteil',careAlert:'Größte Hürde für Jakob — bei Bedarf gemeinsam machen, nicht allein lassen.',steps:['Übrige Spielsachen vom Boden aufheben','An ihren festen Platz im Regal stellen'],microStep:'Fang mit dem nächstbesten Spielzeug an.'},
+    {id:209,icon:'⭐',title:'Letzter Check',time:'2 Min.',energy:'Hauptteil',careAlert:'Gemeinsam mit Erwachsenem machen — gibt Abschluss-Gefühl.',steps:['Einmal durchs Zimmer schauen','Prüfen ob noch was fehlt'],microStep:'Schau dich einmal im Zimmer um.'}
   ]}
 };
 
@@ -395,6 +410,10 @@ init();
 /* ============================================================
    KINDER-ANSICHT: ROUTER
    ============================================================ */
+function getHomeLink() {
+  return window.location.href.split('?')[0];
+}
+
 function renderChildView(params) {
   const childKey = params.get('child');
   const roomKey = params.get('room');
@@ -421,6 +440,7 @@ function renderTeenMode(container, c, room, tasks) {
   container.innerHTML = `
     <div class="teen-body">
       <div class="kid-header teen-header">
+        <a href="${getHomeLink()}" class="kid-home-link">🏠 Start</a>
         <h1>${room.icon} ${room.name}</h1>
         <p>Liste · ${total} Aufgaben</p>
         <div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div>
@@ -464,12 +484,13 @@ function updateTeenProgress(total) {
    ============================================================ */
 function renderFocusMode(container, c, room, tasks) {
   let idx = 0;
-  let started = false;
+  let firstTaskStarted = false; // only the very first task needs the barrier-breaking tap
   const total = tasks.length;
 
   container.innerHTML = `
     <div class="focus-body">
       <div class="kid-header focus-header">
+        <a href="${getHomeLink()}" class="kid-home-link">🏠 Start</a>
         <h1>${room.icon} ${room.name}</h1>
         <p>Hi ${c.name}! Eine Aufgabe nach der anderen 🌟</p>
         <div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div>
@@ -490,37 +511,52 @@ function renderFocusMode(container, c, room, tasks) {
       return;
     }
     const t = tasks[idx];
-    started = false;
-    stage.innerHTML = `
-      <div class="focus-card">
-        <div class="focus-time">⏱ ${t.time}</div>
-        <div class="focus-icon">${t.icon}</div>
-        <div class="focus-title">${t.title}</div>
-        <div class="focus-micro" id="microBox">👉 Erster Schritt: ${t.microStep}</div>
-        <ul class="focus-steps" id="stepsList" style="display:none;">${t.steps.map(s => `<li>${s}</li>`).join('')}</ul>
-        ${t.careAlert ? `<div class="focus-care">💡 ${t.careAlert}</div>` : ''}
-        <button class="focus-go-btn" id="goBtn">Los geht's! 🚀</button>
-        <button class="focus-skip" id="skipBtn">Diese Aufgabe später</button>
-        <div class="focus-dots">${tasks.map((_, i) => `<div class="focus-dot ${i < idx ? 'done' : ''}"></div>`).join('')}</div>
-      </div>`;
+    const isFirstTask = idx === 0 && !firstTaskStarted;
 
-    document.getElementById('goBtn').onclick = () => {
-      if (!started) {
-        // First tap: reveal full steps, lower the barrier further
-        started = true;
-        document.getElementById('microBox').style.display = 'none';
-        document.getElementById('stepsList').style.display = 'block';
-        document.getElementById('goBtn').textContent = 'Fertig! ✅';
-      } else {
+    if (isFirstTask) {
+      // BARRIER-BREAKING SCREEN — only ever shown once, for the very first task
+      stage.innerHTML = `
+        <div class="focus-card">
+          <div class="focus-time">⏱ ${t.time}</div>
+          <div class="focus-icon">${t.icon}</div>
+          <div class="focus-title">${t.title}</div>
+          <div class="focus-micro" id="microBox">👉 Erster Schritt: ${t.microStep}</div>
+          ${t.careAlert ? `<div class="focus-care">💡 ${t.careAlert}</div>` : ''}
+          <button class="focus-go-btn" id="goBtn">Los geht's! 🚀</button>
+          <button class="focus-skip" id="skipBtn">Diese Aufgabe später</button>
+          <div class="focus-dots">${tasks.map((_, i) => `<div class="focus-dot ${i < idx ? 'done' : ''}"></div>`).join('')}</div>
+        </div>`;
+      document.getElementById('goBtn').onclick = () => {
+        firstTaskStarted = true;
+        renderStage(); // re-render same task, now showing full steps + Fertig-button directly
+      };
+      document.getElementById('skipBtn').onclick = () => {
+        tasks.push(tasks.splice(idx, 1)[0]);
+        renderStage();
+      };
+    } else {
+      // FLOW SCREEN — steps already visible, single "Fertig" tap moves straight to next task
+      stage.innerHTML = `
+        <div class="focus-card">
+          <div class="focus-time">⏱ ${t.time}</div>
+          <div class="focus-icon">${t.icon}</div>
+          <div class="focus-title">${t.title}</div>
+          <ul class="focus-steps">${t.steps.map(s => `<li>${s}</li>`).join('')}</ul>
+          ${t.careAlert ? `<div class="focus-care">💡 ${t.careAlert}</div>` : ''}
+          <button class="focus-go-btn" id="goBtn">Fertig! ✅</button>
+          <button class="focus-skip" id="skipBtn">Diese Aufgabe später</button>
+          <div class="focus-dots">${tasks.map((_, i) => `<div class="focus-dot ${i < idx ? 'done' : ''}"></div>`).join('')}</div>
+        </div>`;
+      document.getElementById('goBtn').onclick = () => {
         idx++;
         updateFocusProgress();
+        renderStage(); // moves straight on — no repeated "Los geht's" barrier
+      };
+      document.getElementById('skipBtn').onclick = () => {
+        tasks.push(tasks.splice(idx, 1)[0]);
         renderStage();
-      }
-    };
-    document.getElementById('skipBtn').onclick = () => {
-      tasks.push(tasks.splice(idx, 1)[0]); // move to end
-      renderStage();
-    };
+      };
+    }
   }
 
   function updateFocusProgress() {
@@ -542,6 +578,7 @@ function renderStarMode(container, c, room, tasks) {
   container.innerHTML = `
     <div class="star-body">
       <div class="kid-header star-header">
+        <a href="${getHomeLink()}" class="kid-home-link kid-home-link--icon">🏠</a>
         <h1>⭐ ${room.name}-Mission</h1>
         <p>Sammle Sterne, ${c.name}!</p>
       </div>
