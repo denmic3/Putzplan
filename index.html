@@ -151,8 +151,9 @@
   .star-slot{width:34px;height:34px;border-radius:50%;background:#eef0f5;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:transform 0.3s;}
   .star-slot.filled{background:#fff8e1;transform:scale(1.15);}
   .star-stage{padding:20px;}
-  .star-card{background:white;border-radius:24px;box-shadow:0 8px 28px rgba(74,122,255,0.18);padding:30px 20px;text-align:center;}
-  .star-icon{font-size:4.5rem;margin-bottom:8px;}
+  .star-card{background:white;border-radius:24px;box-shadow:0 8px 28px rgba(74,122,255,0.18);padding:20px;text-align:center;}
+  .star-scene{border-radius:18px;padding:28px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 12px rgba(0,0,0,0.04);}
+  .star-scene-icon{font-size:5.5rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.12));}
   .star-title{font-size:1.4rem;font-weight:900;color:#1a2e4a;}
   .star-micro{font-size:1.1rem;font-weight:800;color:#4a7aff;margin-top:10px;}
   .star-btn{display:block;width:100%;background:linear-gradient(135deg,#4a7aff,#3a63e0);color:white;border:none;font-family:'Quicksand',sans-serif;font-size:1.2rem;font-weight:900;padding:18px;border-radius:16px;margin-top:20px;cursor:pointer;}
@@ -161,14 +162,20 @@
   @keyframes starpop{0%{opacity:0;transform:scale(0.3);}40%{opacity:1;transform:scale(1.3);}100%{opacity:0;transform:scale(1.6);}}
 
   /* ---------- MINI MODE (Lioba) ---------- */
-  .mini-body{background:linear-gradient(180deg,#fffbe8,#fff);min-height:100vh;display:flex;flex-direction:column;font-family:'Quicksand',sans-serif;}
-  .mini-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;}
-  .mini-icon{font-size:7rem;margin-bottom:18px;}
+  .mini-body{background:linear-gradient(180deg,#fffbe8,#fff);min-height:100vh;display:flex;flex-direction:column;font-family:'Quicksand',sans-serif;position:relative;overflow:hidden;}
+  .mini-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;position:relative;}
+  .mini-scene{width:100%;max-width:300px;border-radius:28px;padding:36px 20px;margin-bottom:22px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 14px rgba(0,0,0,0.05);}
+  .mini-scene-icon{font-size:7rem;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.12));}
   .mini-title{font-size:1.6rem;font-weight:900;color:#1a2e4a;margin-bottom:24px;}
   .mini-btn{background:linear-gradient(135deg,#f9c846,#f7b733);border:none;color:#1a2e4a;font-family:'Quicksand',sans-serif;font-size:1.3rem;font-weight:900;padding:24px 48px;border-radius:99px;box-shadow:0 8px 24px rgba(249,200,70,0.4);cursor:pointer;}
   .mini-done{display:none;flex-direction:column;align-items:center;}
   .mini-done.show{display:flex;}
-  .mini-confetti{font-size:5rem;}
+  .mini-confetti-stage{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50;}
+  .confetti-piece{position:absolute;top:-40px;animation:confettiFall linear forwards;}
+  @keyframes confettiFall{
+    0%{transform:translateY(0) rotate(0deg);opacity:1;}
+    100%{transform:translateY(110vh) rotate(360deg);opacity:0.9;}
+  }
 </style>
 </head>
 <body>
@@ -583,6 +590,22 @@ function renderStarMode(container, c, room, tasks) {
   let idx = 0;
   const total = tasks.length;
 
+  // Thematic background gradients per task — gives each task its own "scene"
+  // instead of a flat white card, closer to picture-book illustration style
+  const sceneThemes = {
+    200: 'linear-gradient(160deg,#dbeafe,#bfdbfe)', // Lego — blue
+    201: 'linear-gradient(160deg,#fef3c7,#fde68a)', // Kuscheltiere — warm yellow
+    202: 'linear-gradient(160deg,#fce7f3,#fbcfe8)', // Spielküche — pink
+    203: 'linear-gradient(160deg,#d1fae5,#a7f3d0)', // Schleichtiere — green
+    204: 'linear-gradient(160deg,#ede9fe,#ddd6fe)', // Verkleidung — purple
+    205: 'linear-gradient(160deg,#ffe4e6,#fecdd3)', // Malstifte — rose
+    206: 'linear-gradient(160deg,#e0e7ff,#c7d2fe)', // Müll — indigo
+    207: 'linear-gradient(160deg,#fef9c3,#fef08a)', // Bücher — light yellow
+    208: 'linear-gradient(160deg,#cffafe,#a5f3fc)', // Spielsachen — cyan
+    209: 'linear-gradient(160deg,#fae8ff,#f5d0fe)'  // Check — light purple
+  };
+  const defaultScene = 'linear-gradient(160deg,#eaf2ff,#dbeafe)';
+
   container.innerHTML = `
     <div class="star-body">
       <div class="kid-header star-header">
@@ -609,16 +632,21 @@ function renderStarMode(container, c, room, tasks) {
     if (idx >= total) {
       stage.innerHTML = `
         <div class="star-card">
-          <div class="star-icon">🏆</div>
+          <div class="star-scene" style="background:linear-gradient(160deg,#fff9db,#fef3c7);">
+            <div class="star-scene-icon">🏆</div>
+          </div>
           <div class="star-title">Super gemacht, ${c.name}!</div>
           <div class="star-micro">Du hast alle Sterne gesammelt! ⭐⭐⭐</div>
         </div>`;
       return;
     }
     const t = tasks[idx];
+    const scene = sceneThemes[t.id] || defaultScene;
     stage.innerHTML = `
       <div class="star-card">
-        <div class="star-icon">${t.icon}</div>
+        <div class="star-scene" style="background:${scene};">
+          <div class="star-scene-icon">${t.icon}</div>
+        </div>
         <div class="star-title">${t.title}</div>
         <div class="star-micro">${t.microStep}</div>
         <button class="star-btn" id="doneBtn">Geschafft! ⭐</button>
@@ -642,25 +670,75 @@ function renderStarMode(container, c, room, tasks) {
    MODUS 4 — LIOBA (3): ein Bild, ein Knopf, ein Erfolg
    ============================================================ */
 function renderMiniMode(container, c, room, tasks) {
-  const t = tasks[0] || { icon: '🧽', title: 'Mithelfen', microStep: 'Leg den Lappen in die Spüle.' };
+  let idx = 0;
+  const total = tasks.length || 1;
+  const fallbackTask = { icon: '🧽', title: 'Mithelfen', microStep: 'Leg den Lappen in die Spüle.' };
+
+  const sceneThemes = {
+    201: 'linear-gradient(160deg,#fef3c7,#fde68a)', // Kuscheltiere
+    202: 'linear-gradient(160deg,#fce7f3,#fbcfe8)', // Spielküche
+    203: 'linear-gradient(160deg,#d1fae5,#a7f3d0)', // Schleichtiere
+    204: 'linear-gradient(160deg,#ede9fe,#ddd6fe)'  // Verkleidung
+  };
+  const defaultScene = 'linear-gradient(160deg,#fff3c4,#ffe9a8)';
+
   container.innerHTML = `
     <div class="mini-body">
-      <div class="mini-stage">
-        <div id="miniTask">
-          <div class="mini-icon">${t.icon}</div>
-          <div class="mini-title">${t.microStep || t.title}</div>
-          <button class="mini-btn" id="miniBtn">Geschafft! 🎉</button>
-        </div>
-        <div class="mini-done" id="miniDone">
-          <div class="mini-confetti">🎊</div>
-          <div class="mini-title">Toll gemacht, ${c.name}!</div>
-        </div>
-      </div>
+      <div class="mini-stage" id="miniStage"></div>
     </div>`;
-  document.getElementById('miniBtn').onclick = () => {
-    document.getElementById('miniTask').style.display = 'none';
-    document.getElementById('miniDone').classList.add('show');
-  };
+
+  function renderStage() {
+    const stage = document.getElementById('miniStage');
+
+    if (idx >= total) {
+      // ALL tasks done — final celebration
+      stage.innerHTML = `
+        <div id="miniDone" class="mini-done show">
+          <div class="mini-confetti-stage" id="confettiStage"></div>
+          <div class="mini-scene" style="background:linear-gradient(160deg,#fff9db,#fef3c7);">
+            <div class="mini-scene-icon">🌟</div>
+          </div>
+          <div class="mini-title">Toll gemacht, ${c.name}!</div>
+        </div>`;
+      launchConfetti();
+      return;
+    }
+
+    const t = tasks[idx] || fallbackTask;
+    const scene = sceneThemes[t.id] || defaultScene;
+
+    stage.innerHTML = `
+      <div id="miniTask">
+        <div class="mini-scene" style="background:${scene};">
+          <div class="mini-scene-icon">${t.icon}</div>
+        </div>
+        <div class="mini-title">${t.microStep || t.title}</div>
+        <button class="mini-btn" id="miniBtn">Geschafft! 🎉</button>
+      </div>`;
+
+    document.getElementById('miniBtn').onclick = () => {
+      idx++;
+      renderStage();
+    };
+  }
+
+  renderStage();
+}
+
+function launchConfetti() {
+  const stage = document.getElementById('confettiStage');
+  if (!stage) return;
+  const pieces = ['🎉','🎊','⭐','💛','🌟'];
+  for (let i = 0; i < 24; i++) {
+    const span = document.createElement('span');
+    span.className = 'confetti-piece';
+    span.textContent = pieces[Math.floor(Math.random() * pieces.length)];
+    span.style.left = Math.random() * 100 + '%';
+    span.style.animationDelay = (Math.random() * 0.4) + 's';
+    span.style.animationDuration = (1.6 + Math.random() * 0.8) + 's';
+    span.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
+    stage.appendChild(span);
+  }
 }
 </script>
 </body>
