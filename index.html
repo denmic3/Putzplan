@@ -218,7 +218,9 @@ const CHILDREN = {
   noa:   { name:'Noa',   age:16, tag:'ASS & ADHS · Struktur-Modus',     icon:'💜', color:'#7c6fcd', bg:'#f0ecff', mode:'teen' },
   thea:  { name:'Thea',  age:13, tag:'ADHS · Start-Hilfe-Modus',        icon:'❤️', color:'#ff6b6b', bg:'#fff0f0', mode:'focus' },
   jakob: { name:'Jakob', age:6,  tag:'ADHS · Sterne-Sammel-Modus',      icon:'💙', color:'#4a7aff', bg:'#eef5ff', mode:'star' },
-  lioba: { name:'Lioba', age:3,  tag:'Mithelfen · Mini-Modus',          icon:'💛', color:'#f9c846', bg:'#fffbec', mode:'mini' }
+  lioba: { name:'Lioba', age:3,  tag:'Mithelfen · Mini-Modus',          icon:'💛', color:'#f9c846', bg:'#fffbec', mode:'mini' },
+  sarah: { name:'Sarah', age:null, tag:'Eltern · Listen-Modus',         icon:'🌸', color:'#e879a0', bg:'#fdf0f5', mode:'teen' },
+  michael: { name:'Michael', age:null, tag:'Eltern · Listen-Modus',     icon:'🔵', color:'#1a9e8f', bg:'#e6f7f5', mode:'teen' }
 };
 
 /* ============================================================
@@ -334,6 +336,17 @@ const DATA = {
     {id:207,icon:'📚',title:'Bücher & Spiele verstauen',time:'4 Min.',energy:'Hauptteil',careAlert:'',steps:['Bücher ins Regal stellen','Spiele in die Kiste legen'],microStep:'Fang mit dem ersten Buch an.'},
     {id:208,icon:'🧦',title:'Spielsachen vom Boden ins Regal',time:'5 Min.',energy:'Hauptteil',careAlert:'Größte Hürde für Jakob — bei Bedarf gemeinsam machen, nicht allein lassen.',steps:['Übrige Spielsachen vom Boden aufheben','An ihren festen Platz im Regal stellen'],microStep:'Fang mit dem nächstbesten Spielzeug an.'},
     {id:209,icon:'⭐',title:'Letzter Check',time:'2 Min.',energy:'Hauptteil',careAlert:'Gemeinsam mit Erwachsenem machen — gibt Abschluss-Gefühl.',steps:['Einmal durchs Zimmer schauen','Prüfen ob noch was fehlt'],microStep:'Schau dich einmal im Zimmer um.'}
+  ]},
+  elternschlafzimmer: { name:'Elternschlafzimmer', icon:'🛌', tasks:[
+    {id:400,icon:'🧺',title:'Schmutzwäsche in die Wäsche',time:'3 Min.',energy:'Aufwärmen',careAlert:'',steps:['Schmutzige Kleidung vom Boden/Stuhl einsammeln','In den Wäschekorb legen','Vollen Korb in den Waschkeller bringen'],microStep:'Fang mit dem ersten Kleidungsstück an.'},
+    {id:401,icon:'👕',title:'Saubere Wäsche ordentlich verstauen',time:'8 Min.',energy:'Hauptteil',careAlert:'',steps:['Saubere Wäsche zusammenfalten','Kleidung in den Schrank hängen oder legen','Nichts auf dem Boden oder Stuhl liegenlassen'],microStep:'Fang mit dem ersten Teil an.'},
+    {id:402,icon:'🛏️',title:'Betten frisch beziehen',time:'10 Min.',energy:'Hauptteil',careAlert:'',steps:['Alte Bettwäsche abziehen','Frische Bezüge aufziehen','Kissen ordentlich hinlegen','Decken glattziehen'],microStep:'Zieh zuerst den alten Bezug ab.'},
+    {id:403,icon:'📚',title:'Regal sortieren',time:'8 Min.',energy:'Hauptteil',careAlert:'',steps:['Bücher gerade stellen','Kleinigkeiten in Körbe/Fächer räumen','Nichts lose auf den Regalbrettern liegenlassen'],microStep:'Räum das erste Buch gerade.'},
+    {id:404,icon:'🗄️',title:'Auf den Schränken aufräumen',time:'6 Min.',energy:'Hauptteil',careAlert:'',steps:['Koffer & Körbe auf dem antiken Schrank ordnen','Dinge auf dem weißen Schrank gerade stellen','Nichts lose herumliegen lassen'],microStep:'Fang mit dem antiken Schrank an.'},
+    {id:405,icon:'🪞',title:'Spiegelflächen putzen',time:'5 Min.',energy:'Hauptteil',careAlert:'',steps:['Spiegel am antiken Schrank mit Glasreiniger putzen','Streifenfrei trockenwischen','Ggf. weiteren Spiegel im Zimmer putzen'],microStep:'Sprüh 1x auf den Spiegel.'},
+    {id:406,icon:'🧽',title:'Staub wischen',time:'7 Min.',energy:'Hauptteil',careAlert:'',steps:['Nachttisch abwischen','Kommode & Schrankoberflächen abwischen','Fensterbänke und Heizkörper nicht vergessen'],microStep:'Nimm das Staubtuch.'},
+    {id:407,icon:'🧹',title:'Boden saugen',time:'8 Min.',energy:'Gründlich',careAlert:'',steps:['Gesamten Holzboden gründlich saugen','Unter dem Bett nicht vergessen','Ecken und Kanten beachten'],microStep:'Hol den Staubsauger.'},
+    {id:408,icon:'🪣',title:'Boden wischen',time:'8 Min.',energy:'Gründlich',careAlert:'',steps:['Holzreiniger ins Wischwasser geben','Boden feucht wischen','Trocknen lassen — nicht drauflaufen!'],microStep:'Fülle den Eimer.'}
   ]}
 };
 
@@ -372,7 +385,7 @@ function buildChildPicker() {
     el.innerHTML = `
       <div class="child-avatar" style="background:${c.bg};">${c.icon}</div>
       <div class="child-info">
-        <div class="child-name">${c.name} <span style="font-weight:600;color:var(--muted);">· ${c.age} J.</span></div>
+        <div class="child-name">${c.name} ${c.age ? `<span style="font-weight:600;color:var(--muted);">· ${c.age} J.</span>` : ''}</div>
         <div class="child-tag">${c.tag}</div>
       </div>
       <div class="child-check"></div>`;
