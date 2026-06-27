@@ -4,260 +4,1111 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Familien Putzplan Zentrale</title>
-
-<!-- ============== PWA / HOMESCREEN-APP EINSTELLUNGEN ============== -->
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1a2e4a">
-
-<!-- iOS / Safari spezifisch (iPhone "Zum Home-Bildschirm") -->
+<meta name="theme-color" content="#6c5ce7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Putzplan">
 <link rel="apple-touch-icon" href="icon-180.png">
-
-<!-- Android / Chrome -->
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<!-- =================================================================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;700;900&display=swap');
+/* ================================================================
+   DESIGN SYSTEM 2026 — Familien Putzplan
+   ================================================================ */
+:root {
+  /* Brand Palette */
+  --violet:    #6c5ce7;
+  --violet-lt: #a29bfe;
+  --teal:      #00cec9;
+  --teal-dk:   #0099a3;
+  --coral:     #fd7979;
+  --coral-dk:  #e84343;
+  --gold:      #fdcb6e;
+  --gold-dk:   #e17055;
+  --green:     #55efc4;
+  --green-dk:  #00b894;
+  --rose:      #fd79a8;
+  --rose-dk:   #e84393;
+  --blue:      #74b9ff;
+  --blue-dk:   #0984e3;
+  --navy:      #1e1b4b;
+  --muted:     #94a3b8;
+  --text:      #1e293b;
+  --text-sm:   #64748b;
 
-  :root {
-    --teal:#1a9e8f; --navy:#1a2e4a; --coral:#ff6b6b;
-    --gold:#f9c846; --green:#4caf7d; --lavender:#7c6fcd; --muted:#8899aa;
-    --bg:#f5f7ff; --radius:16px; --shadow:0 4px 20px rgba(0,0,0,0.08);
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Nunito',sans-serif;background:var(--bg);color:#2d3748;padding-bottom:60px;min-height:100vh;}
+  /* Surfaces */
+  --bg:        #f8f7ff;
+  --surface:   #ffffff;
+  --surface2:  #f1f0ff;
 
-  .header{background:linear-gradient(135deg,var(--navy),#2a4a7a);color:white;padding:22px 20px;text-align:center;}
-  .header h1{font-size:1.5rem;font-weight:900;}
-  .header h1 span{color:var(--gold);}
-  .header p{font-size:0.85rem;opacity:0.8;margin-top:4px;}
-  .section{padding:16px;}
-  .section-title{font-size:0.75rem;font-weight:900;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:8px;}
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(108,92,231,0.08);
+  --shadow:    0 4px 20px rgba(108,92,231,0.12);
+  --shadow-lg: 0 12px 40px rgba(108,92,231,0.18);
 
-  /* CHILD PICKER CARDS (replaces plain dropdown) */
-  .child-picker{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
-  .child-card{display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;border:2.5px solid transparent;}
-  .child-card.selected{border-color:var(--c-color, var(--teal));background:var(--c-bg,#e6f7f5);}
-  .child-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;background:var(--c-bg,#eef0f5);}
-  .child-info{flex:1;}
-  .child-name{font-size:0.95rem;font-weight:800;color:var(--navy);}
-  .child-tag{font-size:0.73rem;color:var(--muted);font-weight:700;margin-top:1px;}
-  .child-check{width:22px;height:22px;border-radius:50%;border:2.5px solid #dde2ee;flex-shrink:0;}
-  .child-card.selected .child-check{background:var(--c-color,var(--teal));border-color:var(--c-color,var(--teal));position:relative;}
-  .child-card.selected .child-check::after{content:'✓';position:absolute;color:white;font-size:0.7rem;left:5px;top:1px;}
+  /* Radii */
+  --r-sm: 12px;
+  --r:    18px;
+  --r-lg: 26px;
+  --r-xl: 32px;
 
-  .room-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;}
-  .room-tabs::-webkit-scrollbar{display:none;}
-  .room-tab{flex-shrink:0;padding:8px 16px;border-radius:99px;border:2px solid #dde2ee;background:white;font-weight:800;color:var(--muted);cursor:pointer;white-space:nowrap;font-family:inherit;font-size:0.85rem;}
-  .room-tab.active{border-color:var(--teal);background:var(--teal);color:white;}
+  /* Transitions */
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-  .select-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-  .select-item{background:white;border-radius:12px;padding:12px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow);cursor:pointer;border:2.5px solid transparent;}
-  .select-item.selected{border-color:var(--teal);background:#e6f7f5;}
-  .s-num{width:25px;height:25px;border-radius:50%;background:#eef0f5;color:var(--muted);font-size:0.8rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .select-item.selected .s-num{color:white;}
-  .s-icon{font-size:1.3rem;}
-  .s-body{flex:1;min-width:0;}
-  .s-title{font-size:0.9rem;font-weight:800;color:var(--navy);}
-  .s-sub{font-size:0.75rem;color:var(--muted);font-weight:600;}
-  .care-alert{background:#f0ecff;color:var(--lavender);font-size:0.68rem;font-weight:800;padding:4px 9px;border-radius:99px;border:1.5px solid var(--lavender);max-width:170px;word-break:break-word;line-height:1.25;flex-shrink:0;}
-  .s-check{width:20px;height:20px;border-radius:50%;border:2px solid #dde2ee;flex-shrink:0;}
-  .select-item.selected .s-check{background:var(--teal);border-color:var(--teal);position:relative;}
-  .select-item.selected .s-check::after{content:'✓';position:absolute;color:white;font-size:0.75rem;left:4px;top:0px;}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  .send-btn{display:block;width:100%;background:linear-gradient(135deg,#25D366,#128C7E);color:white;border:none;font-family:inherit;font-size:1rem;font-weight:900;padding:15px;border-radius:12px;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,0.2);}
-  .send-btn:disabled{background:#cbd5e0;box-shadow:none;cursor:not-allowed;opacity:0.6;}
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 40px;
+  overscroll-behavior: none;
+}
 
-  #elternAnsicht,#kinderAnsicht{display:none;}
+/* ================================================================
+   ELTERN-HEADER
+   ================================================================ */
+.p-header {
+  background: linear-gradient(145deg, #1e1b4b 0%, #4c3799 50%, #6c5ce7 100%);
+  padding: 52px 24px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.p-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+.p-header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -40px;
+  width: 280px; height: 280px;
+  background: rgba(162,155,254,0.12);
+  border-radius: 50%;
+}
+.p-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 99px;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+.p-header h1 {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
+}
+.p-header h1 span { color: var(--gold); }
+.p-header p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.72);
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
 
-  /* ============================================================
-     KIND-MODUS: GEMEINSAME BASIS
-     ============================================================ */
-  .kid-header{padding:20px 20px 16px;text-align:center;color:white;}
-  .kid-header h1{font-size:1.4rem;font-weight:900;}
-  .kid-header p{font-size:0.85rem;opacity:0.85;margin-top:4px;}
-  .kid-progress-bg{background:rgba(255,255,255,0.25);border-radius:99px;height:10px;overflow:hidden;margin-top:14px;}
-  .kid-progress-fill{height:100%;background:white;border-radius:99px;transition:width 0.4s;width:0%;}
-  .kid-progress-text{font-size:0.78rem;font-weight:800;margin-top:6px;opacity:0.9;}
-  .kid-home-link{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.18);color:white;text-decoration:none;font-size:0.78rem;font-weight:800;padding:6px 12px;border-radius:99px;}
-  .kid-home-link--icon{font-size:1.3rem;padding:6px 10px;line-height:1;}
-  .kid-header{position:relative;}
+/* ================================================================
+   SECTION LABELS
+   ================================================================ */
+.p-section { padding: 20px 20px 0; }
+.p-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.p-label-num {
+  width: 26px; height: 26px;
+  background: var(--violet);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.p-label-text {
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
 
-  /* ---------- TEEN MODE (Noa) ---------- */
-  .teen-body{background:#f4f6fa;min-height:100vh;padding-bottom:40px;}
-  .teen-header{background:#1a2e4a;}
-  .teen-list{padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
-  .teen-card{background:white;border-radius:10px;padding:13px 14px;display:flex;align-items:center;gap:12px;border:1.5px solid #e2e6ef;cursor:pointer;transition:background 0.15s;}
-  .teen-card.done{background:#f0f4f2;border-color:#cfe3d8;}
-  .teen-card.done .teen-title{text-decoration:line-through;color:#9aa5b1;}
-  .teen-checkbox{width:20px;height:20px;border-radius:4px;border:2px solid #c5cbd6;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:transparent;}
-  .teen-card.done .teen-checkbox{background:#1a9e8f;border-color:#1a9e8f;color:white;}
-  .teen-icon{font-size:1.2rem;flex-shrink:0;width:22px;text-align:center;}
-  .teen-text{flex:1;min-width:0;}
-  .teen-title{font-size:0.92rem;font-weight:700;color:#1a2e4a;}
-  .teen-meta{font-size:0.72rem;color:#8899aa;font-weight:600;margin-top:2px;}
-  .teen-steps{font-size:0.78rem;color:#6b7785;margin-top:6px;padding-left:0;list-style:none;display:none;}
-  .teen-card.expanded .teen-steps{display:block;}
-  .teen-steps li{padding:2px 0;}
-  .teen-steps li::before{content:'– ';color:#aab4c0;}
-  .teen-care{font-size:0.7rem;color:#7c6fcd;background:#f0ecff;padding:2px 8px;border-radius:6px;margin-top:6px;display:inline-block;font-weight:700;}
+/* ================================================================
+   CHILD PICKER CARDS
+   ================================================================ */
+.child-picker { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
 
-  /* ---------- FOCUS MODE (Thea) — one task at a time ---------- */
-  .focus-body{background:linear-gradient(180deg,#fff5f5,#fff);min-height:100vh;padding-bottom:40px;}
-  .focus-header{background:linear-gradient(135deg,#ff6b6b,#ff8787);}
-  .focus-stage{padding:24px 20px;}
-  .focus-card{background:white;border-radius:20px;box-shadow:0 8px 30px rgba(255,107,107,0.15);padding:28px 22px;text-align:center;}
-  .focus-icon{font-size:3.2rem;margin-bottom:10px;}
-  .focus-title{font-size:1.25rem;font-weight:900;color:#1a2e4a;margin-bottom:6px;}
-  .focus-micro{background:#fff0f0;color:#d65555;font-weight:800;font-size:0.95rem;padding:10px 16px;border-radius:12px;margin:14px 0;}
-  .focus-steps{text-align:left;font-size:0.88rem;color:#5a6678;font-weight:600;line-height:1.9;margin:14px 0;padding-left:4px;list-style:none;}
-  .focus-steps li{padding-left:22px;position:relative;}
-  .focus-steps li::before{content:'→';position:absolute;left:0;color:#ff6b6b;font-weight:900;}
-  .focus-time{display:inline-block;background:#eef5ff;color:#4a7aff;font-size:0.78rem;font-weight:800;padding:4px 12px;border-radius:99px;margin-bottom:6px;}
-  .focus-go-btn{display:block;width:100%;background:linear-gradient(135deg,#ff6b6b,#ee5a5a);color:white;border:none;font-family:inherit;font-size:1.05rem;font-weight:900;padding:16px;border-radius:14px;margin-top:18px;cursor:pointer;}
-  .focus-skip{display:block;width:100%;background:transparent;border:none;color:#aab4c0;font-family:inherit;font-size:0.82rem;font-weight:700;padding:10px;margin-top:6px;cursor:pointer;}
-  .focus-dots{display:flex;justify-content:center;gap:6px;margin-top:18px;}
-  .focus-dot{width:8px;height:8px;border-radius:50%;background:#ffd6d6;}
-  .focus-dot.done{background:#ff6b6b;}
-  .focus-care{font-size:0.75rem;color:#7c6fcd;background:#f0ecff;padding:6px 10px;border-radius:8px;margin-top:12px;font-weight:700;}
+.child-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.child-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-bg, #f1f0ff);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.child-card.selected {
+  border-color: var(--c-color, var(--violet));
+  box-shadow: 0 4px 20px rgba(108,92,231,0.15);
+  transform: translateY(-1px);
+}
+.child-card.selected::before { opacity: 1; }
+.child-card:active { transform: scale(0.98); }
 
-  /* ---------- FOCUS MODE: full-list checklist variant (Thea) ---------- */
-  .focus-list{padding:14px 16px;display:flex;flex-direction:column;gap:10px;}
-  .focus-list-card{background:white;border-radius:16px;padding:14px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 4px 16px rgba(255,107,107,0.10);cursor:pointer;border:2.5px solid transparent;transition:all 0.2s;}
-  .focus-list-card.done{opacity:0.55;background:#fff7f5;border-color:#ffb3b3;}
-  .focus-list-card.done .focus-list-title{text-decoration:line-through;color:#aab4c0;}
-  .focus-checkbox{width:26px;height:26px;border-radius:50%;border:2.5px solid #ffd6d6;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:transparent;margin-top:2px;}
-  .focus-list-card.done .focus-checkbox{background:#ff6b6b;border-color:#ff6b6b;color:white;}
-  .focus-list-icon{font-size:1.6rem;flex-shrink:0;width:30px;text-align:center;}
-  .focus-list-text{flex:1;min-width:0;}
-  .focus-list-title{font-size:0.95rem;font-weight:800;color:#1a2e4a;}
-  .focus-list-meta{font-size:0.74rem;color:#8899aa;font-weight:700;margin-top:2px;}
-  .focus-list-micro{font-size:0.83rem;color:#d65555;font-weight:800;background:#fff0f0;padding:6px 10px;border-radius:8px;margin-top:8px;display:inline-block;}
-  .focus-list-steps{font-size:0.8rem;color:#6b7785;font-weight:600;line-height:1.7;margin-top:8px;padding-left:0;list-style:none;display:none;}
-  .focus-list-card.expanded .focus-list-steps{display:block;}
-  .focus-list-steps li{padding-left:16px;position:relative;}
-  .focus-list-steps li::before{content:'→';position:absolute;left:0;color:#ff6b6b;font-weight:900;}
-  .focus-celebration{display:none;text-align:center;padding:24px 20px;background:linear-gradient(135deg,#fff0f0,#fff);margin:16px;border-radius:16px;border:2px dashed #ff6b6b;}
-  .focus-celebration.show{display:block;}
+.child-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--c-bg, #f1f0ff);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.child-info { flex: 1; position: relative; z-index: 1; }
+.child-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+.child-tag { font-size: 0.73rem; color: var(--muted); font-weight: 700; margin-top: 2px; }
 
-  /* WhatsApp Fertig-Button — erscheint am Ende jedes Kind-Modus */
-  .wa-done-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:calc(100% - 32px);margin:16px auto 24px;background:linear-gradient(135deg,#25D366,#128C7E);color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:16px;border-radius:14px;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.3);}
-  .wa-done-btn svg{flex-shrink:0;}
+.child-check {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 2px solid #dde2ee;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s;
+}
+.child-card.selected .child-check {
+  background: var(--c-color, var(--violet));
+  border-color: var(--c-color, var(--violet));
+}
+.child-card.selected .child-check::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 900;
+  left: 5px; top: 1px;
+}
 
-  /* ---------- STAR MODE (Jakob) ---------- */
-  .star-body{background:linear-gradient(180deg,#eaf2ff,#fff);min-height:100vh;padding-bottom:40px;font-family:'Quicksand',sans-serif;}
-  .star-header{background:linear-gradient(135deg,#4a7aff,#6e95ff);}
-  .star-collection{display:flex;justify-content:center;gap:6px;padding:14px 16px 0;flex-wrap:wrap;}
-  .star-slot{width:34px;height:34px;border-radius:50%;background:#eef0f5;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:transform 0.3s;}
-  .star-slot.filled{background:#fff8e1;transform:scale(1.15);}
-  .star-stage{padding:20px;}
-  .star-card{background:white;border-radius:24px;box-shadow:0 8px 28px rgba(74,122,255,0.18);padding:20px;text-align:center;}
-  .star-scene{border-radius:18px;padding:28px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 12px rgba(0,0,0,0.04);}
-  .star-scene-icon{font-size:5.5rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.12));}
-  .star-title{font-size:1.4rem;font-weight:900;color:#1a2e4a;}
-  .star-micro{font-size:1.1rem;font-weight:800;color:#4a7aff;margin-top:10px;}
-  .star-btn{display:block;width:100%;background:linear-gradient(135deg,#4a7aff,#3a63e0);color:white;border:none;font-family:'Quicksand',sans-serif;font-size:1.3rem;font-weight:900;padding:20px;border-radius:20px;margin-top:20px;cursor:pointer;box-shadow:0 6px 20px rgba(74,122,255,0.35);letter-spacing:0.3px;}
+/* ================================================================
+   ROOM TABS
+   ================================================================ */
+.room-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  margin-bottom: 20px;
+}
+.room-tabs::-webkit-scrollbar { display: none; }
+.room-tab {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border-radius: 99px;
+  border: 2px solid #e2e8f0;
+  background: var(--surface);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+.room-tab.active {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: white;
+  box-shadow: 0 4px 16px rgba(108,92,231,0.3);
+  transform: translateY(-1px);
+}
 
-  /* ---- JAKOB HILFE-BUTTON ---- */
-  .jakob-help-btn{display:block;width:calc(100% - 40px);margin:12px auto 24px;background:white;border:2.5px solid #ffb347;color:#d4831a;font-family:'Quicksand',sans-serif;font-size:1rem;font-weight:900;padding:14px;border-radius:16px;cursor:pointer;text-align:center;box-shadow:0 3px 12px rgba(255,179,71,0.2);}
+/* ================================================================
+   TASK SELECT GRID
+   ================================================================ */
+.select-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
 
-  /* ---- ENERGIE-CHECK (Thea) ---- */
-  .energy-check{padding:24px 20px 0;}
-  .energy-check-title{font-size:1.3rem;font-weight:900;color:#1a2e4a;text-align:center;margin-bottom:6px;}
-  .energy-check-sub{font-size:0.88rem;color:#8899aa;font-weight:700;text-align:center;margin-bottom:24px;}
-  .energy-options{display:flex;flex-direction:column;gap:12px;}
-  .energy-opt{display:grid;grid-template-columns:3rem 1fr;grid-template-rows:auto auto;align-items:center;gap:0 10px;background:white;border:2.5px solid #eef0f5;border-radius:16px;padding:14px 16px;cursor:pointer;font-family:'Nunito',sans-serif;text-align:left;transition:all 0.15s;box-shadow:0 3px 12px rgba(0,0,0,0.06);}
-  .energy-opt:active{transform:scale(0.98);}
-  .energy-opt--fit{border-color:#ff6b6b;}
-  .energy-opt--mid{border-color:#f9c846;}
-  .energy-opt--low{border-color:#4caf7d;}
-  .energy-emoji{font-size:2rem;grid-row:1/3;display:flex;align-items:center;justify-content:center;}
-  .energy-label{font-size:0.95rem;font-weight:900;color:#1a2e4a;line-height:1.2;}
-  .energy-desc{font-size:0.78rem;color:#8899aa;font-weight:600;}
-  .energy-banner{margin:0 16px 0;padding:12px 16px;border-radius:12px;font-size:0.88rem;font-weight:800;color:#1a2e4a;text-align:center;}
+.select-item {
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.18s var(--ease);
+}
+.select-item:active { transform: scale(0.98); }
+.select-item.selected {
+  border-color: var(--violet);
+  background: var(--surface2);
+  box-shadow: 0 4px 16px rgba(108,92,231,0.12);
+}
+.s-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+.s-icon { font-size: 1.4rem; flex-shrink: 0; }
+.s-body { flex: 1; min-width: 0; }
+.s-title { font-size: 0.92rem; font-weight: 800; color: var(--text); }
+.s-sub { font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
+.care-alert {
+  background: #f0ecff;
+  color: var(--violet);
+  font-size: 0.67rem;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 99px;
+  border: 1.5px solid var(--violet-lt);
+  max-width: 160px;
+  word-break: break-word;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+.s-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid #dde2ee;
+  flex-shrink: 0;
+  transition: all 0.18s;
+  position: relative;
+}
+.select-item.selected .s-check {
+  background: var(--violet);
+  border-color: var(--violet);
+}
+.select-item.selected .s-check::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 900;
+  left: 4px; top: 1px;
+}
 
-  /* ---- DESIGN UPGRADES ---- */
-  /* Noa: cleaner card with better hierarchy */
-  .teen-card{background:white;border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:14px;border:1.5px solid #eef0f5;cursor:pointer;transition:all 0.15s;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
-  .teen-card.done{background:#f7faf9;border-color:#c8e6d4;box-shadow:none;}
-  .teen-title{font-size:1rem;font-weight:800;color:#1a2e4a;letter-spacing:-0.2px;}
-  .teen-meta{font-size:0.74rem;color:#aab4c0;font-weight:700;margin-top:3px;}
-  /* Bigger star slot */
-  .star-slot{width:38px;height:38px;border-radius:50%;background:#eef0f5;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:transform 0.3s;}
-  .star-slot.filled{background:#fff8e1;transform:scale(1.2);}
-  /* Bigger star scene */
-  .star-scene{border-radius:22px;padding:36px 16px 32px;margin-bottom:18px;display:flex;align-items:center;justify-content:center;}
-  .star-scene-icon{font-size:6rem;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.14));}
-  .star-title{font-size:1.5rem;font-weight:900;color:#1a2e4a;letter-spacing:-0.3px;}
-  .star-micro{font-size:1.05rem;color:#4a7aff;font-weight:800;margin-top:8px;padding:0 8px;}
-  .star-burst{position:fixed;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:0;z-index:200;}
-  .star-burst.show{animation:starpop 0.7s ease-out;}
-  @keyframes starpop{0%{opacity:0;transform:scale(0.3);}40%{opacity:1;transform:scale(1.3);}100%{opacity:0;transform:scale(1.6);}}
+/* ================================================================
+   SEND BUTTON
+   ================================================================ */
+.send-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  padding: 18px;
+  border-radius: var(--r);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+  transition: all 0.2s var(--ease);
+  letter-spacing: 0.2px;
+}
+.send-btn:not(:disabled):active { transform: scale(0.97); }
+.send-btn:disabled { background: #cbd5e0; box-shadow: none; cursor: not-allowed; opacity: 0.6; }
 
-  /* ---------- MINI MODE (Lioba) ---------- */
-  .mini-body{background:linear-gradient(180deg,#fffbe8,#fff);min-height:100vh;display:flex;flex-direction:column;font-family:'Quicksand',sans-serif;position:relative;overflow:hidden;}
-  .mini-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;position:relative;}
-  .mini-scene{width:100%;max-width:300px;border-radius:28px;padding:36px 20px;margin-bottom:22px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 14px rgba(0,0,0,0.05);}
-  .mini-scene-icon{font-size:7rem;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.12));}
-  .mini-title{font-size:1.6rem;font-weight:900;color:#1a2e4a;margin-bottom:24px;}
-  .mini-btn{background:linear-gradient(135deg,#f9c846,#f7b733);border:none;color:#1a2e4a;font-family:'Quicksand',sans-serif;font-size:1.3rem;font-weight:900;padding:24px 48px;border-radius:99px;box-shadow:0 8px 24px rgba(249,200,70,0.4);cursor:pointer;}
-  .mini-done{display:none;flex-direction:column;align-items:center;}
-  .mini-done.show{display:flex;}
-  .mini-confetti-stage{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50;}
-  .confetti-piece{position:absolute;top:-40px;animation:confettiFall linear forwards;}
-  @keyframes confettiFall{
-    0%{transform:translateY(0) rotate(0deg);opacity:1;}
-    100%{transform:translateY(110vh) rotate(360deg);opacity:0.9;}
-  }
+/* ================================================================
+   SHARED CHILD HEADER BASE
+   ================================================================ */
+#elternAnsicht, #kinderAnsicht { display: none; }
+
+.kid-header {
+  padding: 56px 24px 28px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.kid-header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  position: relative;
+  z-index: 1;
+}
+.kid-header p {
+  font-size: 0.88rem;
+  opacity: 0.88;
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+.kid-progress-wrap {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+}
+.kid-progress-bg {
+  background: rgba(255,255,255,0.25);
+  border-radius: 99px;
+  height: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.kid-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 99px;
+  transition: width 0.5s var(--ease);
+  width: 0%;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+.kid-progress-text {
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-top: 8px;
+  opacity: 0.9;
+}
+.kid-home-link { position: absolute; top: 14px; left: 14px; }
+.kid-home-link--icon { font-size: 1.3rem; }
+
+/* ================================================================
+   WHATSAPP DONE BUTTON
+   ================================================================ */
+.wa-done-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: calc(100% - 32px);
+  margin: 16px auto 28px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  padding: 18px;
+  border-radius: var(--r);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+  transition: transform 0.15s var(--ease);
+}
+.wa-done-btn:active { transform: scale(0.97); }
+.wa-done-btn svg { flex-shrink: 0; }
+
+/* ================================================================
+   NOA — TEEN MODE
+   Ruhig, minimal, lavendel/blau, klare Struktur
+   ================================================================ */
+.teen-body {
+  background: linear-gradient(180deg, #f5f3ff 0%, #ede9fe 30%, #f8f7ff 100%);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+.teen-header {
+  background: linear-gradient(145deg, #1e1b4b 0%, #4c3799 60%, #7c6fcd 100%);
+}
+.teen-header::before {
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 200px; height: 200px;
+  background: rgba(162,155,254,0.15);
+  border-radius: 50%;
+}
+
+.teen-list { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+
+.teen-card {
+  background: white;
+  border-radius: var(--r);
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+.teen-card:active { transform: scale(0.985); }
+.teen-card.done {
+  background: #f5f3ff;
+  border-color: #c4b5fd;
+  box-shadow: none;
+  opacity: 0.65;
+}
+.teen-card.done .teen-title { text-decoration: line-through; color: var(--muted); }
+
+.teen-checkbox {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 2px solid #c4b5fd;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  color: transparent;
+  margin-top: 1px;
+  transition: all 0.2s var(--ease);
+}
+.teen-card.done .teen-checkbox {
+  background: #7c6fcd;
+  border-color: #7c6fcd;
+  color: white;
+}
+.teen-icon { font-size: 1.3rem; flex-shrink: 0; width: 24px; text-align: center; }
+.teen-text { flex: 1; min-width: 0; }
+.teen-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+.teen-meta { font-size: 0.73rem; color: var(--muted); font-weight: 700; margin-top: 3px; }
+.teen-steps {
+  font-size: 0.8rem;
+  color: var(--text-sm);
+  margin-top: 8px;
+  padding-left: 0;
+  list-style: none;
+  display: none;
+  line-height: 1.7;
+}
+.teen-card.expanded .teen-steps { display: block; }
+.teen-steps li { padding: 2px 0 2px 16px; position: relative; }
+.teen-steps li::before { content: '–'; position: absolute; left: 0; color: #c4b5fd; font-weight: 900; }
+.teen-care { display: none; } /* care alerts hidden from Noa */
+
+/* Teen celebration */
+.teen-celebration {
+  margin: 16px;
+  padding: 28px 20px;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  border-radius: var(--r-lg);
+  text-align: center;
+  border: 2px dashed #c4b5fd;
+}
+.teen-celebration h2 { font-size: 1.3rem; font-weight: 900; color: var(--navy); margin-bottom: 6px; }
+.teen-celebration p { font-size: 0.88rem; color: var(--muted); font-weight: 600; }
+
+/* ================================================================
+   THEA — FOCUS MODE
+   Warm, coral/rosa, motivierend, Fortschritt gut sichtbar
+   ================================================================ */
+.focus-body {
+  background: linear-gradient(180deg, #fff5f5 0%, #ffe4e6 20%, #fff 100%);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+.focus-header {
+  background: linear-gradient(145deg, #c2185b 0%, #e91e8c 50%, #fd79a8 100%);
+}
+.focus-header::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+}
+.focus-header::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: -20px;
+  width: 150px; height: 150px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 50%;
+}
+
+/* Energie-Check */
+.energy-check { padding: 28px 20px 0; }
+.energy-check-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.energy-check-sub {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.energy-options { display: flex; flex-direction: column; gap: 12px; }
+.energy-opt {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0 10px;
+  background: white;
+  border: 2.5px solid #f1f0ff;
+  border-radius: var(--r);
+  padding: 16px 18px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  text-align: left;
+  transition: all 0.18s var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+.energy-opt:active { transform: scale(0.97); }
+.energy-opt--fit { border-color: var(--coral); box-shadow: 0 4px 16px rgba(253,121,121,0.15); }
+.energy-opt--mid { border-color: var(--gold); box-shadow: 0 4px 16px rgba(253,203,110,0.15); }
+.energy-opt--low { border-color: var(--green-dk); box-shadow: 0 4px 16px rgba(0,184,148,0.15); }
+.energy-emoji { font-size: 2.2rem; grid-row: 1/3; display: flex; align-items: center; justify-content: center; }
+.energy-label { font-size: 0.98rem; font-weight: 900; color: var(--text); }
+.energy-desc { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+
+.energy-banner {
+  margin: 14px 16px 0;
+  padding: 13px 18px;
+  border-radius: var(--r);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Focus list */
+.focus-list { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.focus-list-card {
+  background: white;
+  border-radius: var(--r);
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(253,121,121,0.10);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s var(--ease);
+}
+.focus-list-card:active { transform: scale(0.985); }
+.focus-list-card.done {
+  opacity: 0.55;
+  background: #fff5f5;
+  border-color: #fda4af;
+}
+.focus-list-card.done .focus-list-title { text-decoration: line-through; color: var(--muted); }
+
+.focus-checkbox {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2.5px solid #fda4af;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: transparent;
+  margin-top: 1px;
+  transition: all 0.2s var(--ease);
+}
+.focus-list-card.done .focus-checkbox {
+  background: var(--rose-dk);
+  border-color: var(--rose-dk);
+  color: white;
+}
+.focus-list-icon { font-size: 1.7rem; flex-shrink: 0; width: 32px; text-align: center; }
+.focus-list-text { flex: 1; min-width: 0; }
+.focus-list-title { font-size: 0.97rem; font-weight: 800; color: var(--text); letter-spacing: -0.2px; }
+.focus-list-meta { font-size: 0.74rem; color: var(--muted); font-weight: 700; margin-top: 3px; }
+.focus-list-micro {
+  font-size: 0.84rem;
+  color: #c2185b;
+  font-weight: 800;
+  background: #fff0f5;
+  padding: 7px 12px;
+  border-radius: 10px;
+  margin-top: 9px;
+  display: inline-block;
+  border-left: 3px solid var(--rose-dk);
+}
+.focus-list-steps {
+  font-size: 0.8rem;
+  color: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.8;
+  margin-top: 10px;
+  padding-left: 0;
+  list-style: none;
+  display: none;
+}
+.focus-list-card.expanded .focus-list-steps { display: block; }
+.focus-list-steps li { padding-left: 18px; position: relative; }
+.focus-list-steps li::before { content: '→'; position: absolute; left: 0; color: var(--rose-dk); font-weight: 900; }
+.focus-care { display: none; }
+
+.focus-celebration {
+  display: none;
+  text-align: center;
+  padding: 28px 20px;
+  background: linear-gradient(135deg, #fff0f5, #ffe4ef);
+  margin: 16px;
+  border-radius: var(--r-lg);
+  border: 2px dashed var(--rose-dk);
+  animation: fadeUp 0.5s var(--ease);
+}
+.focus-celebration.show { display: block; }
+.focus-celebration h2 { font-size: 1.4rem; font-weight: 900; color: var(--text); margin-top: 8px; }
+.focus-celebration p { font-size: 0.88rem; color: var(--muted); font-weight: 600; margin-top: 6px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   JAKOB — STAR MODE
+   Spielerisch, groß, bunt, Missionen, Belohnungen
+   ================================================================ */
+.star-body {
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 10%, #f0f9ff 60%, #fff 100%);
+  min-height: 100vh;
+  padding-bottom: 40px;
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+}
+.star-body::before {
+  content: '☁️';
+  position: fixed;
+  font-size: 3rem;
+  top: 80px;
+  left: -10px;
+  opacity: 0.4;
+  animation: cloudFloat 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.star-body::after {
+  content: '⭐';
+  position: fixed;
+  font-size: 1.5rem;
+  top: 140px;
+  right: 10px;
+  opacity: 0.35;
+  animation: starTwinkle 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes cloudFloat {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(15px) translateY(-8px); }
+}
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.35; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.7; transform: scale(1.2) rotate(20deg); }
+}
+
+.star-header {
+  background: linear-gradient(145deg, #0369a1 0%, #0284c7 50%, #38bdf8 100%);
+  position: relative;
+  z-index: 1;
+}
+.star-header::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+}
+
+.star-collection {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 16px 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.star-slot {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(56,189,248,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  transition: all 0.35s var(--ease);
+  box-shadow: 0 2px 8px rgba(3,105,161,0.1);
+}
+.star-slot.filled {
+  background: #fef9c3;
+  border-color: #fbbf24;
+  transform: scale(1.2);
+  box-shadow: 0 4px 14px rgba(251,191,36,0.4);
+  animation: starPop 0.35s var(--ease);
+}
+@keyframes starPop {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.35); }
+  100% { transform: scale(1.2); }
+}
+
+.star-stage {
+  padding: 20px 16px;
+  position: relative;
+  z-index: 1;
+}
+.star-card {
+  background: white;
+  border-radius: var(--r-xl);
+  box-shadow: 0 12px 40px rgba(3,105,161,0.18);
+  padding: 24px 20px 20px;
+  text-align: center;
+  animation: cardSlideIn 0.4s var(--ease);
+}
+@keyframes cardSlideIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.star-scene {
+  border-radius: 22px;
+  padding: 32px 16px 28px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.star-scene::before {
+  content: '✨';
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 1.2rem;
+  opacity: 0.5;
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+.star-scene-icon {
+  font-size: 6.5rem;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  animation: iconWiggle 3s ease-in-out infinite;
+}
+@keyframes iconWiggle {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(3deg) scale(1.04); }
+}
+.star-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.star-micro {
+  font-size: 1.1rem;
+  color: var(--blue-dk);
+  font-weight: 800;
+  margin-top: 10px;
+  padding: 0 8px;
+  line-height: 1.4;
+}
+.star-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: white;
+  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  padding: 22px;
+  border-radius: 20px;
+  margin-top: 22px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(3,105,161,0.35);
+  transition: all 0.2s var(--ease);
+  letter-spacing: 0.3px;
+}
+.star-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 4px 12px rgba(3,105,161,0.3);
+}
+.star-burst {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  opacity: 0;
+  z-index: 200;
+}
+.star-burst.show { animation: starpop 0.7s ease-out; }
+@keyframes starpop {
+  0%   { opacity: 0; transform: scale(0.3); }
+  40%  { opacity: 1; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+
+/* Jakob help button */
+.jakob-help-btn {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 12px auto 28px;
+  background: white;
+  border: 2.5px solid #fbbf24;
+  color: #92400e;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  padding: 16px;
+  border-radius: var(--r);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(251,191,36,0.2);
+  transition: all 0.2s var(--ease);
+  position: relative;
+  z-index: 1;
+}
+.jakob-help-btn:active { transform: scale(0.97); }
+
+/* ================================================================
+   LIOBA — MINI MODE
+   Riesige Bilder, Tiere, Regenbogen, bunte Knöpfe
+   ================================================================ */
+.mini-body {
+  background: linear-gradient(180deg, #fdf4ff 0%, #fce7f3 15%, #fff 70%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+/* Decorative floating elements */
+.mini-body::before {
+  content: '🌈';
+  position: fixed;
+  top: 60px; right: -10px;
+  font-size: 3.5rem;
+  opacity: 0.3;
+  animation: rainbowFloat 6s ease-in-out infinite;
+  pointer-events: none;
+}
+.mini-body::after {
+  content: '🌸';
+  position: fixed;
+  bottom: 100px; left: -5px;
+  font-size: 2.5rem;
+  opacity: 0.25;
+  animation: rainbowFloat 8s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+@keyframes rainbowFloat {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+.mini-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 28px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.mini-scene {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 36px;
+  padding: 40px 20px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 2px 12px rgba(255,255,255,0.5);
+  position: relative;
+  overflow: hidden;
+  animation: scenePulse 4s ease-in-out infinite;
+}
+@keyframes scenePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+.mini-scene::before {
+  content: '✨';
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: 1.4rem;
+  opacity: 0.5;
+  animation: starTwinkle 2.5s ease-in-out infinite;
+}
+.mini-scene::after {
+  content: '💫';
+  position: absolute;
+  bottom: 10px; left: 14px;
+  font-size: 1.1rem;
+  opacity: 0.4;
+  animation: starTwinkle 3.5s ease-in-out infinite reverse;
+}
+.mini-scene-icon {
+  font-size: 8rem;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15));
+  animation: iconWiggle 3s ease-in-out infinite;
+}
+.mini-title {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+.mini-btn {
+  background: linear-gradient(135deg, #f9a8d4, #ec4899, #c026d3);
+  border: none;
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  padding: 26px 56px;
+  border-radius: 99px;
+  box-shadow: 0 10px 30px rgba(192,38,211,0.35);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  letter-spacing: 0.3px;
+  animation: btnPulse 2s ease-in-out infinite;
+}
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(192,38,211,0.35); }
+  50% { box-shadow: 0 14px 40px rgba(192,38,211,0.5); }
+}
+.mini-btn:active { transform: scale(0.95); animation: none; }
+
+.mini-done { display: none; flex-direction: column; align-items: center; }
+.mini-done.show { display: flex; }
+
+/* Confetti */
+.mini-confetti-stage { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 50; }
+.confetti-piece { position: absolute; top: -40px; animation: confettiFall linear forwards; }
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
+}
+
+/* ================================================================
+   ENERGIE-CHECK THEA (focus-care hidden)
+   ================================================================ */
+.focus-care { display: none !important; }
+
 </style>
 </head>
 <body>
 
 <!-- ================= ELTERN BEREICH ================= -->
 <div id="elternAnsicht">
-  <div class="header">
-    <h1>🛠️ Putzplan <span>Familien-Zentrale</span></h1>
+  <div class="p-header">
+    <div class="p-header-badge">✨ Familien Putzplan 2026</div>
+    <h1>🏠 Euer <span>Putzplan</span></h1>
     <p>Kind, Raum & Aufgaben wählen – jedes Kind bekommt seinen eigenen Modus</p>
   </div>
-  <div class="section">
 
-    <div class="section-title">1. Für wen ist der Plan?</div>
+  <div class="p-section">
+    <div class="p-label">
+      <div class="p-label-num">1</div>
+      <div class="p-label-text">Für wen ist der Plan?</div>
+    </div>
     <div class="child-picker" id="childPicker"></div>
+  </div>
 
-    <div class="section-title">2. Welcher Raum steht an?</div>
+  <div class="p-section">
+    <div class="p-label">
+      <div class="p-label-num">2</div>
+      <div class="p-label-text">Welcher Raum steht an?</div>
+    </div>
     <div class="room-tabs" id="roomTabs"></div>
+  </div>
 
-    <div class="section-title">3. Aufgaben festlegen</div>
+  <div class="p-section">
+    <div class="p-label">
+      <div class="p-label-num">3</div>
+      <div class="p-label-text">Aufgaben festlegen</div>
+    </div>
     <div class="select-grid" id="selectGrid"></div>
-
     <button id="whatsappBtn" class="send-btn" onclick="sendToWhatsApp()" disabled>
       🚀 Persönlichen Plan via WhatsApp senden
     </button>
   </div>
 </div>
 
-<!-- ================= KINDER BEREICH (4 separate Modi werden hier injiziert) ================= -->
+<!-- ================= KINDER BEREICH ================= -->
 <div id="kinderAnsicht"></div>
 
 <script>
 /* ============================================================
-   KINDPROFILE — steuert Ton, Farbe, Aufgaben-Granularität & Modus
+   KINDPROFILE
    ============================================================ */
 const CHILDREN = {
-  noa:   { name:'Noa',   age:16, tag:'ASS & ADHS · Struktur-Modus',     icon:'💜', color:'#7c6fcd', bg:'#f0ecff', mode:'teen' },
-  thea:  { name:'Thea',  age:13, tag:'ADHS · Start-Hilfe-Modus',        icon:'❤️', color:'#ff6b6b', bg:'#fff0f0', mode:'focus' },
-  jakob: { name:'Jakob', age:6,  tag:'ADHS · Sterne-Sammel-Modus',      icon:'💙', color:'#4a7aff', bg:'#eef5ff', mode:'star' },
-  lioba: { name:'Lioba', age:3,  tag:'Mithelfen · Mini-Modus',          icon:'💛', color:'#f9c846', bg:'#fffbec', mode:'mini' },
-  sarah: { name:'Sarah', age:null, tag:'Eltern · Listen-Modus',         icon:'🌸', color:'#e879a0', bg:'#fdf0f5', mode:'teen' },
-  michael: { name:'Michael', age:null, tag:'Eltern · Listen-Modus',     icon:'🔵', color:'#1a9e8f', bg:'#e6f7f5', mode:'teen' }
+  noa:     { name:'Noa',     age:16,   tag:'ASS & ADHS · Struktur-Modus',   icon:'💜', color:'#7c6fcd', bg:'#f0ecff', mode:'teen'  },
+  thea:    { name:'Thea',    age:13,   tag:'ADHS · Start-Hilfe-Modus',       icon:'❤️', color:'#ff6b6b', bg:'#fff0f0', mode:'focus' },
+  jakob:   { name:'Jakob',   age:6,    tag:'ADHS · Sterne-Sammel-Modus',     icon:'💙', color:'#4a7aff', bg:'#eef5ff', mode:'star'  },
+  lioba:   { name:'Lioba',   age:3,    tag:'Mithelfen · Mini-Modus',         icon:'💛', color:'#f9c846', bg:'#fffbec', mode:'mini'  },
+  sarah:   { name:'Sarah',   age:null, tag:'Eltern · Listen-Modus',          icon:'🌸', color:'#e879a0', bg:'#fdf0f5', mode:'teen'  },
+  michael: { name:'Michael', age:null, tag:'Eltern · Listen-Modus',          icon:'🔵', color:'#1a9e8f', bg:'#e6f7f5', mode:'teen'  }
 };
 
 /* ============================================================
-   RAUM- UND AUFGABENDATEN (aus bisheriger Version übernommen)
+   RAUM- UND AUFGABENDATEN
    ============================================================ */
 const DATA = {
   kueche: { name:'Küche', icon:'🍳', tasks:[
@@ -462,7 +1313,7 @@ function buildElternGrid() {
       buildElternGrid();
       validateEltern();
     };
-    let energyColor = t.energy === 'Aufwärmen' ? 'var(--green)' : (t.energy === 'Hauptteil' ? 'var(--gold)' : 'var(--coral)');
+    let energyColor = t.energy === 'Aufwärmen' ? 'var(--green-dk)' : (t.energy === 'Hauptteil' ? 'var(--gold-dk)' : 'var(--coral-dk)');
     el.innerHTML = `
       <div class="s-num" style="background:${energyColor};">★</div>
       <div class="s-icon">${t.icon}</div>
@@ -485,14 +1336,12 @@ function sendToWhatsApp() {
   const taskIds = Array.from(selectedTasks).join(',');
   const localPath = window.location.href.split('?')[0];
   const childLink = `${localPath}?mode=child&child=${currentChild}&room=${currentRoom}&tasks=${taskIds}`;
-
   const greetings = {
-    teen: `Hey ${c.name}, hier ist dein Plan für ${DATA[currentRoom].name}. Tippe auf den Link, alles ist wie immer aufgebaut:`,
+    teen:  `Hey ${c.name}, hier ist dein Plan für ${DATA[currentRoom].name}. Tippe auf den Link, alles ist wie immer aufgebaut:`,
     focus: `Hi ${c.name}! 🌟 Dein Plan für ${DATA[currentRoom].name} wartet. Tipp: öffne ihn gleich, dann ist der schwerste Teil schon geschafft!`,
-    star: `Hallo ${c.name}! ⭐ Eine Sterne-Mission wartet im ${DATA[currentRoom].name}! Tipp auf den Link und sammle Sterne:`,
-    mini: `Kleine Heldin gesucht! 💛 Tipp auf den Link für deine Mini-Aufgabe:`
+    star:  `Hallo ${c.name}! ⭐ Eine Sterne-Mission wartet im ${DATA[currentRoom].name}! Tipp auf den Link und sammle Sterne:`,
+    mini:  `Kleine Heldin gesucht! 💛 Tipp auf den Link für deine Mini-Aufgabe:`
   };
-
   const message = `${greetings[c.mode]}\n\n🔗 ${childLink}\n\nDu schaffst das! 🏆`;
   window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
 }
@@ -502,14 +1351,8 @@ init();
 /* ============================================================
    KINDER-ANSICHT: ROUTER
    ============================================================ */
-function getHomeLink() {
-  return window.location.href.split('?')[0];
-}
+function getHomeLink() { return window.location.href.split('?')[0]; }
 
-/* ============================================================
-   WHATSAPP FERTIG-MELDUNG
-   Wird von allen 4 Modi aufgerufen, sobald alles erledigt ist
-   ============================================================ */
 function sendDoneWhatsApp(childName, roomName, doneTasks) {
   const taskList = doneTasks.map(t => `✅ ${t.title}`).join('\n');
   const msg = `Hallo! 👋\n\n*${childName}* hat gerade alle Aufgaben im *${roomName}* erledigt! 🎉\n\nErledigt:\n${taskList}\n\n⭐ Super gemacht!`;
@@ -523,15 +1366,13 @@ function sendJakobHelp(name) {
 
 function renderChildView(params) {
   const childKey = params.get('child');
-  const roomKey = params.get('room');
-  const taskIds = (params.get('tasks') || '').split(',').map(Number);
-  const c = CHILDREN[childKey];
-  const room = DATA[roomKey] || DATA.kueche;
-  const tasks = room.tasks.filter(t => taskIds.includes(t.id));
-
+  const roomKey  = params.get('room');
+  const taskIds  = (params.get('tasks') || '').split(',').map(Number);
+  const c        = CHILDREN[childKey];
+  const room     = DATA[roomKey] || DATA.kueche;
+  const tasks    = room.tasks.filter(t => taskIds.includes(t.id));
   const container = document.getElementById('kinderAnsicht');
   container.style.display = 'block';
-
   if (c.mode === 'teen')  renderTeenMode(container, c, room, tasks);
   if (c.mode === 'focus') renderFocusMode(container, c, room, tasks);
   if (c.mode === 'star')  renderStarMode(container, c, room, tasks);
@@ -539,19 +1380,21 @@ function renderChildView(params) {
 }
 
 /* ============================================================
-   MODUS 1 — NOA (16, ASS+ADHS): nüchtern, volle Übersicht,
-   keine Spielereien, alle Aufgaben sofort sichtbar & klickbar
+   MODUS 1 — NOA / SARAH / MICHAEL: Teen Mode
    ============================================================ */
+const WA_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
 function renderTeenMode(container, c, room, tasks) {
   const total = tasks.length;
   container.innerHTML = `
     <div class="teen-body">
       <div class="kid-header teen-header">
-        
         <h1>${room.icon} ${room.name}</h1>
-        <p>Liste · ${total} Aufgaben</p>
-        <div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div>
-        <div class="kid-progress-text" id="progText">0 / ${total} erledigt</div>
+        <p>${c.name} · ${total} Aufgaben</p>
+        <div class="kid-progress-wrap">
+          <div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div>
+          <div class="kid-progress-text" id="progText">0 / ${total} erledigt</div>
+        </div>
       </div>
       <div class="teen-list" id="teenList"></div>
     </div>`;
@@ -589,7 +1432,7 @@ function updateTeenProgress(total, tasks, c, room) {
       const btn = document.createElement('button');
       btn.id = 'waDoneBtn';
       btn.className = 'wa-done-btn';
-      btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Fertig melden per WhatsApp`;
+      btn.innerHTML = `${WA_SVG} Fertig melden per WhatsApp`;
       btn.onclick = () => sendDoneWhatsApp(c.name, room.name, tasks);
       document.getElementById('teenList').after(btn);
     }
@@ -599,13 +1442,9 @@ function updateTeenProgress(total, tasks, c, room) {
 }
 
 /* ============================================================
-   MODUS 2 — THEA (13, ADHS, Start-Hürde): GESAMTÜBERSICHT mit
-   sichtbarem Fortschritt — gibt Kontrolle & Motivation durch
-   den Gesamtblick. Warmer, anfeuernder Ton + sichtbare
-   Mikro-Schritte senken die Starthürde pro Aufgabe.
+   MODUS 2 — THEA: Focus Mode mit Energie-Check
    ============================================================ */
 function renderFocusMode(container, c, room, tasks) {
-  // Step 1: show energy check screen first
   container.innerHTML = `
     <div class="focus-body">
       <div class="kid-header focus-header">
@@ -637,43 +1476,37 @@ function renderFocusMode(container, c, room, tasks) {
         <div class="energy-banner" id="energyBanner"></div>
         <div class="focus-list" id="focusList"></div>
         <div class="focus-celebration" id="focusCel">
-          <div style="font-size:2.8rem">🎉</div>
-          <div class="focus-title" style="margin-top:6px;">Alles geschafft, ${c.name}!</div>
-          <p style="color:#8899aa;font-weight:600;margin-top:6px;">Du hast wirklich dran gedacht – mega! 💪</p>
+          <div style="font-size:3rem">🎉</div>
+          <h2>Alles geschafft, ${c.name}!</h2>
+          <p>Du hast wirklich dran gedacht – mega! 💪</p>
         </div>
       </div>
     </div>`;
 
   window.startFocusList = function(energy) {
-    // Filter tasks by energy level
     let filteredTasks = tasks;
     let bannerText = '';
-    let bannerColor = '';
+    let bannerBg = '';
     if (energy === 'low') {
       filteredTasks = tasks.filter(t => t.energy === 'Aufwärmen');
       bannerText = '🥱 Nur leichte Aufgaben heute — das ist völlig okay!';
-      bannerColor = '#e6f7f5';
+      bannerBg = '#e6f7f5';
     } else if (energy === 'mid') {
       filteredTasks = tasks.filter(t => t.energy !== 'Gründlich');
       bannerText = '😐 Mittlere Aufgaben — du schaffst das!';
-      bannerColor = '#fff8e1';
+      bannerBg = '#fff8e1';
     } else {
       bannerText = '⚡ Volle Power — du rockst das heute!';
-      bannerColor = '#fff0f0';
+      bannerBg = '#fff0f5';
     }
-
     document.getElementById('energyCheck').style.display = 'none';
     document.getElementById('focusMain').style.display = 'block';
-
     const banner = document.getElementById('energyBanner');
     banner.textContent = bannerText;
-    banner.style.background = bannerColor;
-
+    banner.style.background = bannerBg;
     const total = filteredTasks.length;
-    // inject progress into header
     const header = container.querySelector('.kid-header');
-    header.innerHTML += `<div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div><div class="kid-progress-text" id="progText">0 / ${total} geschafft</div>`;
-
+    header.innerHTML += `<div class="kid-progress-wrap"><div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div><div class="kid-progress-text" id="progText">0 / ${total} geschafft</div></div>`;
     const list = document.getElementById('focusList');
     filteredTasks.forEach(t => {
       const card = document.createElement('div');
@@ -711,7 +1544,7 @@ function updateFocusListProgress(total, tasks, c, room) {
       const btn = document.createElement('button');
       btn.id = 'waDoneBtn';
       btn.className = 'wa-done-btn';
-      btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Fertig melden per WhatsApp`;
+      btn.innerHTML = `${WA_SVG} Fertig melden per WhatsApp`;
       btn.onclick = () => sendDoneWhatsApp(c.name, room.name, tasks);
       cel.after(btn);
     }
@@ -722,26 +1555,22 @@ function updateFocusListProgress(total, tasks, c, room) {
 }
 
 /* ============================================================
-   MODUS 3 — JAKOB (6, ADHS, weint leicht): riesige Icons,
-   Mikro-Schritte, sofortiges Stern-Feedback nach jedem Tipp
+   MODUS 3 — JAKOB: Star Mode
    ============================================================ */
 function renderStarMode(container, c, room, tasks) {
   let idx = 0;
   const total = tasks.length;
-
-  // Thematic background gradients per task — gives each task its own "scene"
-  // instead of a flat white card, closer to picture-book illustration style
   const sceneThemes = {
-    200: 'linear-gradient(160deg,#dbeafe,#bfdbfe)', // Lego — blue
-    201: 'linear-gradient(160deg,#fef3c7,#fde68a)', // Kuscheltiere — warm yellow
-    202: 'linear-gradient(160deg,#fce7f3,#fbcfe8)', // Spielküche — pink
-    203: 'linear-gradient(160deg,#d1fae5,#a7f3d0)', // Schleichtiere — green
-    204: 'linear-gradient(160deg,#ede9fe,#ddd6fe)', // Verkleidung — purple
-    205: 'linear-gradient(160deg,#ffe4e6,#fecdd3)', // Malstifte — rose
-    206: 'linear-gradient(160deg,#e0e7ff,#c7d2fe)', // Müll — indigo
-    207: 'linear-gradient(160deg,#fef9c3,#fef08a)', // Bücher — light yellow
-    208: 'linear-gradient(160deg,#cffafe,#a5f3fc)', // Spielsachen — cyan
-    209: 'linear-gradient(160deg,#fae8ff,#f5d0fe)'  // Check — light purple
+    200: 'linear-gradient(160deg,#dbeafe,#bfdbfe)',
+    201: 'linear-gradient(160deg,#fef3c7,#fde68a)',
+    202: 'linear-gradient(160deg,#fce7f3,#fbcfe8)',
+    203: 'linear-gradient(160deg,#d1fae5,#a7f3d0)',
+    204: 'linear-gradient(160deg,#ede9fe,#ddd6fe)',
+    205: 'linear-gradient(160deg,#ffe4e6,#fecdd3)',
+    206: 'linear-gradient(160deg,#e0e7ff,#c7d2fe)',
+    207: 'linear-gradient(160deg,#fef9c3,#fef08a)',
+    208: 'linear-gradient(160deg,#cffafe,#a5f3fc)',
+    209: 'linear-gradient(160deg,#fae8ff,#f5d0fe)'
   };
   const defaultScene = 'linear-gradient(160deg,#eaf2ff,#dbeafe)';
 
@@ -777,10 +1606,9 @@ function renderStarMode(container, c, room, tasks) {
           <div class="star-title">Super gemacht, ${c.name}!</div>
           <div class="star-micro">Du hast alle Sterne gesammelt! ⭐⭐⭐</div>
         </div>`;
-      // WhatsApp button after card
       const btn = document.createElement('button');
       btn.className = 'wa-done-btn';
-      btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Fertig melden per WhatsApp`;
+      btn.innerHTML = `${WA_SVG} Fertig melden per WhatsApp`;
       btn.onclick = () => sendDoneWhatsApp(c.name, room.name, tasks);
       stage.appendChild(btn);
       return;
@@ -812,18 +1640,17 @@ function renderStarMode(container, c, room, tasks) {
 }
 
 /* ============================================================
-   MODUS 4 — LIOBA (3): ein Bild, ein Knopf, ein Erfolg
+   MODUS 4 — LIOBA: Mini Mode
    ============================================================ */
 function renderMiniMode(container, c, room, tasks) {
   let idx = 0;
   const total = tasks.length || 1;
   const fallbackTask = { icon: '🧽', title: 'Mithelfen', microStep: 'Leg den Lappen in die Spüle.' };
-
   const sceneThemes = {
-    201: 'linear-gradient(160deg,#fef3c7,#fde68a)', // Kuscheltiere
-    202: 'linear-gradient(160deg,#fce7f3,#fbcfe8)', // Spielküche
-    203: 'linear-gradient(160deg,#d1fae5,#a7f3d0)', // Schleichtiere
-    204: 'linear-gradient(160deg,#ede9fe,#ddd6fe)'  // Verkleidung
+    201: 'linear-gradient(160deg,#fef3c7,#fde68a)',
+    202: 'linear-gradient(160deg,#fce7f3,#fbcfe8)',
+    203: 'linear-gradient(160deg,#d1fae5,#a7f3d0)',
+    204: 'linear-gradient(160deg,#ede9fe,#ddd6fe)'
   };
   const defaultScene = 'linear-gradient(160deg,#fff3c4,#ffe9a8)';
 
@@ -834,9 +1661,7 @@ function renderMiniMode(container, c, room, tasks) {
 
   function renderStage() {
     const stage = document.getElementById('miniStage');
-
     if (idx >= total) {
-      // ALL tasks done — final celebration
       stage.innerHTML = `
         <div id="miniDone" class="mini-done show">
           <div class="mini-confetti-stage" id="confettiStage"></div>
@@ -845,17 +1670,14 @@ function renderMiniMode(container, c, room, tasks) {
           </div>
           <div class="mini-title">Toll gemacht, ${c.name}!</div>
           <button class="wa-done-btn" style="margin-top:8px;" onclick="sendDoneWhatsApp('${c.name}', '${room.name}', ${JSON.stringify(tasks)})">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Fertig melden per WhatsApp
+            ${WA_SVG} Fertig melden per WhatsApp
           </button>
         </div>`;
       launchConfetti();
       return;
     }
-
     const t = tasks[idx] || fallbackTask;
     const scene = sceneThemes[t.id] || defaultScene;
-
     stage.innerHTML = `
       <div id="miniTask">
         <div class="mini-scene" style="background:${scene};">
@@ -864,28 +1686,23 @@ function renderMiniMode(container, c, room, tasks) {
         <div class="mini-title">${t.microStep || t.title}</div>
         <button class="mini-btn" id="miniBtn">Geschafft! 🎉</button>
       </div>`;
-
-    document.getElementById('miniBtn').onclick = () => {
-      idx++;
-      renderStage();
-    };
+    document.getElementById('miniBtn').onclick = () => { idx++; renderStage(); };
   }
-
   renderStage();
 }
 
 function launchConfetti() {
   const stage = document.getElementById('confettiStage');
   if (!stage) return;
-  const pieces = ['🎉','🎊','⭐','💛','🌟'];
-  for (let i = 0; i < 24; i++) {
+  const pieces = ['🎉','🎊','⭐','💛','🌟','🌈','💜','🌸'];
+  for (let i = 0; i < 30; i++) {
     const span = document.createElement('span');
     span.className = 'confetti-piece';
     span.textContent = pieces[Math.floor(Math.random() * pieces.length)];
     span.style.left = Math.random() * 100 + '%';
-    span.style.animationDelay = (Math.random() * 0.4) + 's';
-    span.style.animationDuration = (1.6 + Math.random() * 0.8) + 's';
-    span.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
+    span.style.animationDelay = (Math.random() * 0.6) + 's';
+    span.style.animationDuration = (1.4 + Math.random() * 1.2) + 's';
+    span.style.fontSize = (1.0 + Math.random() * 1.5) + 'rem';
     stage.appendChild(span);
   }
 }
