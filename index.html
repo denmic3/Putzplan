@@ -3,235 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Familien Putzplan Zentrale</title>
+<title>Familien Putzplan</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#6c5ce7">
+<meta name="theme-color" content="#f7f5f0">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="light-content">
 <meta name="apple-mobile-web-app-title" content="Putzplan">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ================================================================
-   DESIGN SYSTEM 2026 — Familien Putzplan
+   DESIGN SYSTEM — Premium Familien Putzplan
+   Inspiration: Headspace · Calm · Apple Health · Notion Mobile
+   Palette: Salbeigrün · Warmes Beige · Sanftes Lavendel · Blau
    ================================================================ */
 :root {
-  /* Brand Palette */
-  --violet:    #6c5ce7;
-  --violet-lt: #a29bfe;
-  --teal:      #00cec9;
-  --teal-dk:   #0099a3;
-  --coral:     #fd7979;
-  --coral-dk:  #e84343;
-  --gold:      #fdcb6e;
-  --gold-dk:   #e17055;
-  --green:     #55efc4;
-  --green-dk:  #00b894;
-  --rose:      #fd79a8;
-  --rose-dk:   #e84393;
-  --blue:      #74b9ff;
-  --blue-dk:   #0984e3;
-  --navy:      #1e1b4b;
-  --muted:     #94a3b8;
-  --text:      #1e293b;
-  --text-sm:   #64748b;
+  /* Nature Palette */
+  --sage:        #7a9e87;
+  --sage-lt:     #a8c5b0;
+  --sage-pale:   #e8f0eb;
+  --beige:       #f5f0e8;
+  --beige-warm:  #ede8de;
+  --beige-dark:  #c8bfb0;
+  --lavender:    #8b85c1;
+  --lavender-lt: #b5b0d8;
+  --lavender-pale: #eeedf8;
+  --blue-soft:   #7aaccc;
+  --blue-pale:   #e5eff6;
+  --coral-soft:  #d4897a;
+  --coral-pale:  #f5ece9;
+  --gold-soft:   #c8a96e;
+  --gold-pale:   #f5f0e3;
+
+  /* Text */
+  --text-deep:   #2c2c2c;
+  --text-mid:    #5a5a5a;
+  --text-soft:   #8a8a8a;
+  --text-pale:   #b0b0b0;
 
   /* Surfaces */
-  --bg:        #f8f7ff;
-  --surface:   #ffffff;
-  --surface2:  #f1f0ff;
+  --bg:          #faf9f6;
+  --surface:     #ffffff;
+  --surface-warm:#fdfcf9;
+  --border:      rgba(0,0,0,0.06);
+  --border-soft: rgba(0,0,0,0.04);
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(108,92,231,0.08);
-  --shadow:    0 4px 20px rgba(108,92,231,0.12);
-  --shadow-lg: 0 12px 40px rgba(108,92,231,0.18);
+  /* Shadows — very soft, natural */
+  --shadow-xs:   0 1px 4px rgba(0,0,0,0.05);
+  --shadow-sm:   0 2px 12px rgba(0,0,0,0.06);
+  --shadow:      0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg:   0 8px 40px rgba(0,0,0,0.10);
+  --shadow-card: 0 2px 16px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.03);
 
   /* Radii */
-  --r-sm: 12px;
-  --r:    18px;
-  --r-lg: 26px;
-  --r-xl: 32px;
+  --r-sm:  10px;
+  --r:     16px;
+  --r-lg:  22px;
+  --r-xl:  28px;
+  --r-full: 999px;
 
   /* Transitions */
-  --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  padding-bottom: 40px;
-  overscroll-behavior: none;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease:   cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ================================================================
-   ELTERN-HEADER
+   RESET & BASE
    ================================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-deep);
+  min-height: 100vh;
+  padding-bottom: 48px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================================================================
+   NATURE BACKGROUND — dezente Pflanzen-Silhouetten (SVG inline)
+   Deckkraft 3–4%, nur im oberen Bereich sichtbar
+   ================================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 340' fill='none'%3E%3Cpath d='M-20 200 Q20 120 60 160 Q40 80 80 40 Q100 80 90 140 Q130 60 150 100 Q160 40 180 20 Q190 60 175 120 Q220 30 240 70 Q250 20 270 0 Q280 40 265 100 Q310 20 320 60 Q325 10 345 -10 Q355 30 340 90 Q380 40 400 80 L420 340 L-40 340 Z' fill='%23557a5e' opacity='0.035'/%3E%3Cpath d='M350 80 Q370 40 390 20 Q395 50 385 90 Q410 50 430 80 L440 340 L340 340 Z' fill='%23557a5e' opacity='0.025'/%3E%3Cpath d='M60 160 Q80 130 85 100 Q70 70 90 50 Q95 90 88 130 Z' fill='%23557a5e' opacity='0.04'/%3E%3Cpath d='M170 120 Q180 90 185 60 Q172 40 178 20 Q188 50 183 85 Z' fill='%23557a5e' opacity='0.03'/%3E%3Cpath d='M263 100 Q272 65 270 35 Q258 15 264 0 Q274 25 268 70 Z' fill='%23557a5e' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ================================================================
+   ELTERN HEADER
+   ================================================================ */
+#elternAnsicht { display: none; }
+#kinderAnsicht { display: none; }
+
 .p-header {
-  background: linear-gradient(145deg, #1e1b4b 0%, #4c3799 50%, #6c5ce7 100%);
-  padding: 52px 24px 32px;
+  background: linear-gradient(175deg, #f0ede5 0%, #eae8e0 40%, #f5f4f0 100%);
+  padding: 56px 24px 36px;
   position: relative;
   overflow: hidden;
-}
-.p-header::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 220px; height: 220px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 50%;
+  border-bottom: 1px solid var(--border-soft);
 }
 .p-header::after {
   content: '';
   position: absolute;
-  bottom: -80px; left: -40px;
-  width: 280px; height: 280px;
-  background: rgba(162,155,254,0.12);
-  border-radius: 50%;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--beige-dark), transparent);
+  opacity: 0.4;
 }
-.p-header-badge {
+.p-header-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 99px;
-  padding: 5px 14px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0.5px;
-  margin-bottom: 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 10px;
+}
+.p-header-eyebrow span {
+  width: 20px; height: 1px;
+  background: var(--sage);
+  display: inline-block;
 }
 .p-header h1 {
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 900;
-  color: white;
-  line-height: 1.15;
+  color: var(--text-deep);
   letter-spacing: -0.5px;
-  position: relative;
-  z-index: 1;
+  line-height: 1.1;
 }
-.p-header h1 span { color: var(--gold); }
+.p-header h1 em {
+  font-style: normal;
+  color: var(--sage);
+}
 .p-header p {
   font-size: 0.88rem;
-  color: rgba(255,255,255,0.72);
+  color: var(--text-soft);
+  font-weight: 500;
   margin-top: 8px;
-  position: relative;
-  z-index: 1;
+  line-height: 1.5;
 }
 
 /* ================================================================
    SECTION LABELS
    ================================================================ */
-.p-section { padding: 20px 20px 0; }
-.p-label {
+.p-body { padding: 0 20px; }
+.p-section { padding-top: 28px; }
+.p-section-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--text-pale);
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 8px;
 }
-.p-label-num {
-  width: 26px; height: 26px;
-  background: var(--violet);
-  color: white;
-  border-radius: 50%;
-  font-size: 0.78rem;
-  font-weight: 900;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.p-label-text {
-  font-size: 0.8rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--muted);
+.p-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
 /* ================================================================
-   CHILD PICKER CARDS
+   CHILD PICKER
    ================================================================ */
-.child-picker { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.child-picker { display: flex; flex-direction: column; gap: 8px; }
 
 .child-card {
   display: flex;
   align-items: center;
   gap: 14px;
   background: var(--surface);
-  border-radius: var(--r);
+  border-radius: var(--r-lg);
   padding: 14px 16px;
-  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.2s var(--ease);
+  border: 1.5px solid var(--border);
+  transition: all 0.22s var(--spring);
+  box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
 }
 .child-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--c-bg, #f1f0ff);
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--c-color, var(--sage));
+  border-radius: 0 2px 2px 0;
   opacity: 0;
-  transition: opacity 0.2s;
+  transform: scaleY(0.6);
+  transition: all 0.22s var(--spring);
 }
 .child-card.selected {
-  border-color: var(--c-color, var(--violet));
-  box-shadow: 0 4px 20px rgba(108,92,231,0.15);
+  border-color: var(--c-color, var(--sage));
+  background: var(--surface-warm);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 1px var(--c-color, var(--sage));
   transform: translateY(-1px);
 }
-.child-card.selected::before { opacity: 1; }
-.child-card:active { transform: scale(0.98); }
+.child-card.selected::before { opacity: 1; transform: scaleY(1); }
+.child-card:active { transform: scale(0.985); }
 
 .child-avatar {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: var(--c-bg, #f1f0ff);
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: var(--c-bg, var(--sage-pale));
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   flex-shrink: 0;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.child-info { flex: 1; position: relative; z-index: 1; }
-.child-name {
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.2px;
-}
-.child-tag { font-size: 0.73rem; color: var(--muted); font-weight: 700; margin-top: 2px; }
-
+.child-info { flex: 1; }
+.child-name { font-size: 0.95rem; font-weight: 800; color: var(--text-deep); letter-spacing: -0.2px; }
+.child-name span { font-weight: 500; color: var(--text-soft); font-size: 0.85rem; }
+.child-tag { font-size: 0.73rem; color: var(--text-soft); font-weight: 600; margin-top: 2px; }
 .child-check {
-  width: 24px; height: 24px;
+  width: 22px; height: 22px;
   border-radius: 50%;
-  border: 2px solid #dde2ee;
+  border: 1.5px solid var(--border);
   flex-shrink: 0;
+  background: var(--bg);
   position: relative;
-  z-index: 1;
-  transition: all 0.2s;
+  transition: all 0.2s var(--spring);
 }
 .child-card.selected .child-check {
-  background: var(--c-color, var(--violet));
-  border-color: var(--c-color, var(--violet));
+  background: var(--c-color, var(--sage));
+  border-color: var(--c-color, var(--sage));
 }
 .child-card.selected .child-check::after {
   content: '✓';
   position: absolute;
   color: white;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
-  left: 5px; top: 1px;
+  left: 5px; top: 2px;
 }
 
 /* ================================================================
@@ -241,100 +265,102 @@ body {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
   scrollbar-width: none;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
 .room-tabs::-webkit-scrollbar { display: none; }
 .room-tab {
   flex-shrink: 0;
-  padding: 10px 18px;
-  border-radius: 99px;
-  border: 2px solid #e2e8f0;
+  padding: 9px 16px;
+  border-radius: var(--r-full);
+  border: 1.5px solid var(--border);
   background: var(--surface);
   font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.83rem;
+  color: var(--text-soft);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s var(--ease);
-  box-shadow: var(--shadow-sm);
+  transition: all 0.18s var(--spring);
+  box-shadow: var(--shadow-xs);
 }
 .room-tab.active {
-  background: var(--violet);
-  border-color: var(--violet);
+  background: var(--sage);
+  border-color: var(--sage);
   color: white;
-  box-shadow: 0 4px 16px rgba(108,92,231,0.3);
+  box-shadow: 0 4px 14px rgba(122,158,135,0.3);
   transform: translateY(-1px);
 }
+.room-tab:not(.active):active { background: var(--sage-pale); }
 
 /* ================================================================
    TASK SELECT GRID
    ================================================================ */
-.select-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.select-grid { display: flex; flex-direction: column; gap: 8px; padding-bottom: 20px; }
 
 .select-item {
   background: var(--surface);
-  border-radius: var(--r);
-  padding: 14px 16px;
+  border-radius: var(--r-lg);
+  padding: 13px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.18s var(--ease);
+  border: 1.5px solid var(--border);
+  transition: all 0.2s var(--spring);
+  box-shadow: var(--shadow-card);
 }
-.select-item:active { transform: scale(0.98); }
+.select-item:active { transform: scale(0.985); }
 .select-item.selected {
-  border-color: var(--violet);
-  background: var(--surface2);
-  box-shadow: 0 4px 16px rgba(108,92,231,0.12);
+  border-color: var(--sage);
+  background: #f4f8f5;
+  box-shadow: 0 2px 12px rgba(122,158,135,0.15), 0 0 0 1px var(--sage);
 }
 .s-num {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: 900;
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
   color: white;
 }
-.s-icon { font-size: 1.4rem; flex-shrink: 0; }
+.s-icon { font-size: 1.3rem; flex-shrink: 0; width: 24px; text-align: center; }
 .s-body { flex: 1; min-width: 0; }
-.s-title { font-size: 0.92rem; font-weight: 800; color: var(--text); }
-.s-sub { font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
+.s-title { font-size: 0.9rem; font-weight: 700; color: var(--text-deep); }
+.s-sub { font-size: 0.73rem; color: var(--text-soft); font-weight: 600; margin-top: 2px; }
 .care-alert {
-  background: #f0ecff;
-  color: var(--violet);
-  font-size: 0.67rem;
-  font-weight: 800;
+  background: var(--lavender-pale);
+  color: var(--lavender);
+  font-size: 0.65rem;
+  font-weight: 700;
   padding: 4px 9px;
-  border-radius: 99px;
-  border: 1.5px solid var(--violet-lt);
-  max-width: 160px;
+  border-radius: var(--r-full);
+  border: 1px solid rgba(139,133,193,0.3);
+  max-width: 155px;
   word-break: break-word;
   line-height: 1.3;
   flex-shrink: 0;
 }
 .s-check {
-  width: 22px; height: 22px;
+  width: 20px; height: 20px;
   border-radius: 50%;
-  border: 2px solid #dde2ee;
+  border: 1.5px solid var(--border);
   flex-shrink: 0;
-  transition: all 0.18s;
+  background: var(--bg);
   position: relative;
+  transition: all 0.18s var(--spring);
 }
 .select-item.selected .s-check {
-  background: var(--violet);
-  border-color: var(--violet);
+  background: var(--sage);
+  border-color: var(--sage);
 }
 .select-item.selected .s-check::after {
   content: '✓';
   position: absolute;
   color: white;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
   left: 4px; top: 1px;
 }
@@ -345,76 +371,22 @@ body {
 .send-btn {
   display: block;
   width: 100%;
-  background: linear-gradient(135deg, #25D366, #128C7E);
+  background: linear-gradient(135deg, #3ab87a, #1fa060);
   color: white;
   border: none;
   font-family: 'Nunito', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 900;
-  padding: 18px;
-  border-radius: var(--r);
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(37,211,102,0.3);
-  transition: all 0.2s var(--ease);
-  letter-spacing: 0.2px;
-}
-.send-btn:not(:disabled):active { transform: scale(0.97); }
-.send-btn:disabled { background: #cbd5e0; box-shadow: none; cursor: not-allowed; opacity: 0.6; }
-
-/* ================================================================
-   SHARED CHILD HEADER BASE
-   ================================================================ */
-#elternAnsicht, #kinderAnsicht { display: none; }
-
-.kid-header {
-  padding: 56px 24px 28px;
-  text-align: center;
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-.kid-header h1 {
-  font-size: 1.5rem;
-  font-weight: 900;
-  letter-spacing: -0.3px;
-  position: relative;
-  z-index: 1;
-}
-.kid-header p {
-  font-size: 0.88rem;
-  opacity: 0.88;
-  margin-top: 6px;
-  position: relative;
-  z-index: 1;
-}
-.kid-progress-wrap {
-  position: relative;
-  z-index: 1;
-  margin-top: 18px;
-}
-.kid-progress-bg {
-  background: rgba(255,255,255,0.25);
-  border-radius: 99px;
-  height: 10px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-}
-.kid-progress-fill {
-  height: 100%;
-  background: white;
-  border-radius: 99px;
-  transition: width 0.5s var(--ease);
-  width: 0%;
-  box-shadow: 0 0 8px rgba(255,255,255,0.6);
-}
-.kid-progress-text {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 800;
-  margin-top: 8px;
-  opacity: 0.9;
+  padding: 17px;
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(32,160,96,0.25);
+  transition: all 0.2s var(--spring);
+  letter-spacing: 0.1px;
+  margin-bottom: 4px;
 }
-.kid-home-link { position: absolute; top: 14px; left: 14px; }
-.kid-home-link--icon { font-size: 1.3rem; }
+.send-btn:not(:disabled):active { transform: scale(0.97); box-shadow: 0 3px 10px rgba(32,160,96,0.2); }
+.send-btn:disabled { background: var(--beige-dark); box-shadow: none; cursor: not-allowed; color: rgba(255,255,255,0.7); }
 
 /* ================================================================
    WHATSAPP DONE BUTTON
@@ -423,437 +395,468 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 9px;
   width: calc(100% - 32px);
-  margin: 16px auto 28px;
-  background: linear-gradient(135deg, #25D366, #128C7E);
+  margin: 14px auto 28px;
+  background: linear-gradient(135deg, #3ab87a, #1fa060);
   color: white;
   border: none;
   font-family: 'Nunito', sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  padding: 18px;
-  border-radius: var(--r);
+  font-size: 0.97rem;
+  font-weight: 800;
+  padding: 16px;
+  border-radius: var(--r-lg);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(37,211,102,0.3);
-  transition: transform 0.15s var(--ease);
+  box-shadow: 0 6px 20px rgba(32,160,96,0.22);
+  transition: all 0.2s var(--spring);
 }
 .wa-done-btn:active { transform: scale(0.97); }
 .wa-done-btn svg { flex-shrink: 0; }
 
 /* ================================================================
+   SHARED CHILD HEADER
+   ================================================================ */
+.kid-header {
+  padding: 56px 24px 28px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.kid-header h1 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  position: relative;
+  z-index: 1;
+}
+.kid-header p {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-top: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Progress */
+.kid-progress-wrap { position: relative; z-index: 1; margin-top: 18px; padding: 0 2px; }
+.kid-progress-bg {
+  background: rgba(255,255,255,0.22);
+  border-radius: var(--r-full);
+  height: 8px;
+  overflow: hidden;
+}
+.kid-progress-fill {
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  border-radius: var(--r-full);
+  transition: width 0.55s var(--spring);
+  width: 0%;
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+}
+.kid-progress-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-top: 8px;
+  opacity: 0.85;
+  letter-spacing: 0.2px;
+}
+
+/* ================================================================
    NOA — TEEN MODE
-   Ruhig, minimal, lavendel/blau, klare Struktur
+   Lavendel/Blau, minimalistisch, ruhig, klare Struktur
    ================================================================ */
 .teen-body {
-  background: linear-gradient(180deg, #f5f3ff 0%, #ede9fe 30%, #f8f7ff 100%);
+  background: linear-gradient(180deg, #f2f1f9 0%, #f8f8fd 50%, var(--bg) 100%);
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 48px;
 }
 .teen-header {
-  background: linear-gradient(145deg, #1e1b4b 0%, #4c3799 60%, #7c6fcd 100%);
+  background: linear-gradient(155deg, #3d3670 0%, #5a4fa3 50%, #7a70cc 100%);
+  position: relative;
 }
 .teen-header::before {
   content: '';
   position: absolute;
-  top: -50px; right: -50px;
-  width: 200px; height: 200px;
-  background: rgba(162,155,254,0.15);
-  border-radius: 50%;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 200' fill='none'%3E%3Cellipse cx='340' cy='-30' rx='120' ry='120' fill='rgba(255,255,255,0.05)'/%3E%3Cellipse cx='20' cy='180' rx='80' ry='80' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") no-repeat;
+  background-size: cover;
 }
 
-.teen-list { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-
+.teen-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .teen-card {
-  background: white;
-  border-radius: var(--r);
+  background: var(--surface);
+  border-radius: var(--r-lg);
   padding: 16px 18px;
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  border: 2px solid transparent;
+  border: 1.5px solid var(--border);
   cursor: pointer;
-  transition: all 0.2s var(--ease);
-  box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--spring);
+  box-shadow: var(--shadow-card);
+  animation: cardFadeIn 0.3s var(--ease) both;
+}
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .teen-card:active { transform: scale(0.985); }
 .teen-card.done {
-  background: #f5f3ff;
-  border-color: #c4b5fd;
+  background: var(--lavender-pale);
+  border-color: rgba(139,133,193,0.25);
   box-shadow: none;
-  opacity: 0.65;
+  opacity: 0.6;
 }
-.teen-card.done .teen-title { text-decoration: line-through; color: var(--muted); }
+.teen-card.done .teen-title { text-decoration: line-through; color: var(--text-pale); }
 
 .teen-checkbox {
   width: 22px; height: 22px;
   border-radius: 6px;
-  border: 2px solid #c4b5fd;
+  border: 1.5px solid var(--lavender-lt);
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.78rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
   color: transparent;
   margin-top: 1px;
-  transition: all 0.2s var(--ease);
+  background: var(--lavender-pale);
+  transition: all 0.2s var(--spring);
 }
 .teen-card.done .teen-checkbox {
-  background: #7c6fcd;
-  border-color: #7c6fcd;
+  background: var(--lavender);
+  border-color: var(--lavender);
   color: white;
 }
-.teen-icon { font-size: 1.3rem; flex-shrink: 0; width: 24px; text-align: center; }
+.teen-icon { font-size: 1.25rem; flex-shrink: 0; width: 24px; text-align: center; line-height: 1.5; }
 .teen-text { flex: 1; min-width: 0; }
-.teen-title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.2px;
-}
-.teen-meta { font-size: 0.73rem; color: var(--muted); font-weight: 700; margin-top: 3px; }
+.teen-title { font-size: 0.95rem; font-weight: 700; color: var(--text-deep); letter-spacing: -0.2px; line-height: 1.3; }
+.teen-meta { font-size: 0.72rem; color: var(--text-soft); font-weight: 600; margin-top: 3px; }
 .teen-steps {
   font-size: 0.8rem;
-  color: var(--text-sm);
-  margin-top: 8px;
-  padding-left: 0;
+  color: var(--text-mid);
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: var(--lavender-pale);
+  border-radius: var(--r-sm);
   list-style: none;
   display: none;
   line-height: 1.7;
 }
 .teen-card.expanded .teen-steps { display: block; }
-.teen-steps li { padding: 2px 0 2px 16px; position: relative; }
-.teen-steps li::before { content: '–'; position: absolute; left: 0; color: #c4b5fd; font-weight: 900; }
-.teen-care { display: none; } /* care alerts hidden from Noa */
+.teen-steps li { padding: 1px 0 1px 16px; position: relative; }
+.teen-steps li::before { content: '–'; position: absolute; left: 0; color: var(--lavender-lt); }
+.teen-care { display: none !important; }
 
-/* Teen celebration */
 .teen-celebration {
-  margin: 16px;
+  margin: 14px;
   padding: 28px 20px;
-  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
-  border-radius: var(--r-lg);
+  background: var(--lavender-pale);
+  border-radius: var(--r-xl);
   text-align: center;
-  border: 2px dashed #c4b5fd;
+  border: 1px solid rgba(139,133,193,0.2);
+  animation: cardFadeIn 0.4s var(--spring);
 }
-.teen-celebration h2 { font-size: 1.3rem; font-weight: 900; color: var(--navy); margin-bottom: 6px; }
-.teen-celebration p { font-size: 0.88rem; color: var(--muted); font-weight: 600; }
+.teen-celebration h2 { font-size: 1.25rem; font-weight: 900; color: var(--text-deep); margin-top: 6px; }
+.teen-celebration p { font-size: 0.85rem; color: var(--text-soft); font-weight: 600; margin-top: 5px; }
 
 /* ================================================================
    THEA — FOCUS MODE
-   Warm, coral/rosa, motivierend, Fortschritt gut sichtbar
+   Korall/Rosa, warm, motivierend, Energie-Check
    ================================================================ */
 .focus-body {
-  background: linear-gradient(180deg, #fff5f5 0%, #ffe4e6 20%, #fff 100%);
+  background: linear-gradient(180deg, #fdf5f3 0%, #fef8f6 40%, var(--bg) 100%);
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 48px;
 }
 .focus-header {
-  background: linear-gradient(145deg, #c2185b 0%, #e91e8c 50%, #fd79a8 100%);
+  background: linear-gradient(155deg, #a0392a 0%, #c7503e 40%, #d4755e 100%);
+  position: relative;
 }
 .focus-header::before {
   content: '';
   position: absolute;
-  top: -40px; right: -40px;
-  width: 180px; height: 180px;
-  background: rgba(255,255,255,0.12);
-  border-radius: 50%;
-}
-.focus-header::after {
-  content: '';
-  position: absolute;
-  bottom: -50px; left: -20px;
-  width: 150px; height: 150px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 50%;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 200'%3E%3Cellipse cx='350' cy='-20' rx='100' ry='100' fill='rgba(255,255,255,0.07)'/%3E%3Cellipse cx='30' cy='190' rx='70' ry='70' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E") no-repeat;
+  background-size: cover;
 }
 
 /* Energie-Check */
-.energy-check { padding: 28px 20px 0; }
+.energy-check { padding: 28px 20px 4px; }
 .energy-check-title {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 900;
-  color: var(--text);
-  text-align: center;
-  margin-bottom: 6px;
+  color: var(--text-deep);
   letter-spacing: -0.3px;
+  margin-bottom: 4px;
 }
 .energy-check-sub {
-  font-size: 0.88rem;
-  color: var(--muted);
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 24px;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-weight: 600;
+  margin-bottom: 22px;
+  line-height: 1.4;
 }
-.energy-options { display: flex; flex-direction: column; gap: 12px; }
+.energy-options { display: flex; flex-direction: column; gap: 10px; }
 .energy-opt {
   display: grid;
-  grid-template-columns: 3.5rem 1fr;
+  grid-template-columns: 3.2rem 1fr;
   grid-template-rows: auto auto;
   align-items: center;
-  gap: 0 10px;
-  background: white;
-  border: 2.5px solid #f1f0ff;
-  border-radius: var(--r);
-  padding: 16px 18px;
+  gap: 0 12px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 15px 16px;
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
   text-align: left;
-  transition: all 0.18s var(--ease);
-  box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--spring);
+  box-shadow: var(--shadow-card);
+  animation: cardFadeIn 0.3s var(--ease) both;
 }
-.energy-opt:active { transform: scale(0.97); }
-.energy-opt--fit { border-color: var(--coral); box-shadow: 0 4px 16px rgba(253,121,121,0.15); }
-.energy-opt--mid { border-color: var(--gold); box-shadow: 0 4px 16px rgba(253,203,110,0.15); }
-.energy-opt--low { border-color: var(--green-dk); box-shadow: 0 4px 16px rgba(0,184,148,0.15); }
-.energy-emoji { font-size: 2.2rem; grid-row: 1/3; display: flex; align-items: center; justify-content: center; }
-.energy-label { font-size: 0.98rem; font-weight: 900; color: var(--text); }
-.energy-desc { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+.energy-opt:nth-child(1) { animation-delay: 0.05s; }
+.energy-opt:nth-child(2) { animation-delay: 0.10s; }
+.energy-opt:nth-child(3) { animation-delay: 0.15s; }
+.energy-opt:active { transform: scale(0.98); }
+.energy-opt--fit { border-left: 3px solid var(--coral-soft); }
+.energy-opt--mid { border-left: 3px solid var(--gold-soft); }
+.energy-opt--low { border-left: 3px solid var(--sage); }
+.energy-emoji { font-size: 1.9rem; grid-row: 1/3; display: flex; align-items: center; justify-content: center; }
+.energy-label { font-size: 0.95rem; font-weight: 800; color: var(--text-deep); }
+.energy-desc  { font-size: 0.76rem; color: var(--text-soft); font-weight: 600; margin-top: 1px; }
 
 .energy-banner {
-  margin: 14px 16px 0;
-  padding: 13px 18px;
+  margin: 14px 20px 0;
+  padding: 12px 16px;
   border-radius: var(--r);
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: var(--text);
-  text-align: center;
-  box-shadow: var(--shadow-sm);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  border-left: 3px solid var(--coral-soft);
+  animation: cardFadeIn 0.3s var(--spring);
 }
 
-/* Focus list */
-.focus-list { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+/* Focus list cards */
+.focus-list { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .focus-list-card {
-  background: white;
-  border-radius: var(--r);
+  background: var(--surface);
+  border-radius: var(--r-lg);
   padding: 16px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  box-shadow: 0 4px 16px rgba(253,121,121,0.10);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.2s var(--ease);
+  border: 1.5px solid var(--border);
+  transition: all 0.2s var(--spring);
+  animation: cardFadeIn 0.3s var(--ease) both;
 }
 .focus-list-card:active { transform: scale(0.985); }
 .focus-list-card.done {
   opacity: 0.55;
-  background: #fff5f5;
-  border-color: #fda4af;
+  background: var(--coral-pale);
+  border-color: rgba(212,137,122,0.3);
+  box-shadow: none;
 }
-.focus-list-card.done .focus-list-title { text-decoration: line-through; color: var(--muted); }
-
+.focus-list-card.done .focus-list-title { text-decoration: line-through; color: var(--text-pale); }
 .focus-checkbox {
-  width: 28px; height: 28px;
+  width: 26px; height: 26px;
   border-radius: 50%;
-  border: 2.5px solid #fda4af;
+  border: 1.5px solid rgba(212,137,122,0.4);
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
   color: transparent;
+  background: var(--coral-pale);
   margin-top: 1px;
-  transition: all 0.2s var(--ease);
+  transition: all 0.2s var(--spring);
 }
 .focus-list-card.done .focus-checkbox {
-  background: var(--rose-dk);
-  border-color: var(--rose-dk);
+  background: var(--coral-soft);
+  border-color: var(--coral-soft);
   color: white;
 }
-.focus-list-icon { font-size: 1.7rem; flex-shrink: 0; width: 32px; text-align: center; }
+.focus-list-icon { font-size: 1.6rem; flex-shrink: 0; width: 30px; text-align: center; }
 .focus-list-text { flex: 1; min-width: 0; }
-.focus-list-title { font-size: 0.97rem; font-weight: 800; color: var(--text); letter-spacing: -0.2px; }
-.focus-list-meta { font-size: 0.74rem; color: var(--muted); font-weight: 700; margin-top: 3px; }
+.focus-list-title { font-size: 0.95rem; font-weight: 700; color: var(--text-deep); letter-spacing: -0.2px; }
+.focus-list-meta { font-size: 0.72rem; color: var(--text-soft); font-weight: 600; margin-top: 3px; }
 .focus-list-micro {
-  font-size: 0.84rem;
-  color: #c2185b;
+  font-size: 0.83rem;
+  color: var(--coral-soft);
   font-weight: 800;
-  background: #fff0f5;
+  background: var(--coral-pale);
   padding: 7px 12px;
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   margin-top: 9px;
   display: inline-block;
-  border-left: 3px solid var(--rose-dk);
+  border-left: 2px solid var(--coral-soft);
 }
 .focus-list-steps {
-  font-size: 0.8rem;
-  color: var(--text-sm);
-  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--text-mid);
   line-height: 1.8;
   margin-top: 10px;
-  padding-left: 0;
+  padding: 10px 14px;
+  background: var(--coral-pale);
+  border-radius: var(--r-sm);
   list-style: none;
   display: none;
 }
 .focus-list-card.expanded .focus-list-steps { display: block; }
-.focus-list-steps li { padding-left: 18px; position: relative; }
-.focus-list-steps li::before { content: '→'; position: absolute; left: 0; color: var(--rose-dk); font-weight: 900; }
-.focus-care { display: none; }
+.focus-list-steps li { padding-left: 14px; position: relative; }
+.focus-list-steps li::before { content: '→'; position: absolute; left: 0; color: var(--coral-soft); }
+.focus-care { display: none !important; }
 
 .focus-celebration {
   display: none;
   text-align: center;
   padding: 28px 20px;
-  background: linear-gradient(135deg, #fff0f5, #ffe4ef);
+  background: var(--coral-pale);
   margin: 16px;
-  border-radius: var(--r-lg);
-  border: 2px dashed var(--rose-dk);
-  animation: fadeUp 0.5s var(--ease);
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(212,137,122,0.2);
 }
-.focus-celebration.show { display: block; }
-.focus-celebration h2 { font-size: 1.4rem; font-weight: 900; color: var(--text); margin-top: 8px; }
-.focus-celebration p { font-size: 0.88rem; color: var(--muted); font-weight: 600; margin-top: 6px; }
+.focus-celebration.show { display: block; animation: cardFadeIn 0.4s var(--spring); }
+.focus-celebration h2 { font-size: 1.3rem; font-weight: 900; color: var(--text-deep); margin-top: 8px; }
+.focus-celebration p { font-size: 0.85rem; color: var(--text-soft); font-weight: 600; margin-top: 5px; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ================================================================
    JAKOB — STAR MODE
-   Spielerisch, groß, bunt, Missionen, Belohnungen
+   Warmblau/Himmel, spielerisch, Missionen, Sterne
    ================================================================ */
 .star-body {
-  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 10%, #f0f9ff 60%, #fff 100%);
+  background: linear-gradient(180deg, #ddeef7 0%, #eaf5fb 25%, #f7fbfd 70%, var(--bg) 100%);
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 48px;
   font-family: 'Quicksand', sans-serif;
   position: relative;
 }
 .star-body::before {
   content: '☁️';
   position: fixed;
-  font-size: 3rem;
-  top: 80px;
-  left: -10px;
-  opacity: 0.4;
-  animation: cloudFloat 8s ease-in-out infinite;
+  font-size: 2.8rem;
+  top: 90px; left: -8px;
+  opacity: 0.35;
+  animation: cloudDrift 9s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
 .star-body::after {
   content: '⭐';
   position: fixed;
-  font-size: 1.5rem;
-  top: 140px;
-  right: 10px;
-  opacity: 0.35;
-  animation: starTwinkle 3s ease-in-out infinite;
+  font-size: 1.4rem;
+  top: 150px; right: 12px;
+  opacity: 0.3;
+  animation: starFloat 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
-@keyframes cloudFloat {
+@keyframes cloudDrift {
   0%, 100% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(15px) translateY(-8px); }
+  50% { transform: translateX(18px) translateY(-6px); }
 }
-@keyframes starTwinkle {
-  0%, 100% { opacity: 0.35; transform: scale(1) rotate(0deg); }
-  50% { opacity: 0.7; transform: scale(1.2) rotate(20deg); }
+@keyframes starFloat {
+  0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.55; transform: scale(1.15) rotate(15deg); }
 }
 
 .star-header {
-  background: linear-gradient(145deg, #0369a1 0%, #0284c7 50%, #38bdf8 100%);
+  background: linear-gradient(155deg, #1e6fa0 0%, #2c8abe 50%, #5aacce 100%);
   position: relative;
   z-index: 1;
 }
 .star-header::before {
   content: '';
   position: absolute;
-  top: -30px; right: -30px;
-  width: 160px; height: 160px;
-  background: rgba(255,255,255,0.12);
-  border-radius: 50%;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 200'%3E%3Cellipse cx='360' cy='-10' rx='110' ry='110' fill='rgba(255,255,255,0.08)'/%3E%3Cellipse cx='10' cy='170' rx='80' ry='80' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") no-repeat;
+  background-size: cover;
 }
 
 .star-collection {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  padding: 16px 16px 0;
+  gap: 10px;
+  padding: 18px 16px 4px;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
 }
 .star-slot {
-  width: 40px; height: 40px;
+  width: 42px; height: 42px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.55);
   backdrop-filter: blur(4px);
-  border: 2px solid rgba(56,189,248,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  transition: all 0.35s var(--ease);
-  box-shadow: 0 2px 8px rgba(3,105,161,0.1);
+  border: 1.5px solid rgba(92,172,206,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.35s var(--spring);
+  box-shadow: 0 2px 8px rgba(30,111,160,0.1);
 }
 .star-slot.filled {
   background: #fef9c3;
-  border-color: #fbbf24;
-  transform: scale(1.2);
-  box-shadow: 0 4px 14px rgba(251,191,36,0.4);
-  animation: starPop 0.35s var(--ease);
+  border-color: #eab308;
+  transform: scale(1.18);
+  box-shadow: 0 4px 16px rgba(234,179,8,0.3);
+  animation: starPop 0.35s var(--spring);
 }
 @keyframes starPop {
-  0% { transform: scale(0.5); }
-  60% { transform: scale(1.35); }
-  100% { transform: scale(1.2); }
+  0%   { transform: scale(0.5); }
+  60%  { transform: scale(1.3); }
+  100% { transform: scale(1.18); }
 }
 
-.star-stage {
-  padding: 20px 16px;
-  position: relative;
-  z-index: 1;
-}
+.star-stage { padding: 18px 16px; position: relative; z-index: 1; }
 .star-card {
-  background: white;
-  border-radius: var(--r-xl);
-  box-shadow: 0 12px 40px rgba(3,105,161,0.18);
-  padding: 24px 20px 20px;
+  background: var(--surface);
+  border-radius: 26px;
+  box-shadow: 0 10px 36px rgba(30,111,160,0.14), 0 0 0 1px rgba(0,0,0,0.04);
+  padding: 22px 18px 18px;
   text-align: center;
-  animation: cardSlideIn 0.4s var(--ease);
+  animation: missionSlide 0.4s var(--spring);
 }
-@keyframes cardSlideIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+@keyframes missionSlide {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 .star-scene {
-  border-radius: 22px;
-  padding: 32px 16px 28px;
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+  border-radius: 20px;
+  padding: 30px 16px 26px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
 }
 .star-scene::before {
   content: '✨';
   position: absolute;
   top: 8px; right: 12px;
-  font-size: 1.2rem;
-  opacity: 0.5;
-  animation: starTwinkle 2s ease-in-out infinite;
+  font-size: 1.1rem;
+  opacity: 0.45;
+  animation: starFloat 2.5s ease-in-out infinite;
 }
 .star-scene-icon {
-  font-size: 6.5rem;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
-  animation: iconWiggle 3s ease-in-out infinite;
+  font-size: 6rem;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
+  animation: gentleWiggle 3.5s ease-in-out infinite;
 }
-@keyframes iconWiggle {
-  0%, 100% { transform: rotate(-3deg) scale(1); }
-  50% { transform: rotate(3deg) scale(1.04); }
+@keyframes gentleWiggle {
+  0%, 100% { transform: rotate(-2deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.03); }
 }
-.star-title {
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: var(--text);
-  letter-spacing: -0.3px;
-}
+.star-title { font-size: 1.5rem; font-weight: 900; color: var(--text-deep); letter-spacing: -0.2px; }
 .star-micro {
-  font-size: 1.1rem;
-  color: var(--blue-dk);
-  font-weight: 800;
+  font-size: 1rem;
+  color: #1e6fa0;
+  font-weight: 700;
   margin-top: 10px;
   padding: 0 8px;
   line-height: 1.4;
@@ -861,70 +864,61 @@ body {
 .star-btn {
   display: block;
   width: 100%;
-  background: linear-gradient(135deg, #0284c7, #0369a1);
+  background: linear-gradient(135deg, #2c8abe, #1e6fa0);
   color: white;
   border: none;
   font-family: 'Quicksand', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 900;
-  padding: 22px;
-  border-radius: 20px;
-  margin-top: 22px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 20px;
+  border-radius: 18px;
+  margin-top: 20px;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(3,105,161,0.35);
-  transition: all 0.2s var(--ease);
-  letter-spacing: 0.3px;
+  box-shadow: 0 8px 22px rgba(30,111,160,0.28);
+  transition: all 0.2s var(--spring);
 }
-.star-btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 4px 12px rgba(3,105,161,0.3);
-}
+.star-btn:active { transform: scale(0.96); box-shadow: 0 4px 10px rgba(30,111,160,0.2); }
+
 .star-burst {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 6rem;
-  opacity: 0;
-  z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+  opacity: 0; z-index: 200;
 }
-.star-burst.show { animation: starpop 0.7s ease-out; }
-@keyframes starpop {
+.star-burst.show { animation: starBurst 0.7s ease-out; }
+@keyframes starBurst {
   0%   { opacity: 0; transform: scale(0.3); }
-  40%  { opacity: 1; transform: scale(1.4); }
-  100% { opacity: 0; transform: scale(1.8); }
+  40%  { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 0; transform: scale(1.7); }
 }
 
-/* Jakob help button */
 .jakob-help-btn {
   display: block;
   width: calc(100% - 32px);
-  margin: 12px auto 28px;
-  background: white;
-  border: 2.5px solid #fbbf24;
+  margin: 10px auto 24px;
+  background: var(--surface);
+  border: 1.5px solid #eab308;
   color: #92400e;
   font-family: 'Quicksand', sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  padding: 16px;
-  border-radius: var(--r);
+  font-size: 0.97rem;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: var(--r-lg);
   cursor: pointer;
   text-align: center;
-  box-shadow: 0 4px 14px rgba(251,191,36,0.2);
-  transition: all 0.2s var(--ease);
-  position: relative;
-  z-index: 1;
+  box-shadow: 0 2px 10px rgba(234,179,8,0.15);
+  transition: all 0.2s var(--spring);
+  position: relative; z-index: 1;
 }
 .jakob-help-btn:active { transform: scale(0.97); }
 
 /* ================================================================
    LIOBA — MINI MODE
-   Riesige Bilder, Tiere, Regenbogen, bunte Knöpfe
+   Warm, groß, sanft, freundlich, viel Bild wenig Text
    ================================================================ */
 .mini-body {
-  background: linear-gradient(180deg, #fdf4ff 0%, #fce7f3 15%, #fff 70%);
+  background: linear-gradient(180deg, #fdf8f5 0%, #fef4ef 15%, #fff 80%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -932,28 +926,28 @@ body {
   position: relative;
   overflow: hidden;
 }
-/* Decorative floating elements */
+/* Dezente Naturelemente für Lioba — Blüten und Blätter */
 .mini-body::before {
-  content: '🌈';
+  content: '🌸';
   position: fixed;
-  top: 60px; right: -10px;
-  font-size: 3.5rem;
-  opacity: 0.3;
-  animation: rainbowFloat 6s ease-in-out infinite;
+  top: 56px; right: 8px;
+  font-size: 2.8rem;
+  opacity: 0.2;
+  animation: petalFloat 7s ease-in-out infinite;
   pointer-events: none;
 }
 .mini-body::after {
-  content: '🌸';
+  content: '🌿';
   position: fixed;
-  bottom: 100px; left: -5px;
-  font-size: 2.5rem;
-  opacity: 0.25;
-  animation: rainbowFloat 8s ease-in-out infinite reverse;
+  bottom: 90px; left: 8px;
+  font-size: 2.2rem;
+  opacity: 0.18;
+  animation: petalFloat 9s ease-in-out infinite reverse;
   pointer-events: none;
 }
-@keyframes rainbowFloat {
+@keyframes petalFloat {
   0%, 100% { transform: translateY(0) rotate(-5deg); }
-  50% { transform: translateY(-15px) rotate(5deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
 }
 
 .mini-stage {
@@ -962,76 +956,71 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 28px;
+  padding: 36px 28px;
   text-align: center;
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
 }
 .mini-scene {
   width: 100%;
-  max-width: 320px;
-  border-radius: 36px;
-  padding: 40px 20px;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 2px 12px rgba(255,255,255,0.5);
-  position: relative;
-  overflow: hidden;
-  animation: scenePulse 4s ease-in-out infinite;
+  max-width: 310px;
+  border-radius: 32px;
+  padding: 38px 16px 34px;
+  margin-bottom: 26px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.07), inset 0 1px 8px rgba(255,255,255,0.5);
+  position: relative; overflow: hidden;
+  animation: gentlePulse 5s ease-in-out infinite;
 }
-@keyframes scenePulse {
+@keyframes gentlePulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.015); }
+  50% { transform: scale(1.012); }
 }
 .mini-scene::before {
   content: '✨';
   position: absolute;
   top: 10px; right: 14px;
-  font-size: 1.4rem;
-  opacity: 0.5;
-  animation: starTwinkle 2.5s ease-in-out infinite;
+  font-size: 1.2rem;
+  opacity: 0.4;
+  animation: starFloat 3s ease-in-out infinite;
 }
 .mini-scene::after {
-  content: '💫';
+  content: '💛';
   position: absolute;
-  bottom: 10px; left: 14px;
-  font-size: 1.1rem;
-  opacity: 0.4;
-  animation: starTwinkle 3.5s ease-in-out infinite reverse;
+  bottom: 12px; left: 14px;
+  font-size: 1rem;
+  opacity: 0.35;
+  animation: starFloat 4s ease-in-out infinite reverse;
 }
 .mini-scene-icon {
-  font-size: 8rem;
-  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15));
-  animation: iconWiggle 3s ease-in-out infinite;
+  font-size: 7.5rem;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+  animation: gentleWiggle 3.5s ease-in-out infinite;
 }
 .mini-title {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   font-weight: 900;
-  color: var(--text);
-  margin-bottom: 28px;
-  line-height: 1.25;
+  color: var(--text-deep);
+  margin-bottom: 26px;
+  line-height: 1.2;
   letter-spacing: -0.3px;
 }
 .mini-btn {
-  background: linear-gradient(135deg, #f9a8d4, #ec4899, #c026d3);
+  background: linear-gradient(135deg, #d4756e, #c05a5a);
   border: none;
   color: white;
   font-family: 'Quicksand', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 900;
-  padding: 26px 56px;
-  border-radius: 99px;
-  box-shadow: 0 10px 30px rgba(192,38,211,0.35);
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding: 24px 52px;
+  border-radius: var(--r-full);
+  box-shadow: 0 8px 24px rgba(192,90,90,0.28);
   cursor: pointer;
-  transition: all 0.2s var(--ease);
-  letter-spacing: 0.3px;
-  animation: btnPulse 2s ease-in-out infinite;
+  transition: all 0.2s var(--spring);
+  animation: softPulse 2.5s ease-in-out infinite;
 }
-@keyframes btnPulse {
-  0%, 100% { box-shadow: 0 10px 30px rgba(192,38,211,0.35); }
-  50% { box-shadow: 0 14px 40px rgba(192,38,211,0.5); }
+@keyframes softPulse {
+  0%, 100% { box-shadow: 0 8px 24px rgba(192,90,90,0.28); }
+  50% { box-shadow: 0 12px 32px rgba(192,90,90,0.38); }
 }
 .mini-btn:active { transform: scale(0.95); animation: none; }
 
@@ -1043,11 +1032,11 @@ body {
 .confetti-piece { position: absolute; top: -40px; animation: confettiFall linear forwards; }
 @keyframes confettiFall {
   0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0.7; }
 }
 
 /* ================================================================
-   ENERGIE-CHECK THEA (focus-care hidden)
+   FOCUS-CARE ALWAYS HIDDEN
    ================================================================ */
 .focus-care { display: none !important; }
 
@@ -1057,38 +1046,33 @@ body {
 
 <!-- ================= ELTERN BEREICH ================= -->
 <div id="elternAnsicht">
+
   <div class="p-header">
-    <div class="p-header-badge">✨ Familien Putzplan 2026</div>
-    <h1>🏠 Euer <span>Putzplan</span></h1>
-    <p>Kind, Raum & Aufgaben wählen – jedes Kind bekommt seinen eigenen Modus</p>
+    <div class="p-header-eyebrow"><span></span>Familien-App 2026<span></span></div>
+    <h1>Euer <em>Putzplan</em></h1>
+    <p>Kind wählen, Raum aussuchen, Aufgaben zuweisen.</p>
   </div>
 
-  <div class="p-section">
-    <div class="p-label">
-      <div class="p-label-num">1</div>
-      <div class="p-label-text">Für wen ist der Plan?</div>
+  <div class="p-body">
+    <div class="p-section">
+      <div class="p-section-label">Für wen?</div>
+      <div class="child-picker" id="childPicker"></div>
     </div>
-    <div class="child-picker" id="childPicker"></div>
+
+    <div class="p-section">
+      <div class="p-section-label">Welcher Raum?</div>
+      <div class="room-tabs" id="roomTabs"></div>
+    </div>
+
+    <div class="p-section">
+      <div class="p-section-label">Aufgaben wählen</div>
+      <div class="select-grid" id="selectGrid"></div>
+      <button id="whatsappBtn" class="send-btn" onclick="sendToWhatsApp()" disabled>
+        Plan per WhatsApp senden
+      </button>
+    </div>
   </div>
 
-  <div class="p-section">
-    <div class="p-label">
-      <div class="p-label-num">2</div>
-      <div class="p-label-text">Welcher Raum steht an?</div>
-    </div>
-    <div class="room-tabs" id="roomTabs"></div>
-  </div>
-
-  <div class="p-section">
-    <div class="p-label">
-      <div class="p-label-num">3</div>
-      <div class="p-label-text">Aufgaben festlegen</div>
-    </div>
-    <div class="select-grid" id="selectGrid"></div>
-    <button id="whatsappBtn" class="send-btn" onclick="sendToWhatsApp()" disabled>
-      🚀 Persönlichen Plan via WhatsApp senden
-    </button>
-  </div>
 </div>
 
 <!-- ================= KINDER BEREICH ================= -->
@@ -1099,16 +1083,16 @@ body {
    KINDPROFILE
    ============================================================ */
 const CHILDREN = {
-  noa:     { name:'Noa',     age:16,   tag:'ASS & ADHS · Struktur-Modus',   icon:'💜', color:'#7c6fcd', bg:'#f0ecff', mode:'teen'  },
-  thea:    { name:'Thea',    age:13,   tag:'ADHS · Start-Hilfe-Modus',       icon:'❤️', color:'#ff6b6b', bg:'#fff0f0', mode:'focus' },
-  jakob:   { name:'Jakob',   age:6,    tag:'ADHS · Sterne-Sammel-Modus',     icon:'💙', color:'#4a7aff', bg:'#eef5ff', mode:'star'  },
-  lioba:   { name:'Lioba',   age:3,    tag:'Mithelfen · Mini-Modus',         icon:'💛', color:'#f9c846', bg:'#fffbec', mode:'mini'  },
-  sarah:   { name:'Sarah',   age:null, tag:'Eltern · Listen-Modus',          icon:'🌸', color:'#e879a0', bg:'#fdf0f5', mode:'teen'  },
-  michael: { name:'Michael', age:null, tag:'Eltern · Listen-Modus',          icon:'🔵', color:'#1a9e8f', bg:'#e6f7f5', mode:'teen'  }
+  noa:     { name:'Noa',     age:16,   tag:'ASS & ADHS · Struktur-Modus',   icon:'💜', color:'#8b85c1', bg:'#eeedf8', mode:'teen'  },
+  thea:    { name:'Thea',    age:13,   tag:'ADHS · Start-Hilfe-Modus',       icon:'❤️', color:'#d4897a', bg:'#f5ece9', mode:'focus' },
+  jakob:   { name:'Jakob',   age:6,    tag:'ADHS · Sterne-Sammel-Modus',     icon:'💙', color:'#2c8abe', bg:'#e5eff6', mode:'star'  },
+  lioba:   { name:'Lioba',   age:3,    tag:'Mithelfen · Mini-Modus',         icon:'💛', color:'#c8a96e', bg:'#f5f0e3', mode:'mini'  },
+  sarah:   { name:'Sarah',   age:null, tag:'Eltern · Listen-Modus',          icon:'🌸', color:'#c07a90', bg:'#f5eaed', mode:'teen'  },
+  michael: { name:'Michael', age:null, tag:'Eltern · Listen-Modus',          icon:'🔵', color:'#7a9e87', bg:'#e8f0eb', mode:'teen'  }
 };
 
 /* ============================================================
-   RAUM- UND AUFGABENDATEN
+   RAUM- UND AUFGABENDATEN — UNVERÄNDERT
    ============================================================ */
 const DATA = {
   kueche: { name:'Küche', icon:'🍳', tasks:[
@@ -1239,7 +1223,7 @@ let currentRoom = 'kueche';
 let selectedTasks = new Set();
 
 /* ============================================================
-   INIT / ROUTING
+   INIT / ROUTING — UNVERÄNDERT
    ============================================================ */
 function init() {
   const params = new URLSearchParams(window.location.search);
@@ -1253,9 +1237,6 @@ function init() {
   }
 }
 
-/* ============================================================
-   ELTERN: Kind-Auswahl
-   ============================================================ */
 function buildChildPicker() {
   const wrap = document.getElementById('childPicker');
   wrap.innerHTML = '';
@@ -1269,7 +1250,7 @@ function buildChildPicker() {
     el.innerHTML = `
       <div class="child-avatar" style="background:${c.bg};">${c.icon}</div>
       <div class="child-info">
-        <div class="child-name">${c.name} ${c.age ? `<span style="font-weight:600;color:var(--muted);">· ${c.age} J.</span>` : ''}</div>
+        <div class="child-name">${c.name} ${c.age ? `<span>· ${c.age} J.</span>` : ''}</div>
         <div class="child-tag">${c.tag}</div>
       </div>
       <div class="child-check"></div>`;
@@ -1277,9 +1258,6 @@ function buildChildPicker() {
   });
 }
 
-/* ============================================================
-   ELTERN: Raum-Tabs
-   ============================================================ */
 function buildRoomTabs() {
   const container = document.getElementById('roomTabs');
   container.innerHTML = '';
@@ -1298,9 +1276,6 @@ function buildRoomTabs() {
   });
 }
 
-/* ============================================================
-   ELTERN: Aufgaben-Auswahl
-   ============================================================ */
 function buildElternGrid() {
   const grid = document.getElementById('selectGrid');
   grid.innerHTML = '';
@@ -1313,13 +1288,13 @@ function buildElternGrid() {
       buildElternGrid();
       validateEltern();
     };
-    let energyColor = t.energy === 'Aufwärmen' ? 'var(--green-dk)' : (t.energy === 'Hauptteil' ? 'var(--gold-dk)' : 'var(--coral-dk)');
+    const ec = t.energy === 'Aufwärmen' ? '#7a9e87' : t.energy === 'Hauptteil' ? '#c8a96e' : '#d4897a';
     el.innerHTML = `
-      <div class="s-num" style="background:${energyColor};">★</div>
+      <div class="s-num" style="background:${ec};">★</div>
       <div class="s-icon">${t.icon}</div>
       <div class="s-body">
         <div class="s-title">${t.title}</div>
-        <div class="s-sub">⏱ ${t.time} · <span style="color:${energyColor};font-weight:bold;">${t.energy}</span></div>
+        <div class="s-sub">⏱ ${t.time} · <span style="color:${ec};font-weight:700;">${t.energy}</span></div>
       </div>
       ${t.careAlert ? `<div class="care-alert">💡 ${t.careAlert}</div>` : ''}
       <div class="s-check"></div>`;
@@ -1337,9 +1312,9 @@ function sendToWhatsApp() {
   const localPath = window.location.href.split('?')[0];
   const childLink = `${localPath}?mode=child&child=${currentChild}&room=${currentRoom}&tasks=${taskIds}`;
   const greetings = {
-    teen:  `Hey ${c.name}, hier ist dein Plan für ${DATA[currentRoom].name}. Tippe auf den Link, alles ist wie immer aufgebaut:`,
-    focus: `Hi ${c.name}! 🌟 Dein Plan für ${DATA[currentRoom].name} wartet. Tipp: öffne ihn gleich, dann ist der schwerste Teil schon geschafft!`,
-    star:  `Hallo ${c.name}! ⭐ Eine Sterne-Mission wartet im ${DATA[currentRoom].name}! Tipp auf den Link und sammle Sterne:`,
+    teen:  `Hey ${c.name}, hier ist dein Plan für ${DATA[currentRoom].name}. Tippe auf den Link:`,
+    focus: `Hi ${c.name}! 🌟 Dein Plan für ${DATA[currentRoom].name} wartet. Tipp: öffne ihn gleich!`,
+    star:  `Hallo ${c.name}! ⭐ Eine Sterne-Mission wartet im ${DATA[currentRoom].name}!`,
     mini:  `Kleine Heldin gesucht! 💛 Tipp auf den Link für deine Mini-Aufgabe:`
   };
   const message = `${greetings[c.mode]}\n\n🔗 ${childLink}\n\nDu schaffst das! 🏆`;
@@ -1349,7 +1324,7 @@ function sendToWhatsApp() {
 init();
 
 /* ============================================================
-   KINDER-ANSICHT: ROUTER
+   ROUTING & HELPER — UNVERÄNDERT
    ============================================================ */
 function getHomeLink() { return window.location.href.split('?')[0]; }
 
@@ -1379,11 +1354,12 @@ function renderChildView(params) {
   if (c.mode === 'mini')  renderMiniMode(container, c, room, tasks);
 }
 
-/* ============================================================
-   MODUS 1 — NOA / SARAH / MICHAEL: Teen Mode
-   ============================================================ */
-const WA_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+/* WA Icon SVG */
+const WA_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
 
+/* ============================================================
+   MODUS 1 — NOA / ELTERN: Teen Mode — UNVERÄNDERT
+   ============================================================ */
 function renderTeenMode(container, c, room, tasks) {
   const total = tasks.length;
   container.innerHTML = `
@@ -1400,9 +1376,10 @@ function renderTeenMode(container, c, room, tasks) {
     </div>`;
 
   const list = document.getElementById('teenList');
-  tasks.forEach(t => {
+  tasks.forEach((t, i) => {
     const card = document.createElement('div');
     card.className = 'teen-card';
+    card.style.animationDelay = `${i * 0.04}s`;
     card.innerHTML = `
       <div class="teen-checkbox">✓</div>
       <div class="teen-icon">${t.icon}</div>
@@ -1410,7 +1387,6 @@ function renderTeenMode(container, c, room, tasks) {
         <div class="teen-title">${t.title}</div>
         <div class="teen-meta">${t.time} · ${t.energy}</div>
         <ul class="teen-steps">${t.steps.map(s => `<li>${s}</li>`).join('')}</ul>
-        ${t.careAlert ? `<div class="teen-care" style="display:none;">${t.careAlert}</div>` : ''}
       </div>`;
     card.querySelector('.teen-checkbox').onclick = (e) => {
       e.stopPropagation();
@@ -1436,13 +1412,11 @@ function updateTeenProgress(total, tasks, c, room) {
       btn.onclick = () => sendDoneWhatsApp(c.name, room.name, tasks);
       document.getElementById('teenList').after(btn);
     }
-  } else if (existing) {
-    existing.remove();
-  }
+  } else if (existing) { existing.remove(); }
 }
 
 /* ============================================================
-   MODUS 2 — THEA: Focus Mode mit Energie-Check
+   MODUS 2 — THEA: Focus Mode — UNVERÄNDERT
    ============================================================ */
 function renderFocusMode(container, c, room, tasks) {
   container.innerHTML = `
@@ -1476,7 +1450,7 @@ function renderFocusMode(container, c, room, tasks) {
         <div class="energy-banner" id="energyBanner"></div>
         <div class="focus-list" id="focusList"></div>
         <div class="focus-celebration" id="focusCel">
-          <div style="font-size:3rem">🎉</div>
+          <div style="font-size:2.8rem">🎉</div>
           <h2>Alles geschafft, ${c.name}!</h2>
           <p>Du hast wirklich dran gedacht – mega! 💪</p>
         </div>
@@ -1490,14 +1464,14 @@ function renderFocusMode(container, c, room, tasks) {
     if (energy === 'low') {
       filteredTasks = tasks.filter(t => t.energy === 'Aufwärmen');
       bannerText = '🥱 Nur leichte Aufgaben heute — das ist völlig okay!';
-      bannerBg = '#e6f7f5';
+      bannerBg = '#f2f8f5';
     } else if (energy === 'mid') {
       filteredTasks = tasks.filter(t => t.energy !== 'Gründlich');
       bannerText = '😐 Mittlere Aufgaben — du schaffst das!';
-      bannerBg = '#fff8e1';
+      bannerBg = '#fdf8f0';
     } else {
       bannerText = '⚡ Volle Power — du rockst das heute!';
-      bannerBg = '#fff0f5';
+      bannerBg = '#fdf5f3';
     }
     document.getElementById('energyCheck').style.display = 'none';
     document.getElementById('focusMain').style.display = 'block';
@@ -1508,9 +1482,10 @@ function renderFocusMode(container, c, room, tasks) {
     const header = container.querySelector('.kid-header');
     header.innerHTML += `<div class="kid-progress-wrap"><div class="kid-progress-bg"><div class="kid-progress-fill" id="prog"></div></div><div class="kid-progress-text" id="progText">0 / ${total} geschafft</div></div>`;
     const list = document.getElementById('focusList');
-    filteredTasks.forEach(t => {
+    filteredTasks.forEach((t, i) => {
       const card = document.createElement('div');
       card.className = 'focus-list-card';
+      card.style.animationDelay = `${i * 0.05}s`;
       card.innerHTML = `
         <div class="focus-checkbox">✓</div>
         <div class="focus-list-icon">${t.icon}</div>
@@ -1555,7 +1530,7 @@ function updateFocusListProgress(total, tasks, c, room) {
 }
 
 /* ============================================================
-   MODUS 3 — JAKOB: Star Mode
+   MODUS 3 — JAKOB: Star Mode — UNVERÄNDERT
    ============================================================ */
 function renderStarMode(container, c, room, tasks) {
   let idx = 0;
@@ -1640,7 +1615,7 @@ function renderStarMode(container, c, room, tasks) {
 }
 
 /* ============================================================
-   MODUS 4 — LIOBA: Mini Mode
+   MODUS 4 — LIOBA: Mini Mode — UNVERÄNDERT
    ============================================================ */
 function renderMiniMode(container, c, room, tasks) {
   let idx = 0;
