@@ -89,21 +89,10 @@ body {
 }
 
 /* ================================================================
-   NATURE BACKGROUND — dezente Pflanzen-Silhouetten (SVG inline)
-   Deckkraft 3–4%, nur im oberen Bereich sichtbar
+   ELTERN-HEADER: Laubwald-Aquarell-Hintergrund
+   Stimmungsvoller lichter Wald — blass, transparent, wie auf dem Screenshot
    ================================================================ */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 340px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 340' fill='none'%3E%3Cpath d='M-20 200 Q20 120 60 160 Q40 80 80 40 Q100 80 90 140 Q130 60 150 100 Q160 40 180 20 Q190 60 175 120 Q220 30 240 70 Q250 20 270 0 Q280 40 265 100 Q310 20 320 60 Q325 10 345 -10 Q355 30 340 90 Q380 40 400 80 L420 340 L-40 340 Z' fill='%23557a5e' opacity='0.035'/%3E%3Cpath d='M350 80 Q370 40 390 20 Q395 50 385 90 Q410 50 430 80 L440 340 L340 340 Z' fill='%23557a5e' opacity='0.025'/%3E%3Cpath d='M60 160 Q80 130 85 100 Q70 70 90 50 Q95 90 88 130 Z' fill='%23557a5e' opacity='0.04'/%3E%3Cpath d='M170 120 Q180 90 185 60 Q172 40 178 20 Q188 50 183 85 Z' fill='%23557a5e' opacity='0.03'/%3E%3Cpath d='M263 100 Q272 65 270 35 Q258 15 264 0 Q274 25 268 70 Z' fill='%23557a5e' opacity='0.035'/%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 0;
-}
+body::before { display: none; }
 
 /* ================================================================
    ELTERN HEADER
@@ -112,11 +101,23 @@ body::before {
 #kinderAnsicht { display: none; }
 
 .p-header {
-  background: linear-gradient(175deg, #f0ede5 0%, #eae8e0 40%, #f5f4f0 100%);
+  background:
+    /* Lichtdurchfluteter Wald-Aquarell-Effekt */
+    linear-gradient(180deg,
+      rgba(248,251,243,0.0) 0%,
+      rgba(245,249,238,0.12) 40%,
+      rgba(245,243,236,0.62) 65%,
+      #f5f3ec 100%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 480'%3E%3C!-- Himmel-Lichtfleck -- %3E%3Cellipse cx='400' cy='60' rx='200' ry='120' fill='%23f0f7e8' opacity='0.9'/%3E%3Cellipse cx='400' cy='40' rx='140' ry='80' fill='%23f8fdf0' opacity='0.8'/%3E%3C!-- Hintere Baumstämme -- %3E%3Crect x='60' y='120' width='18' height='360' rx='9' fill='%23607850' opacity='0.55'/%3E%3Crect x='150' y='80' width='24' height='400' rx='12' fill='%23506840' opacity='0.60'/%3E%3Crect x='280' y='60' width='20' height='420' rx='10' fill='%23587848' opacity='0.58'/%3E%3Crect x='420' y='50' width='28' height='430' rx='14' fill='%23506040' opacity='0.64'/%3E%3Crect x='560' y='70' width='22' height='410' rx='11' fill='%23607850' opacity='0.58'/%3E%3Crect x='680' y='90' width='26' height='390' rx='13' fill='%23506840' opacity='0.60'/%3E%3Crect x='760' y='110' width='16' height='370' rx='8' fill='%23587848' opacity='0.48'/%3E%3C!-- Kronendach links -- %3E%3Cellipse cx='80' cy='110' rx='90' ry='75' fill='%23487838' opacity='0.52'/%3E%3Cellipse cx='60' cy='85' rx='70' ry='60' fill='%23508848' opacity='0.46'/%3E%3Cellipse cx='110' cy='75' rx='80' ry='65' fill='%23407030' opacity='0.42'/%3E%3C!-- Kronendach links-mitte -- %3E%3Cellipse cx='175' cy='70' rx='100' ry='80' fill='%23487838' opacity='0.52'/%3E%3Cellipse cx='155' cy='50' rx='80' ry='65' fill='%23508848' opacity='0.48'/%3E%3Cellipse cx='200' cy='45' rx='90' ry='72' fill='%23407030' opacity='0.44'/%3E%3C!-- Kronendach mitte -- %3E%3Cellipse cx='295' cy='55' rx='95' ry='80' fill='%23487838' opacity='0.50'/%3E%3Cellipse cx='270' cy='35' rx='75' ry='60' fill='%23508848' opacity='0.46'/%3E%3Cellipse cx='320' cy='30' rx='85' ry='68' fill='%23407030' opacity='0.42'/%3E%3C!-- Lichtung Mitte -- %3E%3Cellipse cx='430' cy='40' rx='70' ry='55' fill='%23f0f7e0' opacity='0.7'/%3E%3C!-- Kronendach rechts-mitte -- %3E%3Cellipse cx='545' cy='60' rx='100' ry='82' fill='%23407030' opacity='0.52'/%3E%3Cellipse cx='520' cy='40' rx='80' ry='65' fill='%23508848' opacity='0.48'/%3E%3Cellipse cx='570' cy='35' rx='88' ry='70' fill='%23407030' opacity='0.44'/%3E%3C!-- Kronendach rechts -- %3E%3Cellipse cx='690' cy='75' rx='105' ry='80' fill='%23487838' opacity='0.50'/%3E%3Cellipse cx='665' cy='55' rx='85' ry='68' fill='%23508848' opacity='0.45'/%3E%3Cellipse cx='720' cy='50' rx='90' ry='72' fill='%23407030' opacity='0.42'/%3E%3C!-- Vordere Baumstämme dicker -- %3E%3Crect x='30' y='200' width='30' height='280' rx='15' fill='%23485838' opacity='0.70'/%3E%3Crect x='200' y='180' width='26' height='300' rx='13' fill='%23384828' opacity='0.74'/%3E%3Crect x='490' y='160' width='32' height='320' rx='16' fill='%23485838' opacity='0.72'/%3E%3Crect x='730' y='190' width='28' height='290' rx='14' fill='%23384828' opacity='0.68'/%3E%3C!-- Vorderes Kronendach -- %3E%3Cellipse cx='45' cy='195' rx='80' ry='65' fill='%23385828' opacity='0.56'/%3E%3Cellipse cx='215' cy='175' rx='85' ry='68' fill='%23486038' opacity='0.54'/%3E%3Cellipse cx='506' cy='155' rx='90' ry='72' fill='%23385828' opacity='0.56'/%3E%3Cellipse cx='745' cy='185' rx='82' ry='66' fill='%23486038' opacity='0.54'/%3E%3C!-- Bodenvegetation -- %3E%3Cellipse cx='400' cy='450' rx='420' ry='50' fill='%23507840' opacity='0.32'/%3E%3Cpath d='M0 400 Q100 360 200 390 Q300 360 400 380 Q500 360 600 390 Q700 360 800 380 L800 480 L0 480 Z' fill='%23406030' opacity='0.38'/%3E%3C!-- Lichtstrahl -- %3E%3Cellipse cx='400' cy='200' rx='60' ry='180' fill='%23f0fdd0' opacity='0.28' transform='rotate(-10 400 200)'/%3E%3C/svg%3E");
+  background-size: 100% auto, cover;
+  background-position: top center, top center;
+  background-repeat: no-repeat, no-repeat;
   padding: 56px 24px 36px;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--border-soft);
+  border-bottom: 1px solid rgba(120,160,96,0.12);
+  min-height: 220px;
 }
 .p-header::after {
   content: '';
@@ -467,7 +468,17 @@ body::before {
    Lavendel/Blau, minimalistisch, ruhig, klare Struktur
    ================================================================ */
 .teen-body {
-  background: linear-gradient(180deg, #f2f1f9 0%, #f8f8fd 50%, var(--bg) 100%);
+  background:
+    linear-gradient(180deg,
+      rgba(240,245,255,0.0) 0%,
+      rgba(240,244,255,0.5) 40%,
+      rgba(245,246,255,0.88) 65%,
+      #f4f3fb 100%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3C!-- Himmel -- %3E%3Crect width='800' height='220' fill='%23ddeeff' opacity='0.5'/%3E%3C!-- Wolken -- %3E%3Cellipse cx='150' cy='60' rx='90' ry='35' fill='white' opacity='0.55'/%3E%3Cellipse cx='110' cy='65' rx='55' ry='28' fill='white' opacity='0.45'/%3E%3Cellipse cx='200' cy='58' rx='60' ry='26' fill='white' opacity='0.40'/%3E%3Cellipse cx='580' cy='45' rx='100' ry='38' fill='white' opacity='0.50'/%3E%3Cellipse cx='535' cy='50' rx='60' ry='28' fill='white' opacity='0.40'/%3E%3Cellipse cx='640' cy='42' rx='65' ry='27' fill='white' opacity='0.38'/%3E%3Cellipse cx='360' cy='30' rx='70' ry='28' fill='white' opacity='0.35'/%3E%3C!-- Berge/Hügel am Horizont -- %3E%3Cellipse cx='200' cy='210' rx='220' ry='90' fill='%23a8c4b0' opacity='0.28'/%3E%3Cellipse cx='600' cy='215' rx='240' ry='95' fill='%2398b8a0' opacity='0.25'/%3E%3Cellipse cx='400' cy='205' rx='180' ry='80' fill='%23b0c8b8' opacity='0.22'/%3E%3C!-- See/Wasser -- %3E%3Crect x='0' y='210' width='800' height='190' fill='%23b8d4e8' opacity='0.35'/%3E%3Cellipse cx='400' cy='215' rx='400' ry='25' fill='%23c8e0f0' opacity='0.40'/%3E%3C!-- Wasserspiegelungen -- %3E%3Cellipse cx='200' cy='250' rx='80' ry='8' fill='%23ddeeff' opacity='0.45'/%3E%3Cellipse cx='550' cy='270' rx='100' ry='10' fill='%23ddeeff' opacity='0.40'/%3E%3Cellipse cx='380' cy='300' rx='120' ry='9' fill='%23c8e0f8' opacity='0.35'/%3E%3C!-- Bäume am Seeufer links -- %3E%3Crect x='50' y='130' width='14' height='90' rx='7' fill='%23608870' opacity='0.40'/%3E%3Cellipse cx='57' cy='125' rx='30' ry='40' fill='%2368985a' opacity='0.32'/%3E%3Cellipse cx='57' cy='108' rx='22' ry='30' fill='%2378a868' opacity='0.28'/%3E%3Crect x='100' y='145' width='12' height='75' rx='6' fill='%23608870' opacity='0.35'/%3E%3Cellipse cx='106' cy='140' rx='26' ry='36' fill='%2370905a' opacity='0.30'/%3E%3C!-- Bäume am Seeufer rechts -- %3E%3Crect x='700' y='125' width='14' height='95' rx='7' fill='%23608870' opacity='0.38'/%3E%3Cellipse cx='707' cy='120' rx='32' ry='42' fill='%2368985a' opacity='0.30'/%3E%3Cellipse cx='707' cy='102' rx='24' ry='32' fill='%2378a868' opacity='0.26'/%3E%3Crect x='750' y='140' width='12' height='80' rx='6' fill='%23608870' opacity='0.33'/%3E%3Cellipse cx='756' cy='135' rx='28' ry='38' fill='%2370905a' opacity='0.28'/%3E%3C!-- Schilfgras -- %3E%3Cpath d='M140 210 Q142 180 144 210' stroke='%23789868' stroke-width='3' fill='none' opacity='0.35'/%3E%3Cpath d='M148 210 Q151 175 153 210' stroke='%23789868' stroke-width='3' fill='none' opacity='0.30'/%3E%3Cpath d='M156 210 Q158 185 160 210' stroke='%23789868' stroke-width='2.5' fill='none' opacity='0.28'/%3E%3Cpath d='M620 210 Q622 178 624 210' stroke='%23789868' stroke-width='3' fill='none' opacity='0.33'/%3E%3Cpath d='M628 210 Q631 172 633 210' stroke='%23789868' stroke-width='3' fill='none' opacity='0.28'/%3E%3C/svg%3E");
+  background-size: 100% 300px, cover;
+  background-position: top center, top center;
+  background-repeat: no-repeat, no-repeat;
   min-height: 100vh;
   padding-bottom: 48px;
 }
@@ -569,7 +580,17 @@ body::before {
    Korall/Rosa, warm, motivierend, Energie-Check
    ================================================================ */
 .focus-body {
-  background: linear-gradient(180deg, #fdf5f3 0%, #fef8f6 40%, var(--bg) 100%);
+  background:
+    linear-gradient(180deg,
+      rgba(255,248,244,0.0) 0%,
+      rgba(255,245,240,0.50) 38%,
+      rgba(255,246,242,0.88) 62%,
+      #fdf5f3 100%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3C!-- Himmel warm -- %3E%3Crect width='800' height='240' fill='%23fceedd' opacity='0.55'/%3E%3C!-- Sonne -- %3E%3Ccircle cx='650' cy='60' r='45' fill='%23ffd870' opacity='0.30'/%3E%3Ccircle cx='650' cy='60' r='35' fill='%23ffe890' opacity='0.35'/%3E%3Ccircle cx='650' cy='60' r='25' fill='%23fff0a0' opacity='0.40'/%3E%3C!-- Wolken warm -- %3E%3Cellipse cx='120' cy='55' rx='85' ry='32' fill='white' opacity='0.55'/%3E%3Cellipse cx='80' cy='60' rx='50' ry='25' fill='white' opacity='0.45'/%3E%3Cellipse cx='170' cy='52' rx='58' ry='24' fill='white' opacity='0.40'/%3E%3Cellipse cx='380' cy='35' rx='75' ry='28' fill='white' opacity='0.40'/%3E%3Cellipse cx='340' cy='40' rx='50' ry='22' fill='white' opacity='0.35'/%3E%3C!-- Ferne Hügel grün-warm -- %3E%3Cellipse cx='150' cy='228' rx='220' ry='85' fill='%23a8c878' opacity='0.28'/%3E%3Cellipse cx='650' cy='232' rx='240' ry='90' fill='%2398b870' opacity='0.25'/%3E%3Cellipse cx='400' cy='222' rx='200' ry='80' fill='%23b0d080' opacity='0.22'/%3E%3C!-- Wiese Grundfläche -- %3E%3Crect x='0' y='220' width='800' height='180' fill='%2398c060' opacity='0.22'/%3E%3Cellipse cx='400' cy='225' rx='420' ry='30' fill='%23a8d068' opacity='0.28'/%3E%3C!-- Wiesenblumen -- Mohnblumen rot -- %3E%3Ccircle cx='80' cy='240' r='10' fill='%23e85050' opacity='0.45'/%3E%3Ccircle cx='80' cy='240' r='6' fill='%23200000' opacity='0.25'/%3E%3Ccircle cx='130' cy='250' r='12' fill='%23e06060' opacity='0.40'/%3E%3Ccircle cx='130' cy='250' r='7' fill='%23300000' opacity='0.22'/%3E%3Ccircle cx='200' cy='238' r='9' fill='%23e85050' opacity='0.38'/%3E%3Ccircle cx='200' cy='238' r='5' fill='%23200000' opacity='0.20'/%3E%3Ccircle cx='600' cy='242' r='11' fill='%23e06060' opacity='0.42'/%3E%3Ccircle cx='600' cy='242' r='6' fill='%23300000' opacity='0.22'/%3E%3Ccircle cx='680' cy='252' r='10' fill='%23e85050' opacity='0.38'/%3E%3Ccircle cx='680' cy='252' r='5' fill='%23200000' opacity='0.20'/%3E%3Ccircle cx='720' cy='240' r='13' fill='%23e06060' opacity='0.40'/%3E%3Ccircle cx='720' cy='240' r='7' fill='%23300000' opacity='0.22'/%3E%3C!-- Kornblumen blau/lila -- %3E%3Ccircle cx='160' cy='260' r='9' fill='%237890e0' opacity='0.42'/%3E%3Ccircle cx='340' cy='248' r='10' fill='%238898d8' opacity='0.38'/%3E%3Ccircle cx='480' cy='255' r='9' fill='%237080d8' opacity='0.40'/%3E%3Ccircle cx='650' cy='262' r='8' fill='%238090e0' opacity='0.38'/%3E%3C!-- Gänseblümchen weiß -- %3E%3Ccircle cx='260' cy='252' r='8' fill='white' opacity='0.60'/%3E%3Ccircle cx='260' cy='252' r='4' fill='%23ffd050' opacity='0.55'/%3E%3Ccircle cx='420' cy='258' r='7' fill='white' opacity='0.55'/%3E%3Ccircle cx='420' cy='258' r='3.5' fill='%23ffd050' opacity='0.50'/%3E%3Ccircle cx='560' cy='248' r='8' fill='white' opacity='0.55'/%3E%3Ccircle cx='560' cy='248' r='4' fill='%23ffd050' opacity='0.50'/%3E%3C!-- Gräser/Halme -- %3E%3Cpath d='M50 260 Q52 225 54 260' stroke='%23789848' stroke-width='2.5' fill='none' opacity='0.38'/%3E%3Cpath d='M300 258 Q303 220 305 258' stroke='%23789848' stroke-width='2.5' fill='none' opacity='0.35'/%3E%3Cpath d='M500 262 Q502 228 504 262' stroke='%23789848' stroke-width='2' fill='none' opacity='0.32'/%3E%3Cpath d='M750 255 Q752 222 754 255' stroke='%23789848' stroke-width='2.5' fill='none' opacity='0.35'/%3E%3C!-- Schmetterlinge -- %3E%3Cellipse cx='370' cy='200' rx='12' ry='8' fill='%23f8a060' opacity='0.35' transform='rotate(-30 370 200)'/%3E%3Cellipse cx='382' cy='200' rx='12' ry='8' fill='%23f8a060' opacity='0.30' transform='rotate(30 382 200)'/%3E%3Ccircle cx='376' cy='200' r='3' fill='%23804030' opacity='0.30'/%3E%3C/svg%3E");
+  background-size: 100% 320px, cover;
+  background-position: top center, top center;
+  background-repeat: no-repeat, no-repeat;
   min-height: 100vh;
   padding-bottom: 48px;
 }
@@ -735,32 +756,24 @@ body::before {
    Warmblau/Himmel, spielerisch, Missionen, Sterne
    ================================================================ */
 .star-body {
-  background: linear-gradient(180deg, #ddeef7 0%, #eaf5fb 25%, #f7fbfd 70%, var(--bg) 100%);
+  background:
+    linear-gradient(180deg,
+      rgba(220,240,255,0.0) 0%,
+      rgba(225,242,255,0.50) 35%,
+      rgba(235,245,255,0.88) 60%,
+      #edf4ff 100%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 360'%3E%3C!-- Himmel blau -- %3E%3Crect width='800' height='280' fill='%23c0e0f8' opacity='0.55'/%3E%3C!-- Große Wolken -- %3E%3Cellipse cx='160' cy='80' rx='130' ry='55' fill='white' opacity='0.70'/%3E%3Cellipse cx='100' cy='90' rx='80' ry='45' fill='white' opacity='0.60'/%3E%3Cellipse cx='220' cy='75' rx='95' ry='48' fill='white' opacity='0.58'/%3E%3Cellipse cx='160' cy='100' rx='120' ry='40' fill='white' opacity='0.65'/%3E%3C!-- Wolke 2 -- %3E%3Cellipse cx='580' cy='55' rx='140' ry='58' fill='white' opacity='0.65'/%3E%3Cellipse cx='510' cy='65' rx='90' ry='48' fill='white' opacity='0.55'/%3E%3Cellipse cx='650' cy='50' rx='100' ry='50' fill='white' opacity='0.58'/%3E%3Cellipse cx='580' cy='75' rx='130' ry='38' fill='white' opacity='0.62'/%3E%3C!-- Kleine Wolken -- %3E%3Cellipse cx='360' cy='35' rx='80' ry='32' fill='white' opacity='0.55'/%3E%3Cellipse cx='320' cy='40' rx='55' ry='26' fill='white' opacity='0.48'/%3E%3Cellipse cx='405' cy='32' rx='60' ry='28' fill='white' opacity='0.45'/%3E%3C!-- Wolkenschatten -- %3E%3Cellipse cx='160' cy='148' rx='110' ry='18' fill='%23b0c8e0' opacity='0.15'/%3E%3Cellipse cx='580' cy='135' rx='120' ry='18' fill='%23b0c8e0' opacity='0.13'/%3E%3C!-- Sonne -- %3E%3Ccircle cx='730' cy='45' r='40' fill='%23ffe870' opacity='0.38'/%3E%3Ccircle cx='730' cy='45' r='30' fill='%23fff090' opacity='0.42'/%3E%3Ccircle cx='730' cy='45' r='22' fill='%23fff8b0' opacity='0.48'/%3E%3C!-- Sonnenstrahlen -- %3E%3Cline x1='730' y1='-5' x2='730' y2='10' stroke='%23ffe060' stroke-width='3' opacity='0.30'/%3E%3Cline x1='775' y1='10' x2='765' y2='22' stroke='%23ffe060' stroke-width='3' opacity='0.28'/%3E%3Cline x1='790' y1='45' x2='774' y2='45' stroke='%23ffe060' stroke-width='3' opacity='0.28'/%3E%3Cline x1='685' y1='10' x2='695' y2='22' stroke='%23ffe060' stroke-width='3' opacity='0.28'/%3E%3Cline x1='670' y1='45' x2='686' y2='45' stroke='%23ffe060' stroke-width='3' opacity='0.28'/%3E%3C!-- Vögel V-Form -- %3E%3Cpath d='M300 120 Q308 114 316 120' stroke='%23557090' stroke-width='2' fill='none' opacity='0.35'/%3E%3Cpath d='M316 120 Q324 114 332 120' stroke='%23557090' stroke-width='2' fill='none' opacity='0.35'/%3E%3Cpath d='M440 95 Q447 90 454 95' stroke='%23557090' stroke-width='2' fill='none' opacity='0.30'/%3E%3Cpath d='M454 95 Q461 90 468 95' stroke='%23557090' stroke-width='2' fill='none' opacity='0.30'/%3E%3Cpath d='M200 145 Q206 140 212 145' stroke='%23557090' stroke-width='1.8' fill='none' opacity='0.28'/%3E%3Cpath d='M212 145 Q218 140 224 145' stroke='%23557090' stroke-width='1.8' fill='none' opacity='0.28'/%3E%3C!-- Hügel grün -- %3E%3Cellipse cx='150' cy='275' rx='220' ry='75' fill='%2390c060' opacity='0.28'/%3E%3Cellipse cx='650' cy='280' rx='240' ry='78' fill='%2388b858' opacity='0.25'/%3E%3Cellipse cx='400' cy='268' rx='200' ry='70' fill='%2398c868' opacity='0.22'/%3E%3C!-- Sterne (klein, für den Sterne-Sammel-Modus) -- %3E%3Cpolygon points='50,30 53,40 63,40 55,47 58,57 50,51 42,57 45,47 37,40 47,40' fill='%23ffd040' opacity='0.30'/%3E%3Cpolygon points='750,100 753,110 763,110 755,117 758,127 750,121 742,127 745,117 737,110 747,110' fill='%23ffd040' opacity='0.28'/%3E%3Cpolygon points='400,15 402,22 409,22 404,26 406,33 400,29 394,33 396,26 391,22 398,22' fill='%23ffd040' opacity='0.25'/%3E%3C/svg%3E");
+  background-size: 100% 280px, cover;
+  background-position: top center, top center;
+  background-repeat: no-repeat, no-repeat;
   min-height: 100vh;
   padding-bottom: 48px;
   font-family: 'Quicksand', sans-serif;
   position: relative;
 }
-.star-body::before {
-  content: '☁️';
-  position: fixed;
-  font-size: 2.8rem;
-  top: 90px; left: -8px;
-  opacity: 0.35;
-  animation: cloudDrift 9s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-.star-body::after {
-  content: '⭐';
-  position: fixed;
-  font-size: 1.4rem;
-  top: 150px; right: 12px;
-  opacity: 0.3;
-  animation: starFloat 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
+/* Entfernt die CSS-Animations-Pseudo-Elemente für Wolke/Stern */
+.star-body::before, .star-body::after { display: none; }
 @keyframes cloudDrift {
   0%, 100% { transform: translateX(0) translateY(0); }
   50% { transform: translateX(18px) translateY(-6px); }
@@ -918,7 +931,17 @@ body::before {
    Warm, groß, sanft, freundlich, viel Bild wenig Text
    ================================================================ */
 .mini-body {
-  background: linear-gradient(180deg, #fdf8f5 0%, #fef4ef 15%, #fff 80%);
+  background:
+    linear-gradient(180deg,
+      rgba(255,248,252,0.0) 0%,
+      rgba(255,245,250,0.50) 35%,
+      rgba(255,246,250,0.88) 62%,
+      #fff5f8 100%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 380'%3E%3C!-- Himmel rosa-warm -- %3E%3Crect width='800' height='230' fill='%23fde8f0' opacity='0.50'/%3E%3C!-- Sonne -- %3E%3Ccircle cx='120' cy='60' r='50' fill='%23ffd880' opacity='0.35'/%3E%3Ccircle cx='120' cy='60' r='38' fill='%23ffe898' opacity='0.40'/%3E%3Ccircle cx='120' cy='60' r='28' fill='%23fff0a8' opacity='0.45'/%3E%3C!-- Regenbogen -- %3E%3Cpath d='M500 200 Q580 80 700 100' stroke='%23ff6060' stroke-width='8' fill='none' opacity='0.25' stroke-linecap='round'/%3E%3Cpath d='M500 200 Q580 90 700 100' stroke='%23ff9040' stroke-width='7' fill='none' opacity='0.22' stroke-linecap='round' transform='translate(0 12)'/%3E%3Cpath d='M500 200 Q580 80 700 100' stroke='%23ffd040' stroke-width='7' fill='none' opacity='0.22' stroke-linecap='round' transform='translate(0 22)'/%3E%3Cpath d='M500 200 Q580 80 700 100' stroke='%2360d060' stroke-width='7' fill='none' opacity='0.22' stroke-linecap='round' transform='translate(0 32)'/%3E%3Cpath d='M500 200 Q580 80 700 100' stroke='%234090e0' stroke-width='7' fill='none' opacity='0.22' stroke-linecap='round' transform='translate(0 42)'/%3E%3Cpath d='M500 200 Q580 80 700 100' stroke='%239060d0' stroke-width='6' fill='none' opacity='0.20' stroke-linecap='round' transform='translate(0 50)'/%3E%3C!-- Wolken -- %3E%3Cellipse cx='320' cy='50' rx='100' ry='40' fill='white' opacity='0.65'/%3E%3Cellipse cx='270' cy='58' rx='65' ry='32' fill='white' opacity='0.58'/%3E%3Cellipse cx='375' cy='48' rx='70' ry='34' fill='white' opacity='0.55'/%3E%3Cellipse cx='620' cy='40' rx='90' ry='36' fill='white' opacity='0.60'/%3E%3Cellipse cx='570' cy='48' rx='60' ry='30' fill='white' opacity='0.52'/%3E%3Cellipse cx='670' cy='38' rx='65' ry='32' fill='white' opacity='0.50'/%3E%3C!-- Grüner Hügel/Wiese -- %3E%3Cellipse cx='400' cy='240' rx='430' ry='80' fill='%2390c850' opacity='0.28'/%3E%3Crect x='0' y='240' width='800' height='140' fill='%2398c858' opacity='0.22'/%3E%3C!-- Große bunte Blumen -- %3E%3C!-- Sonnenblume gelb -- %3E%3Crect x='96' y='210' width='8' height='70' rx='4' fill='%23509838' opacity='0.45'/%3E%3Ccircle cx='100' cy='205' r='22' fill='%23ffd040' opacity='0.55'/%3E%3Ccircle cx='100' cy='205' r='13' fill='%23c07830' opacity='0.50'/%3E%3C!-- Rosa Blume -- %3E%3Crect x='196' y='220' width='8' height='60' rx='4' fill='%23509838' opacity='0.40'/%3E%3Ccircle cx='200' cy='215' r='18' fill='%23f870a0' opacity='0.50'/%3E%3Ccircle cx='200' cy='215' r='10' fill='%23ffa0c0' opacity='0.45'/%3E%3C!-- Lila Blume -- %3E%3Crect x='346' y='215' width='8' height='65' rx='4' fill='%23509838' opacity='0.42'/%3E%3Ccircle cx='350' cy='210' r='20' fill='%23c060e0' opacity='0.48'/%3E%3Ccircle cx='350' cy='210' r='11' fill='%23e090f8' opacity='0.42'/%3E%3C!-- Rote Blume -- %3E%3Crect x='496' y='218' width='8' height='62' rx='4' fill='%23509838' opacity='0.40'/%3E%3Ccircle cx='500' cy='213' r='19' fill='%23f03030' opacity='0.48'/%3E%3Ccircle cx='500' cy='213' r='10' fill='%23f87070' opacity='0.42'/%3E%3C!-- Orange Blume -- %3E%3Crect x='646' y='213' width='8' height='67' rx='4' fill='%23509838' opacity='0.43'/%3E%3Ccircle cx='650' cy='208' r='21' fill='%23f88030' opacity='0.50'/%3E%3Ccircle cx='650' cy='208' r='12' fill='%23ffa860' opacity='0.44'/%3E%3C!-- Gelbe Blume rechts -- %3E%3Crect x='746' y='220' width='8' height='60' rx='4' fill='%23509838' opacity='0.38'/%3E%3Ccircle cx='750' cy='215' r='17' fill='%23ffd040' opacity='0.48'/%3E%3Ccircle cx='750' cy='215' r='9' fill='%23c07830' opacity='0.42'/%3E%3C!-- Schmetterling -- %3E%3Cellipse cx='280' cy='170' rx='20' ry='14' fill='%23f870c0' opacity='0.40' transform='rotate(-25 280 170)'/%3E%3Cellipse cx='300' cy='170' rx='20' ry='14' fill='%23f870c0' opacity='0.36' transform='rotate(25 300 170)'/%3E%3Ccircle cx='290' cy='170' r='4' fill='%23804060' opacity='0.35'/%3E%3C!-- Zweiter Schmetterling -- %3E%3Cellipse cx='545' cy='155' rx='16' ry='11' fill='%23f8a040' opacity='0.38' transform='rotate(-20 545 155)'/%3E%3Cellipse cx='561' cy='155' rx='16' ry='11' fill='%23f8a040' opacity='0.34' transform='rotate(20 561 155)'/%3E%3Ccircle cx='553' cy='155' r='3' fill='%23804020' opacity='0.32'/%3E%3C!-- Marienkäfer -- %3E%3Ccircle cx='440' cy='242' r='7' fill='%23e03030' opacity='0.45'/%3E%3Ccircle cx='437' cy='239' r='3.5' fill='%23181818' opacity='0.35'/%3E%3Ccircle cx='436' cy='244' r='2.5' fill='%23181818' opacity='0.30'/%3E%3Ccircle cx='444' cy='244' r='2.5' fill='%23181818' opacity='0.30'/%3E%3C/svg%3E");
+  background-size: 100% 300px, cover;
+  background-position: top center, top center;
+  background-repeat: no-repeat, no-repeat;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -926,25 +949,7 @@ body::before {
   position: relative;
   overflow: hidden;
 }
-/* Dezente Naturelemente für Lioba — Blüten und Blätter */
-.mini-body::before {
-  content: '🌸';
-  position: fixed;
-  top: 56px; right: 8px;
-  font-size: 2.8rem;
-  opacity: 0.2;
-  animation: petalFloat 7s ease-in-out infinite;
-  pointer-events: none;
-}
-.mini-body::after {
-  content: '🌿';
-  position: fixed;
-  bottom: 90px; left: 8px;
-  font-size: 2.2rem;
-  opacity: 0.18;
-  animation: petalFloat 9s ease-in-out infinite reverse;
-  pointer-events: none;
-}
+.mini-body::before, .mini-body::after { display: none; }
 @keyframes petalFloat {
   0%, 100% { transform: translateY(0) rotate(-5deg); }
   50% { transform: translateY(-12px) rotate(5deg); }
